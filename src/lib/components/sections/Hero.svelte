@@ -1,6 +1,12 @@
+<script lang="ts">
+	import HeroLightCanvas from '$lib/components/ui/HeroLightCanvas.svelte';
+</script>
+
 <section class="hero">
+	<HeroLightCanvas />
+
 	<div class="hero__grid">
-		<p class="eyebrow">RO6ONE · FRC TEAM</p>
+		<p class="eyebrow">RO6ONE · FRC TEAM #11919</p>
 
 		<h1>
 			Build what
@@ -15,6 +21,9 @@
 
 <style>
 	.hero {
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
 		min-height: 100vh;
 		padding: 3rem 6vw;
 		background: #111;
@@ -22,6 +31,8 @@
 	}
 
 	.hero__grid {
+		position: relative;
+		z-index: 1;
 		display: grid;
 		grid-template-columns: repeat(12, minmax(0, 1fr));
 		align-content: center;
