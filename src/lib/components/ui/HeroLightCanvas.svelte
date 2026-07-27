@@ -52,6 +52,25 @@
 		let animationFrame = 0;
 		let isVisible = true;
 
+        /*
+        * Makro yüzey formu.
+        *
+        * concavityStrength:
+        * Çukurun derinliği. Fazla artırılırsa kase gibi görünür.
+        *
+        * concavityRadius:
+        * Çukurun yüzeyin ne kadarına yayıldığı.
+        *
+        * concavityCenterY:
+        * Çukuru tam geometrik merkezden biraz yukarı taşıyoruz.
+        * Hero kompozisyonunda daha doğal görünür.
+        */
+        const concavityStrength = 0.26;
+        const concavityRadius = 0.95;
+
+        const concavityCenterX = 0;
+        const concavityCenterY = 0.06;
+
 		/*
 		 * Sabit pseudo-random noise.
 		 *
@@ -134,7 +153,7 @@
 			 */
 			const sourceX = lightX;
 			const sourceY = lightY;
-			const sourceZ = 1.75;
+			const sourceZ = 1.65;
 
 			for (let y = 0; y < renderHeight; y++) {
 				for (let x = 0; x < renderWidth; x++) {
@@ -162,12 +181,89 @@
 					 * X ve Y eksenlerinde küçük sapmalar.
 					 */
 					const secondNoise =
-	                    surfaceNoise[
-		                    (pixelIndex + 97) % surfaceNoise.length
-	                    ];
+                        surfaceNoise[
+                            (pixelIndex + 97) % surfaceNoise.length
+                        ];
 
-                    let normalX = noise * 0.025;
-                    let normalY = secondNoise * 0.025;
+                    /*
+                    * Pikselin çukur merkezine uzaklığı.
+                    */
+                    const concavityX =
+                        surfaceX - concavityCenterX;
+
+                    const concavityY =
+                        surfaceY - concavityCenterY;
+
+                    /*
+                    * Hero geniş olduğu için çukuru da yatayda genişletiyoruz.
+                    * Böylece yuvarlak bir kase yerine geniş metal panel hissi oluşuyor.
+                    */
+                    const scaledConcavityX = concavityX * 0.72;
+                    const scaledConcavityY = concavityY * 1.05;
+
+                    const radialDistance = Math.sqrt(
+                        scaledConcavityX * scaledConcavityX +
+                            scaledConcavityY * scaledConcavityY
+                    );
+
+                    const normalizedRadius = clamp(
+                        radialDistance / concavityRadius,
+                        0,
+                        1
+                    );
+
+                    /*
+                    * Merkezden kenarlara yumuşak geçiş.
+                    *
+                    * Kenarda eğim sıfıra yaklaşır; böylece yüzey ayrı bir
+                    * çukur disk gibi görünmez.
+                    */
+                    const concavityFalloff =
+                        1 - normalizedRadius;
+
+                    const smoothConcavity =
+                        concavityFalloff *
+                        concavityFalloff *
+                        (3 - 2 * concavityFalloff);
+
+                    /*
+                    * Yükseklik haritasının eğimini yaklaşık olarak türetiyoruz.
+                    *
+                    * Çukur yüzeyde normal merkeze doğru eğilir.
+                    */
+                    const macroSlope =
+                        concavityStrength *
+                        smoothConcavity *
+                        normalizedRadius;
+
+                    let macroNormalX = 0;
+                    let macroNormalY = 0;
+
+                    if (radialDistance > 0.0001) {
+                        macroNormalX =
+                            (scaledConcavityX / radialDistance) *
+                            macroSlope *
+                            0.72;
+
+                        macroNormalY =
+                            (scaledConcavityY / radialDistance) *
+                            macroSlope *
+                            1.05;
+                    }
+
+                    /*
+                    * Mikro doku şimdilik çok düşük tutuluyor.
+                    * Makro yüzey formunu değerlendirmemizi engellememeli.
+                    */
+                    const microNormalX = noise * 0.012;
+                    const microNormalY = secondNoise * 0.012;
+
+                    let normalX =
+                        macroNormalX + microNormalX;
+
+                    let normalY =
+                        macroNormalY + microNormalY;
+
                     let normalZ = 1;
 
 					const normalLength = Math.hypot(
@@ -261,13 +357,13 @@
 					);
 
 					const vignette = clamp(
-						1 - edgeDistance * 0.22,
-						0.72,
+						1 - edgeDistance * 0.12,
+						0.84,
 						1
 					);
 
 					const materialVariation =
-						noise * 2.2;
+						noise * 0.9;
 
 					const diffuseLight =
                         diffuse *
