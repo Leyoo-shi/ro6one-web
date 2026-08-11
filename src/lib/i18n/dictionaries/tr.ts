@@ -29,7 +29,7 @@ export const tr: Dictionary = {
 
 	hero: {
 		eyebrow: 'FRC TAKIMI #11919',
-		titleTop: 'Sıradakini',
+		titleTop: 'Ebeni',
 		titleBottom: 'inşa et.',
 		description: 'Tasarlıyoruz, üretiyoruz, yarışıyoruz — ama iş tek bir sezonda bitmiyor.',
 		meta: {
