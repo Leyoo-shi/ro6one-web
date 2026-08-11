@@ -3,21 +3,79 @@
 	import PageHeader from '$lib/components/layout/PageHeader.svelte';
 	import ActionLink from '$lib/components/ui/ActionLink.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
+	import MediaFrame from '$lib/components/ui/MediaFrame.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { resolveText } from '$lib/content/localized';
-	import { partners, partnershipDocument } from '$lib/content/partners';
+	import { institutions, partnershipDocument, supporters } from '$lib/content/partners';
+	import { site } from '$lib/content/site';
 	import { useI18n } from '$lib/i18n/context.svelte';
 
 	const i18n = useI18n();
 	const copy = $derived(i18n.t.partners);
+
+	const club = institutions.find((entry) => entry.id === 'trabzonspor');
+	const school = institutions.find((entry) => entry.id === 'school');
 </script>
 
 <Seo title={i18n.t.seo.partners.title} description={i18n.t.seo.partners.description} />
 
 <PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
 
-<Section index="01" rule={false}>
+<!--
+	The institutional relationship gets a chapter, not a logo tile — and the
+	chapter is written in RO6ONE's voice about what the relationship made
+	possible, so the team stays the subject of every sentence.
+-->
+<Section index="01" rule={false} tone="burgundy">
+	<div class="institution">
+		<div class="institution__copy">
+			<h2 class="institution__title" use:reveal>{copy.institutional.title}</h2>
+
+			{#each copy.institutional.body as paragraph, index (index)}
+				<p class="prose institution__paragraph" use:reveal={{ delay: index * 70 }}>{paragraph}</p>
+			{/each}
+
+			<dl class="institution__facts" use:reveal={{ delay: 140 }}>
+				<div>
+					<dt class="label">{copy.institutional.since}</dt>
+					<dd><time datetime="2026-03">03 · 2026</time></dd>
+				</div>
+				<div>
+					<dt class="label">{i18n.t.footer.identity}</dt>
+					<dd>{site.legalName}</dd>
+				</div>
+				{#if club?.url}
+					<div>
+						<dt class="label">{club.name}</dt>
+						<dd>
+							<a href={club.url} target="_blank" rel="noopener">trabzonspor.org.tr</a>
+						</dd>
+					</div>
+				{/if}
+			</dl>
+		</div>
+
+		<div class="institution__media">
+			<MediaFrame id="about.protocol" sizes="(max-width: 1024px) 100vw, 40vw" />
+		</div>
+	</div>
+
+	<div class="school" use:reveal>
+		<div>
+			<h3 class="school__title">{copy.institutional.schoolTitle}</h3>
+			<p class="school__body">{copy.institutional.schoolBody}</p>
+		</div>
+
+		{#if school?.url}
+			<a class="school__link" href={school.url} target="_blank" rel="noopener">
+				trabzonfenlisesi.meb.k12.tr
+			</a>
+		{/if}
+	</div>
+</Section>
+
+<Section index="02">
 	<div class="why">
 		<h2 class="why__title" use:reveal>{copy.why.title}</h2>
 
@@ -29,7 +87,7 @@
 	</div>
 </Section>
 
-<Section index="02" tone="void">
+<Section index="03" tone="void">
 	<h2 class="support__title" use:reveal>{copy.support.title}</h2>
 
 	<!-- A datasheet, not a pricing table: what is needed, in plain rows. -->
@@ -43,29 +101,29 @@
 	</dl>
 </Section>
 
-<Section index="03">
+<Section index="04">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.current.title}</h2>
 		<p class="lede">{copy.current.lede}</p>
 	</div>
 
-	{#if partners.length > 0}
-		<ul class="partners">
-			{#each partners as partner (partner.name)}
-				<li class="partner" class:partner--lead={partner.tier === 'lead'} use:reveal>
-					{#if partner.logo}
-						<img class="partner__logo" src={partner.logo} alt={partner.name} />
+	{#if supporters.length > 0}
+		<ul class="supporters">
+			{#each supporters as supporter (supporter.name)}
+				<li class="supporter" class:supporter--lead={supporter.tier === 'lead'} use:reveal>
+					{#if supporter.logo}
+						<img class="supporter__logo" src={supporter.logo} alt={supporter.name} />
 					{:else}
-						<p class="partner__name">{partner.name}</p>
+						<p class="supporter__name">{supporter.name}</p>
 					{/if}
 
-					{#if partner.description}
-						<p class="partner__text">{resolveText(partner.description, i18n.locale)}</p>
+					{#if supporter.description}
+						<p class="supporter__text">{resolveText(supporter.description, i18n.locale)}</p>
 					{/if}
 
-					{#if partner.url}
-						<a class="partner__link" href={partner.url} target="_blank" rel="noopener">
-							{partner.name}
+					{#if supporter.url}
+						<a class="supporter__link" href={supporter.url} target="_blank" rel="noopener">
+							{supporter.name}
 						</a>
 					{/if}
 				</li>
@@ -85,19 +143,106 @@
 	</div>
 </Section>
 
-<Section index="04">
+<Section index="05">
 	<div class="cta" use:reveal>
 		<h2 class="cta__title">{copy.cta.title}</h2>
 		<div>
 			<p class="lede">{copy.cta.body}</p>
-			<div class="cta__action">
-				<ActionLink href="/contact" size="large">{copy.cta.action}</ActionLink>
+
+			<div class="cta__channel">
+				<p class="label">{copy.cta.action}</p>
+				<a class="cta__mail" href="mailto:{site.contact.sponsorship}">
+					{site.contact.sponsorship}
+				</a>
 			</div>
 		</div>
 	</div>
 </Section>
 
 <style>
+	.institution {
+		display: grid;
+		grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+		gap: var(--space-xl) clamp(2rem, 6vw, 5rem);
+		align-items: start;
+	}
+
+	.institution__title {
+		max-width: 14ch;
+		margin-bottom: var(--space-l);
+		font-size: var(--type-h2);
+		font-weight: 550;
+		line-height: 1.03;
+	}
+
+	.institution__paragraph {
+		max-width: 56ch;
+	}
+
+	.institution__paragraph + .institution__paragraph {
+		margin-top: var(--space-m);
+	}
+
+	.institution__facts {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-m) clamp(1.5rem, 4vw, 3rem);
+
+		margin: var(--space-l) 0 0;
+		padding-top: var(--space-m);
+		border-top: 1px solid var(--edge-burgundy);
+	}
+
+	.institution__facts dd {
+		margin: 0.45rem 0 0;
+		font-size: var(--type-small);
+		color: var(--text-secondary);
+	}
+
+	.institution__facts a,
+	.school__link {
+		border-bottom: 1px solid var(--edge);
+		transition: border-color var(--duration-fast) var(--ease-out);
+	}
+
+	.institution__facts a:hover,
+	.school__link:hover {
+		border-color: var(--signal-warm);
+	}
+
+	.school {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: var(--space-m) var(--space-l);
+
+		margin-top: var(--space-2xl);
+		padding-top: var(--space-m);
+		border-top: 1px solid var(--edge-faint);
+	}
+
+	.school__title {
+		font-size: var(--type-h3);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.school__body {
+		max-width: 54ch;
+		margin-top: var(--space-s);
+		font-size: var(--type-small);
+		line-height: 1.6;
+		color: var(--text-muted);
+	}
+
+	.school__link {
+		font-size: var(--type-small);
+		color: var(--text-secondary);
+	}
+
+	/* -------------------------------------------------------------------- why */
+
 	.why {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
@@ -116,6 +261,12 @@
 		font-size: var(--type-body-lg);
 		line-height: 1.6;
 	}
+
+	.why__paragraph + .why__paragraph {
+		margin-top: var(--space-m);
+	}
+
+	/* ---------------------------------------------------------------- support */
 
 	.support__title {
 		max-width: 16ch;
@@ -156,6 +307,8 @@
 		color: var(--text-muted);
 	}
 
+	/* ------------------------------------------------------------- supporters */
+
 	.intro {
 		display: grid;
 		grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -171,17 +324,13 @@
 		line-height: 1.03;
 	}
 
-	/*
-	 * Partners get room rather than a dense logo strip: each entry is a panel
-	 * with its own space, so a single supporter still looks intentional.
-	 */
-	.partners {
+	.supporters {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
 		gap: clamp(1rem, 2vw, 1.75rem);
 	}
 
-	.partner {
+	.supporter {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-s);
@@ -192,33 +341,33 @@
 		background: linear-gradient(180deg, rgb(244 244 242 / 0.02), transparent);
 	}
 
-	.partner--lead {
+	.supporter--lead {
 		grid-column: span 2;
 	}
 
-	.partner__logo {
+	.supporter__logo {
 		max-height: 3rem;
 		width: auto;
 		object-fit: contain;
 	}
 
-	.partner__name {
+	.supporter__name {
 		font-size: var(--type-h3);
 		font-weight: 500;
 	}
 
-	.partner__text {
+	.supporter__text {
 		font-size: var(--type-small);
 		line-height: 1.6;
 		color: var(--text-muted);
 	}
 
-	.partner__link {
+	.supporter__link {
 		margin-top: auto;
+		align-self: flex-start;
 		font-size: var(--type-small);
 		color: var(--text-secondary);
 		border-bottom: 1px solid var(--edge);
-		align-self: flex-start;
 	}
 
 	.pack {
@@ -243,6 +392,8 @@
 		color: var(--text-muted);
 	}
 
+	/* -------------------------------------------------------------------- cta */
+
 	.cta {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
@@ -254,8 +405,30 @@
 		font-weight: 550;
 	}
 
-	.cta__action {
+	.cta__channel {
 		margin-top: var(--space-l);
+		padding-top: var(--space-m);
+		border-top: 1px solid var(--edge-faint);
+	}
+
+	.cta__mail {
+		display: inline-block;
+		margin-top: 0.6rem;
+
+		font-size: var(--type-body-lg);
+		letter-spacing: -0.015em;
+		border-bottom: 1px solid var(--edge);
+		transition: border-color var(--duration-fast) var(--ease-out);
+	}
+
+	.cta__mail:hover {
+		border-color: var(--signal-warm);
+	}
+
+	@media (max-width: 1024px) {
+		.institution {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 
 	@media (max-width: 900px) {
@@ -270,7 +443,7 @@
 			grid-template-columns: minmax(0, 1fr);
 		}
 
-		.partner--lead {
+		.supporter--lead {
 			grid-column: auto;
 		}
 	}

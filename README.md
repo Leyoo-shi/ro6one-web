@@ -154,21 +154,38 @@ from the English.
 
 ## Where to add real content
 
-Content lives in data files, separate from the components that render it. Nothing is invented in
-these files: they start empty on purpose, and the pages render honest "being prepared" states until
+Content lives in data files, separate from the components that render it. Nothing in these files is
+invented: lists start empty on purpose, and the pages render honest "being prepared" states until
 the team fills them in.
 
-| File                             | Contains                                                     |
-| -------------------------------- | ------------------------------------------------------------ |
-| `src/lib/content/site.ts`        | Team identity, season label, **contact email**, social links |
-| `src/lib/content/members.ts`     | Team roster (`/team`) — names, roles, photos                 |
-| `src/lib/content/projects.ts`    | Robots, prototypes, tools (`/robotics`)                      |
-| `src/lib/content/partners.ts`    | Partners and the sponsorship document (`/partners`)          |
-| `src/lib/content/departments.ts` | The list of disciplines (names/descriptions live in i18n)    |
-| `src/lib/content/navigation.ts`  | Header, mobile menu and footer navigation                    |
+| File                              | Contains                                                           |
+| --------------------------------- | ------------------------------------------------------------------ |
+| `src/lib/content/site.ts`         | Identity, school, founding date, both email addresses, socials     |
+| `src/lib/content/media.ts`        | **Photography slots** — see below                                  |
+| `src/lib/content/events.ts`       | Spor STEAM Fest ’26 and Trabzon Off-Season: dates, facts, coverage |
+| `src/lib/content/timeline.ts`     | Formation milestones drawn by the timeline                         |
+| `src/lib/content/organization.ts` | Domains, headcounts and the working relationships between them     |
+| `src/lib/content/members.ts`      | Team roster (`/team`) — names, roles, photos                       |
+| `src/lib/content/projects.ts`     | Robots, prototypes, tools (`/robotics`)                            |
+| `src/lib/content/partners.ts`     | Institutional relationships and confirmed supporters               |
+| `src/lib/content/departments.ts`  | Engineering disciplines (names/descriptions live in i18n)          |
+| `src/lib/content/navigation.ts`   | Header, mobile menu and footer navigation                          |
 
-Open items are marked `TODO(team)` / `TODO(design)` in those files. The most important one is
-`site.contact.email` — until it is set, the contact form stays disabled and says so.
+Open items are marked `TODO(team)` / `TODO(design)`.
+
+### Facts
+
+Every factual statement on the site is either supplied by the team or verified against a public
+source. [`docs/content-sources.md`](docs/content-sources.md) records which is which, and what is
+deliberately **not** published (names of individuals, unverified coverage, prospective partners,
+hosting vendor, anything operational). Keep it updated when copy changes.
+
+### Photography
+
+Compositions never hardcode an image path — they reference a slot in `media.ts` that already
+carries the aspect ratio and a note describing the photograph that belongs there. Setting `src` on
+a slot turns the designed aperture into a picture with no layout change.
+See [`docs/media-ingestion.md`](docs/media-ingestion.md).
 
 ---
 
@@ -182,8 +199,9 @@ src/
 │   ├── actions/reveal.ts    scroll-reveal (skips anything already on screen)
 │   ├── components/
 │   │   ├── layout/          Header, MobileMenu, Footer, PageHeader
-│   │   ├── sections/        Hero + the home page chapters
-│   │   └── ui/              Section, ActionLink, EmptyState, Seo, LanguageSwitcher
+│   │   ├── sections/        Hero + the nine home page chapters
+│   │   └── ui/              Section, MediaFrame, TimelineTrack, OrgNetwork,
+│   │                        Monolith11919, ActionLink, EmptyState, Seo, …
 │   ├── content/             data, no markup
 │   ├── i18n/                dictionaries and locale runtime
 │   └── styles/
@@ -198,6 +216,12 @@ src/
 Every colour, size, easing and duration is a custom property in
 [`src/lib/styles/tokens.css`](src/lib/styles/tokens.css). Component styles reference the tokens
 rather than literal values, so the whole site can be retuned from that one file.
+
+**Colour rule.** The base is graphite. Burgundy and navy exist as _material_, never as UI
+branding: two section surfaces (`--surface-navy`, `--surface-burgundy`) that are graphite with a
+few percent of hue, hairline gradients (`--edge-burgundy`, `--edge-navy`), two small accent marks
+(`--signal`, `--signal-warm`), and a faint tint in the hero canvas lighting. Do not fill a button,
+badge or card with them — the club colour should be felt, not shouted.
 
 No webfont is loaded: the type stack is system UI, which gives complete Turkish glyph coverage at
 zero network cost. To adopt a self-hosted family later, change `--font-sans` in that file.

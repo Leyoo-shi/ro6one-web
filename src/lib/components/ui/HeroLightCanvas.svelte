@@ -268,12 +268,24 @@
 					const diffuseLight = diffuse * attenuation * 58;
 					const specularLight = specular * 34;
 					const fillLight = fillDiffuse * 7.5;
+					const material = materialVariation + dither;
 
-					const base = diffuseLight + fillLight + materialVariation + dither;
-
-					const red = 13 + base * 0.83 + specularLight * 0.92;
-					const green = 14 + base * 0.9 + specularLight * 0.97;
-					const blue = 17 + base + specularLight;
+					/*
+					 * Kulüp renkleri yüzeye boya olarak değil, ışık olarak giriyor.
+					 *
+					 * Ana ışık sıcak: aydınlanan yerlerde grafit bordoya doğru birkaç
+					 * birim kayıyor. Dolgu ışığı soğuk: gölgede kalan bölgeler laciverte
+					 * çekiyor. Taban nötr; renk yalnızca yüzey ışığa döndükçe okunuyor.
+					 *
+					 * Ölçülen hedef: en parlak noktada r−b ≈ +4, kenar gölgesinde
+					 * b−r ≈ +5. Bu aralığın üstü sepya, altı gri görünüyor.
+					 */
+					const red =
+						14 + diffuseLight * 1.09 + specularLight * 1.14 + fillLight * 0.7 + material * 0.9;
+					const green =
+						14 + diffuseLight * 0.95 + specularLight * 0.95 + fillLight * 0.9 + material * 0.9;
+					const blue =
+						15 + diffuseLight * 0.82 + specularLight * 0.84 + fillLight * 1.4 + material * 0.9;
 
 					pixels[dataIndex] = red * vignette;
 					pixels[dataIndex + 1] = green * vignette;

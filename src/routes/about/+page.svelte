@@ -2,8 +2,11 @@
 	import { reveal } from '$lib/actions/reveal';
 	import PageHeader from '$lib/components/layout/PageHeader.svelte';
 	import ActionLink from '$lib/components/ui/ActionLink.svelte';
+	import MediaFrame from '$lib/components/ui/MediaFrame.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import TimelineTrack from '$lib/components/ui/TimelineTrack.svelte';
+	import { site } from '$lib/content/site';
 	import { useI18n } from '$lib/i18n/context.svelte';
 
 	const i18n = useI18n();
@@ -14,10 +17,6 @@
 
 <PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
 
-<!--
-	Inner pages carry the chapter number only: the section's own h2 is the
-	title, so the marker never repeats the heading next to it.
--->
 <Section index="01" rule={false}>
 	<h2 class="story__title" use:reveal>{copy.story.title}</h2>
 
@@ -26,9 +25,45 @@
 			<p class="story__paragraph" use:reveal={{ delay: index * 70 }}>{paragraph}</p>
 		{/each}
 	</div>
+
+	<div class="story__timeline">
+		<TimelineTrack />
+	</div>
 </Section>
 
-<Section index="02">
+<Section index="02" tone="navy">
+	<div class="home">
+		<div class="home__copy">
+			<h2 class="home__title" use:reveal>{copy.home.title}</h2>
+
+			{#each copy.home.body as paragraph, index (index)}
+				<p class="prose home__paragraph" use:reveal={{ delay: index * 70 }}>{paragraph}</p>
+			{/each}
+
+			<dl class="home__facts" use:reveal={{ delay: 140 }}>
+				<div>
+					<dt class="label">{i18n.t.home.origin.schoolLabel}</dt>
+					<dd>{site.school}</dd>
+				</div>
+				<div>
+					<dt class="label">{i18n.t.footer.identity}</dt>
+					<dd>{site.legalName}</dd>
+				</div>
+				<div>
+					<dt class="label">{i18n.t.contact.channels.locationLabel}</dt>
+					<dd>{site.location}</dd>
+				</div>
+			</dl>
+		</div>
+
+		<div class="home__media">
+			<MediaFrame id="about.school" sizes="(max-width: 900px) 100vw, 45vw" />
+			<MediaFrame id="about.protocol" sizes="(max-width: 900px) 100vw, 45vw" />
+		</div>
+	</div>
+</Section>
+
+<Section index="03">
 	<div class="frc">
 		<h2 class="frc__title" use:reveal>{copy.frc.title}</h2>
 
@@ -40,7 +75,7 @@
 	</div>
 </Section>
 
-<Section index="03" tone="void">
+<Section index="04" tone="void">
 	<h2 class="principles__title" use:reveal>{copy.principles.title}</h2>
 
 	<ol class="principles">
@@ -56,13 +91,13 @@
 	</ol>
 </Section>
 
-<Section index="04">
-	<div class="organisation" use:reveal>
-		<h2 class="organisation__title">{copy.organisation.title}</h2>
+<Section index="05">
+	<div class="next" use:reveal>
+		<h2 class="next__title">{copy.next.title}</h2>
 		<div>
-			<p class="lede">{copy.organisation.body}</p>
-			<div class="organisation__action">
-				<ActionLink href="/team">{copy.organisation.cta}</ActionLink>
+			<p class="lede">{copy.next.body}</p>
+			<div class="next__action">
+				<ActionLink href="/team">{copy.next.cta}</ActionLink>
 			</div>
 		</div>
 	</div>
@@ -96,6 +131,48 @@
 		color: var(--text-primary);
 	}
 
+	.story__timeline {
+		margin-top: var(--space-3xl);
+	}
+
+	.home {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: var(--space-xl) clamp(2rem, 6vw, 5rem);
+		align-items: start;
+	}
+
+	.home__title {
+		max-width: 12ch;
+		margin-bottom: var(--space-l);
+		font-size: var(--type-h2);
+		font-weight: 550;
+		line-height: 1.04;
+	}
+
+	.home__paragraph + .home__paragraph {
+		margin-top: var(--space-m);
+	}
+
+	.home__facts {
+		display: grid;
+		gap: var(--space-m);
+		margin: var(--space-l) 0 0;
+		padding-top: var(--space-m);
+		border-top: 1px solid var(--edge-faint);
+	}
+
+	.home__facts dd {
+		margin: 0.45rem 0 0;
+		font-size: var(--type-small);
+		color: var(--text-secondary);
+	}
+
+	.home__media {
+		display: grid;
+		gap: clamp(0.75rem, 2vw, 1.5rem);
+	}
+
 	.frc {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
@@ -111,6 +188,10 @@
 
 	.frc__body .prose {
 		max-width: 56ch;
+	}
+
+	.frc__body .prose + .prose {
+		margin-top: var(--space-m);
 	}
 
 	.principles__title {
@@ -141,7 +222,7 @@
 		font-size: var(--type-micro);
 		letter-spacing: 0.12em;
 		color: var(--signal);
-		opacity: 0.75;
+		opacity: 0.8;
 	}
 
 	.principle__name {
@@ -158,18 +239,18 @@
 		color: var(--text-muted);
 	}
 
-	.organisation {
+	.next {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
 		gap: var(--space-l) clamp(2rem, 6vw, 6rem);
 	}
 
-	.organisation__title {
+	.next__title {
 		font-size: var(--type-h2);
 		font-weight: 550;
 	}
 
-	.organisation__action {
+	.next__action {
 		margin-top: var(--space-l);
 	}
 
@@ -178,11 +259,9 @@
 			columns: 1;
 		}
 
+		.home,
 		.frc,
-		.organisation {
-			grid-template-columns: minmax(0, 1fr);
-		}
-
+		.next,
 		.principles {
 			grid-template-columns: minmax(0, 1fr);
 		}

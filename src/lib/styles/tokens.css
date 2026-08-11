@@ -17,10 +17,35 @@
 	--surface-base: #0d0e11;
 	--surface-panel: #14161b;
 
+	/*
+	 * Institutional tint bands.
+	 *
+	 * RO6ONE competes under the Trabzonspor identity, so burgundy and navy
+	 * belong in the palette — but as *material*, never as UI branding. These two
+	 * surfaces are graphite with a hue bias of a few percent: you read them as a
+	 * change of material under the same light, not as a coloured box. Never fill
+	 * a button, badge or card with them.
+	 */
+	--surface-navy: #0a0e16;
+	--surface-burgundy: #100a0e;
+
+	/*
+	 * Pigments. Used for hairline gradients, edge light, active marks and the
+	 * canvas light tint — anywhere light would pick a colour up off a surface.
+	 * Saturation is deliberately low: this is a club colour seen in dark metal,
+	 * not a football shirt.
+	 */
+	--pigment-burgundy: #6d2739;
+	--pigment-burgundy-deep: #35141d;
+	--pigment-navy: #23405f;
+	--pigment-navy-deep: #101d2e;
+
 	/* Keylines. The site is built out of hairlines rather than boxes. */
 	--edge-faint: rgb(244 244 242 / 0.06);
 	--edge: rgb(244 244 242 / 0.1);
 	--edge-strong: rgb(244 244 242 / 0.2);
+	--edge-burgundy: rgb(160 66 90 / 0.32);
+	--edge-navy: rgb(88 137 190 / 0.3);
 
 	/*
 	 * The ramp is tuned against --surface-base for WCAG AA at small sizes:
@@ -34,12 +59,16 @@
 	--text-faint: rgb(244 244 242 / 0.48);
 
 	/*
-	 * There is no brand colour in the repository yet, so light itself is the
-	 * accent: a desaturated steel tone that reads as reflected highlight.
-	 * Used only for focus rings, active states and small status marks.
+	 * Light itself is the accent: a steel tone that reads as reflected
+	 * highlight, now pulled slightly toward the institutional navy. Used only
+	 * for focus rings, active states and small status marks.
+	 * --signal-warm is its burgundy counterpart, used even more sparingly:
+	 * live/active markers and the second axis of the two brand principles.
 	 */
 	--signal: #9fbcd0;
 	--signal-dim: rgb(159 188 208 / 0.16);
+	--signal-warm: #d09aa7;
+	--signal-warm-dim: rgb(208 154 167 / 0.16);
 
 	/* ------------------------------------------------------------ typography
 	 *

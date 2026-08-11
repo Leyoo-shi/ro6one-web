@@ -6,29 +6,43 @@
 	import { useI18n } from '$lib/i18n/context.svelte';
 
 	const i18n = useI18n();
-	const copy = $derived(i18n.t.home.disciplines);
+	const copy = $derived(i18n.t.home.machine);
 </script>
 
-<Section id="disciplines" index="02" label={copy.label}>
+<Section id="machine" index="05" label={copy.label}>
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.title}</h2>
 		<p class="lede intro__lede">{copy.lede}</p>
 	</div>
 
-	<ol class="index">
-		{#each departmentIds as id, position (id)}
-			<li class="row" use:reveal={{ delay: position * 60 }}>
-				<span class="row__index" aria-hidden="true">{String(position + 1).padStart(2, '0')}</span>
-				<h3 class="row__name">{i18n.t.departments[id].name}</h3>
-				<p class="row__text">{i18n.t.departments[id].description}</p>
-			</li>
-		{/each}
-	</ol>
+	<div class="layout">
+		<!-- A drawn index rather than a card grid: rows on hairlines. -->
+		<ol class="index">
+			{#each departmentIds as id, position (id)}
+				<li class="row" use:reveal={{ delay: position * 60 }}>
+					<span class="row__index" aria-hidden="true">{String(position + 1).padStart(2, '0')}</span>
+					<h3 class="row__name">{i18n.t.departments[id].name}</h3>
+					<p class="row__text">{i18n.t.departments[id].description}</p>
+				</li>
+			{/each}
+		</ol>
 
-	<div class="coda" use:reveal>
-		<h3 class="coda__title">{i18n.t.home.team.title}</h3>
-		<p class="coda__body">{i18n.t.home.team.body}</p>
-		<ActionLink href="/team">{i18n.t.home.team.link}</ActionLink>
+		<!--
+			The honest counterweight to the list: this team has not built a
+			competition robot yet, and the page says so where it matters.
+		-->
+		<aside class="status" use:reveal={{ delay: 120 }}>
+			<p class="label">{i18n.t.robotics.status.label}</p>
+			<p class="status__value">
+				<span class="status__dot" aria-hidden="true"></span>
+				{i18n.t.robotics.status.value}
+			</p>
+			<p class="status__note">{i18n.t.robotics.status.note}</p>
+
+			<div class="status__action">
+				<ActionLink href="/robotics">{copy.link}</ActionLink>
+			</div>
+		</aside>
 	</div>
 </Section>
 
@@ -52,11 +66,17 @@
 		padding-bottom: 0.35rem;
 	}
 
-	/* A drawn index rather than a card grid: rows on hairlines. */
+	.layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+		gap: clamp(1.5rem, 4vw, 4rem);
+		align-items: start;
+	}
+
 	.row {
 		display: grid;
-		grid-template-columns: 3rem minmax(0, 15rem) minmax(0, 1fr);
-		gap: clamp(1rem, 3vw, 3rem);
+		grid-template-columns: 3rem minmax(0, 11rem) minmax(0, 1fr);
+		gap: clamp(1rem, 2.5vw, 2.5rem);
 		align-items: baseline;
 
 		padding-block: clamp(1.1rem, 2.4vw, 1.9rem);
@@ -97,32 +117,53 @@
 	}
 
 	.row__text {
-		max-width: 52ch;
+		max-width: 46ch;
 		font-size: var(--type-small);
 		line-height: 1.6;
 		color: var(--text-muted);
 	}
 
-	.coda {
-		max-width: 34rem;
-		margin-top: var(--space-2xl);
-		margin-left: auto;
-		text-align: right;
+	.status {
+		padding: clamp(1.25rem, 2.5vw, 1.75rem);
+		border: 1px solid var(--edge-faint);
+		border-radius: var(--radius-m);
+		background: linear-gradient(180deg, rgb(109 39 57 / 0.1), transparent 65%);
 	}
 
-	.coda__title {
+	.status__value {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-top: var(--space-s);
+
 		font-size: var(--type-h3);
-		font-weight: 550;
+		font-weight: 500;
+		letter-spacing: -0.02em;
 	}
 
-	.coda__body {
-		margin: var(--space-s) 0 var(--space-m);
-		color: var(--text-secondary);
+	.status__dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: var(--signal-warm);
+		box-shadow: 0 0 0 4px var(--signal-warm-dim);
+	}
+
+	.status__note {
+		max-width: 34ch;
+		margin-top: var(--space-s);
+		font-size: var(--type-small);
+		line-height: 1.6;
+		color: var(--text-muted);
+	}
+
+	.status__action {
+		margin-top: var(--space-l);
 	}
 
 	@media (max-width: 1024px) {
-		.row {
-			grid-template-columns: 2.5rem minmax(0, 12rem) minmax(0, 1fr);
+		.layout {
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
@@ -139,11 +180,6 @@
 
 		.row__text {
 			grid-column: 2;
-		}
-
-		.coda {
-			margin-left: 0;
-			text-align: left;
 		}
 	}
 </style>

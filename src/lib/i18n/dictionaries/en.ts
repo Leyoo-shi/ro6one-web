@@ -3,9 +3,11 @@
  * so every other locale is checked against it at compile time.
  *
  * Rules for editing:
- *  - Keep keys structural (`about.principles.items`), never sentence-shaped.
- *  - Copy must not assert facts the team has not confirmed (awards, numbers,
- *    partners, past events). Describe approach and intent instead.
+ *  - Keep keys structural (`events.offseason.body`), never sentence-shaped.
+ *  - Every factual statement must be either supplied by the team or verified
+ *    against a public source listed in docs/content-sources.md. No awards, no
+ *    placements, no attendance, no reach figures, no invented history.
+ *  - RO6ONE is the protagonist of every sentence about a partnership.
  */
 export const en = {
 	common: {
@@ -16,7 +18,8 @@ export const en = {
 		menuOpen: 'Open menu',
 		menuClose: 'Close menu',
 		languageLabel: 'Language',
-		backToTop: 'Back to top'
+		backToTop: 'Back to top',
+		people: 'people'
 	},
 
 	nav: {
@@ -28,14 +31,31 @@ export const en = {
 		contact: 'Contact'
 	},
 
+	/** Labels for media apertures that have no photograph behind them yet. */
+	media: {
+		categories: {
+			team: 'Team archive',
+			steamfest: 'Spor STEAM Fest ’26',
+			offseason: 'Trabzon Off-Season',
+			infrastructure: 'Infrastructure',
+			robotics: 'Workshop',
+			trabzonspor: 'Institutional',
+			brand: 'Brand'
+		}
+	},
+
 	hero: {
-		eyebrow: 'FRC Team #11919',
+		eyebrow: 'Trabzonspor Ro6one Robotics',
 		titleTop: 'Build what',
 		titleBottom: 'comes next.',
-		description: 'We design, build and compete — but the work continues beyond a single season.',
+		description:
+			'Formed in February 2026 at Trabzon Merkez Fen Lisesi. We build the robot — and the organization around it.',
 		meta: {
-			season: 'Season',
-			team: 'Team'
+			founded: 'Formed',
+			foundedValue: 'February 2026',
+			home: 'Home',
+			next: 'Next',
+			nextValue: 'First official season'
 		},
 		scroll: 'Scroll to explore'
 	},
@@ -46,120 +66,245 @@ export const en = {
 			description:
 				'Structure, drivetrain and mechanisms: from concept sketch to a part that survives a match.'
 		},
-		design: {
-			name: 'CAD & Design',
+		cad: {
+			name: 'CAD',
 			description:
-				'Full-assembly CAD, tolerance decisions, and the drawings the workshop actually builds from.'
-		},
-		software: {
-			name: 'Software',
-			description:
-				'Robot control, sensing and driver tooling — plus the internal tools the team runs on.'
+				'Full-assembly modelling, tolerance decisions, and the drawings the workshop actually builds from.'
 		},
 		electrical: {
 			name: 'Electrical',
 			description:
 				'Power distribution, wiring discipline, sensors, and finding the fault before the next match.'
 		},
-		media: {
-			name: 'Media & Communication',
+		software: {
+			name: 'Software',
 			description:
-				'Photography, video, identity and documentation: how the work becomes legible to other people.'
+				'Robot control, sensing and driver tooling — plus the internal tools the team runs on.'
+		}
+	},
+
+	organization: {
+		hint: 'Select a domain',
+		flex: {
+			name: 'Assign as needed',
+			description:
+				'Flexible capacity that moves to wherever the work is: build days, event operations, filming, preparation. Not a department — the field the whole network sits inside.'
 		},
-		operations: {
-			name: 'Operations',
+		domains: {
+			engineering: {
+				name: 'Engineering',
+				description:
+					'Mechanical, CAD, electrical and software. Owns the machine and the decisions that shape it.'
+			},
+			operations: {
+				name: 'Operations',
+				description:
+					'Keeps the team aligned: coordination, planning, decisions, follow-through, and the internal support that makes a build week survivable.'
+			},
+			media: {
+				name: 'Media',
+				description:
+					'A capture-first pipeline. One operator builds the archive continuously, direction decides which stories exist, a second camera pair shoots what those stories need, and two editors cut long-form and short-form separately.',
+				roles: {
+					capture: 'Capture — one operator, continuous archive',
+					direction: 'Direction — decides what gets made',
+					camera: 'Two camera operators — shoot to brief',
+					edit: 'Two editors — long-form and short-form'
+				}
+			},
+			pr: {
+				name: 'PR leads',
+				description:
+					'Not a posting account. Three people who find an opportunity, shape it, reach the institution, sketch a plan, bring it to the team — then hand it to whoever should own it.'
+			},
+			creative: {
+				name: 'Creative & Prepare',
+				description:
+					'Ideas that make RO6ONE legible in public — seminars, workshops, activations — plus the props and materials those ideas need, built before the day.'
+			},
+			sponsorship: {
+				name: 'Sponsorship',
+				description:
+					'Researches companies, foundations and institutions, arranges meetings, and works toward material, in-kind and financial support.'
+			},
+			finance: {
+				name: 'Finance',
+				description: 'Tracks income, spending and financial flow, and keeps all three visible.'
+			}
+		},
+		pipeline: {
+			title: 'How a project starts',
+			stages: {
+				spot: 'Spot',
+				shape: 'Shape',
+				reach: 'Reach out',
+				plan: 'Plan',
+				decide: 'Team decides',
+				handOver: 'Hand over'
+			},
+			note: 'The person who finds a project does not have to be the person who runs it.'
+		},
+		platform: {
+			kicker: 'Internal platform',
+			name: 'Ekip Ro6one',
 			description:
-				'Planning, logistics, partnerships and the budget that turns a plan into a build.'
+				'Team communication, meetings and files run on our own Nextcloud-based environment. We did not write Nextcloud. We configure it, extend it with plugins our own developers wrote, manage its logs with our own tooling, and run the domain, the mail and this website on infrastructure we operate ourselves.',
+			facts: {
+				comms: 'Team communication',
+				meetings: 'Meetings',
+				mail: 'Own mail domain',
+				site: 'This website'
+			}
+		}
+	},
+
+	events: {
+		facts: {
+			date: 'Date',
+			schools: 'Schools',
+			teams: 'Teams',
+			role: 'Our role',
+			venue: 'Venue',
+			support: 'Sponsor',
+			organiser: 'Organizer'
+		},
+		coverageLabel: 'Verified by',
+		steamfest: {
+			label: 'Spor STEAM Fest ’26',
+			title: 'A sports hall running two competitions at once.',
+			lede: 'Four schools. A football tournament, a volleyball tournament, and a floor of STEM stands between the matches.',
+			court: {
+				title: 'Court',
+				items: [
+					'Boys’ football tournament',
+					'Girls’ volleyball tournament',
+					'Four schools, one crowd'
+				]
+			},
+			lab: {
+				title: 'Lab',
+				items: [
+					'TÜBİTAK and TEKNOFEST projects',
+					'Chemistry and biology stands',
+					'Engineering exhibits and line-following robots',
+					'Mathematics stands',
+					'Chemistry and physics demonstrations between sessions'
+				]
+			},
+			merge: {
+				title: 'Where they meet',
+				body: 'The point was never a science fair standing politely next to a tournament. A student who came for the match ended up in front of a chemistry demonstration; a student who came for the stands ended up on the court. That collision is what “STEAM for STEM” means in practice.'
+			},
+			support: 'Organized by RO6ONE at Trabzon Merkez Fen Lisesi, under Trabzonspor sponsorship.',
+			schoolsLabel: 'Participating schools'
+		},
+		offseason: {
+			label: 'Trabzon Off-Season',
+			title: '21 teams came to Trabzon.',
+			lede: 'July 2026, Hayri Gür Spor Salonu — the first FRC Off-Season held in the Black Sea Region, organized by a team five months old.',
+			body: [
+				'FRC in Türkiye has grown mostly along one axis: İstanbul, Ankara, İzmir. This time teams from İstanbul, Ankara, Bursa, Kocaeli and Trabzon brought their robots east instead, onto a full field built inside a sports hall.',
+				'The teams were only half of it. For most of the local students, families and children who walked in, it was the first time an FRC field existed within reach — and the event was covered by national press.'
+			],
+			originsLabel: 'Travelled from',
+			proof: {
+				title: 'What it proves',
+				body: 'Not that we were first. That the map is bigger than three cities, and that a region can host this the moment a team decides to build it.'
+			},
+			mascot: 'The event had a mascot of its own, made for those three days.'
 		}
 	},
 
 	home: {
-		identity: {
-			label: 'Who we are',
-			title: 'A robotics team that works like an engineering organization.',
+		origin: {
+			label: 'Origin',
+			title: 'February 2026. Everything on this site came after.',
 			body: [
-				'RO6ONE is a FIRST Robotics Competition team based in Trabzon. Every season we design and build a competition robot — and alongside it, the systems, documentation and habits that make the next build better than the last.',
-				'Sketch, review, prototype, measure, fail, revise. The robot is the visible result. The process is the thing we are actually building.'
+				'RO6ONE started at Trabzon Merkez Fen Lisesi with students who had almost no FRC experience: no build history, no archive, no process to inherit. The first thing we had to design was the team itself.',
+				'In March, a cooperation protocol with Trabzonspor gave that team an institutional home. In April we ran a festival. In July we organized a 21-team tournament. Our first official competition season is still ahead of us.'
 			],
-			principles: [
-				{
-					term: 'STEAM for STEM',
-					gloss:
-						'Design, communication and craft are engineering instruments — not decoration applied at the end.'
-				},
-				{
-					term: 'STEM for People',
-					gloss: 'Technology is only finished when it reaches someone outside the workshop.'
-				}
-			]
+			timelineLabel: 'Months since formation',
+			schoolLabel: 'Home'
 		},
-		disciplines: {
-			label: 'How we build',
-			title: 'One machine, six disciplines that have to agree.',
-			lede: 'A season is an integration problem before it is a mechanical one. These are the groups that have to converge.'
+		timeline: {
+			formation: { name: 'Formation', note: 'Trabzon Merkez Fen Lisesi' },
+			protocol: { name: 'Trabzonspor protocol', note: 'Cooperation agreement signed' },
+			steamfest: { name: 'Spor STEAM Fest ’26', note: 'Four schools, sport and STEM in one hall' },
+			offseason: { name: 'Trabzon Off-Season', note: '21 teams, Hayri Gür Spor Salonu' },
+			season: { name: 'First official season', note: 'Ahead of us' }
 		},
-		continuity: {
-			label: 'Beyond the season',
-			title: 'A season ends. The work doesn’t.',
-			body: 'Between competitions we prototype, rebuild our tooling, write down what we learned, and train the people who will run the next build. Continuity isn’t luck — it’s a design decision.',
-			items: [
-				{
-					name: 'Prototyping',
-					description: 'Ideas tested cheaply, long before they become a season commitment.'
-				},
-				{
-					name: 'Documentation',
-					description: 'Decisions written down while the reasoning is still fresh.'
-				},
-				{
-					name: 'Handover',
-					description: 'Every role has a successor who learned it before they needed it.'
-				}
-			]
+		monolith: {
+			label: 'Team number',
+			assigned: 'Assigned by FIRST, 2026',
+			pivot:
+				'Everything above happened before our first official season. What follows is the system we built so that it keeps happening.'
 		},
-		impact: {
-			label: 'Impact',
-			title: 'Engineering that leaves the workshop.',
-			body: '“STEAM for STEM” and “STEM for People” are not slogans on a wall. They describe where we want the work to end up: in classrooms, in other teams’ pit areas, in the hands of people who did not build it.',
-			link: 'Our approach to impact'
+		machine: {
+			label: 'The machine',
+			title: 'Four disciplines, one robot, one deadline.',
+			lede: 'The first official robot is ahead of us. How we will build it is not being improvised.',
+			link: 'How a build moves'
 		},
-		team: {
-			label: 'The team',
-			title: 'A team is an organization.',
-			body: 'Departments, handoffs, reviews, mentorship. Students run the work; the structure is what makes that possible.',
-			link: 'See how we’re organized'
+		system: {
+			label: 'The organization',
+			title: 'We engineer the team the same way we engineer the robot.',
+			body: 'Seven domains, one flexible pool, and a platform we run ourselves. Nobody is locked in a box: a role says where you are accountable, not where you are allowed to work.',
+			link: 'How the team works'
 		},
-		partners: {
-			label: 'Partners',
-			title: 'Seasons are made possible by people outside the team.',
-			body: 'Materials, machine time, tooling, transport, mentorship, funding. If you want to support engineering education in Trabzon, there is a concrete way to do it.',
-			link: 'Ways to support'
+		principles: {
+			label: 'Principles',
+			title: 'Two sentences we keep testing ourselves against.',
+			steam: {
+				term: 'STEAM for STEM',
+				body: 'Design, sport, film and writing are how technical work reaches someone who did not come for technical work. Spor STEAM Fest was that argument, held in a sports hall.'
+			},
+			people: {
+				term: 'STEM for People',
+				body: 'A field only helps the people who can reach it. Bringing one to Trabzon mattered more to us than travelling to someone else’s.'
+			},
+			link: 'Impact in detail'
+		},
+		institutional: {
+			label: 'Institutional',
+			title: 'We compete under a name this city already knows.',
+			body: [
+				'In March 2026, Trabzonspor and Trabzon Merkez Fen Lisesi signed a cooperation protocol covering science, technology and engineering: material and in-kind support for the FRC team, and a relationship meant to outlast a single season.',
+				'It is why the team is called Trabzonspor Ro6one Robotics, and part of why a 21-team tournament could happen here. The robot is still ours to build.'
+			],
+			link: 'The relationship in detail'
 		},
 		contact: {
 			label: 'Contact',
 			title: 'Talk to us.',
-			body: 'Whether you want to support the team, build something together, or just ask how we did one specific thing.',
+			body: 'Companies, teachers, students, other teams, press. Two addresses, three channels, and no form that quietly goes nowhere.',
 			link: 'Get in touch'
 		}
 	},
 
 	about: {
 		eyebrow: 'About',
-		title: 'We build a robot every season, and an organization the whole time.',
-		lede: 'RO6ONE Robotics is FRC Team #11919, based in Trabzon, Türkiye. This page explains how we think about the work.',
+		title: 'A team that had to build its own process before it could build a robot.',
+		lede: 'RO6ONE Robotics — Trabzonspor Ro6one Robotics in full — is FRC team #11919, formed in February 2026 at Trabzon Merkez Fen Lisesi.',
 		story: {
 			title: 'The short version',
 			body: [
-				'A FIRST Robotics Competition season gives a team a few intense weeks: a new game, a new set of constraints, and a machine that has to exist by a deadline. It is an engineering problem with a hard schedule attached.',
-				'We treat that deadline as a forcing function rather than the point. The robot is what a season produces; what we keep is the method — how decisions get made, how parts get documented, how someone new becomes useful in two weeks instead of two months.',
-				'That is also why this site exists. Work that isn’t written down is work that has to be rediscovered.'
+				'In February 2026 a group of students at Trabzon Merkez Fen Lisesi decided to enter the FIRST Robotics Competition. Almost none of them had done it before. There was no previous build to learn from, no archive, no documented way of working — which meant the first engineering problem was the team, not the machine.',
+				'With our mentor’s guidance the structure came together quickly: disciplines with clear ownership, an operations group to keep them aligned, and the habit of writing decisions down while the reasoning was still fresh.',
+				'Five months later we had run a festival for four schools and organized a 21-team FRC Off-Season. We still have not competed in an official season. That is next, and it will be the first time this team is measured by a scoring table rather than by what it organized.'
+			]
+		},
+		home: {
+			title: 'Home',
+			body: [
+				'Trabzon Merkez Fen Lisesi is where the team was formed and where it still works. The school is not a backdrop: the student pool, the workshop and the first audience all came from the same corridors.',
+				'The wider identity arrived in March 2026, when Trabzonspor and the school signed a cooperation protocol around science, technology and engineering. Since then the team competes as Trabzonspor Ro6one Robotics.'
 			]
 		},
 		frc: {
 			title: 'What FRC is, in context',
 			body: [
-				'FIRST Robotics Competition is an international high-school programme: teams receive a game and a limited build period, then compete at regional events. The robot is roughly the size of a large appliance and has to survive being driven at speed into other robots.',
-				'It is also a programme about everything around the robot — outreach, documentation, safety, communication, and sustaining a team beyond a single graduating class.'
+				'FIRST Robotics Competition is an international high-school programme: teams receive a game and a limited build period, then compete at official events. The robot is roughly the size of a large appliance and has to survive being driven at speed into other robots.',
+				'It is also a programme about everything around the robot — outreach, documentation, safety, communication, and sustaining a team beyond a single graduating class. That second half is where a rookie team can start immediately, and it is where we started.'
 			]
 		},
 		principles: {
@@ -180,28 +325,37 @@ export const en = {
 						'The cheapest failure is the one that happens before the material gets expensive.'
 				},
 				{
-					name: 'Finish, then refine',
+					name: 'Own a domain, not a box',
 					description:
-						'On match day a working subsystem beats an elegant unfinished one, every time.'
+						'A role describes what you are accountable for — not the only work you are allowed to touch.'
 				},
 				{
 					name: 'Explain the work',
 					description:
-						'If we can’t explain a design decision to someone outside the team, we don’t understand it yet.'
+						'If we can’t explain a decision to someone outside the team, we don’t understand it yet.'
 				}
 			]
 		},
-		organisation: {
-			title: 'Structure',
-			body: 'The team is organized into disciplines that each own part of the build, with shared reviews where they meet. Roles are handed over deliberately, so knowledge doesn’t leave when a student graduates.',
-			cta: 'See the departments'
+		next: {
+			title: 'What’s next',
+			body: 'The first official season, the first competition robot, and a second edition of the work we started this year. Everything we build in between is meant to make the team that comes after us faster than we were.',
+			cta: 'See how the team is organized'
 		}
 	},
 
 	robotics: {
 		eyebrow: 'Robotics',
 		title: 'The machine, and everything that has to be true for it to work.',
-		lede: 'Competition robots, prototypes, software, and the tooling around them.',
+		lede: 'Our first official competition robot is ahead of us. This is the structure it will be built inside.',
+		status: {
+			label: 'Build status',
+			value: 'Pre-season',
+			note: 'No official competition robot exists yet. This page will fill with real machines, not renders of imaginary ones.'
+		},
+		disciplines: {
+			title: 'Who builds what',
+			lede: 'Four disciplines with clear ownership and constant overlap.'
+		},
 		subsystems: {
 			title: 'What a season robot is made of',
 			lede: 'Every year the game changes and the mechanisms change with it. The layers underneath stay recognizable.',
@@ -278,8 +432,8 @@ export const en = {
 				planned: 'Planned'
 			},
 			empty: {
-				title: 'Documentation in progress',
-				body: 'Project entries are written from build notes. This index reads from a single content file and fills in as entries are added.'
+				title: 'Nothing here is invented',
+				body: 'Entries appear as work gets documented, each with its season, discipline and status. An empty index is more useful than a fictional one.'
 			}
 		}
 	},
@@ -287,14 +441,14 @@ export const en = {
 	impact: {
 		eyebrow: 'Impact',
 		title: 'STEAM for STEM. STEM for People.',
-		lede: 'Two phrases we use to stay honest about who engineering is for.',
+		lede: 'Two principles, and the two projects we used to find out whether we meant them.',
 		steam: {
 			title: 'STEAM for STEM',
-			body: 'Adding art and design to STEM isn’t decoration. Drawing, writing, filming and presenting are how technical work becomes understandable — and how a student who came for design ends up learning statics.'
+			body: 'Adding art, design and sport to STEM is not decoration. Drawing, filming, writing and presenting are how technical work becomes understandable — and how a student who came for something else ends up learning statics.'
 		},
 		people: {
 			title: 'STEM for People',
-			body: 'A robot that only impresses other robotics teams has a small audience. We want the work to be usable by people who will never walk into a pit: students choosing what to study, teachers looking for material, neighbours curious about what happens in the workshop.'
+			body: 'A robot that only impresses other robotics teams has a small audience. We want the work to be usable by people who will never walk into a pit: students choosing what to study, teachers looking for material, families curious about what happens in the workshop.'
 		},
 		focus: {
 			title: 'Where we focus',
@@ -314,15 +468,15 @@ export const en = {
 						'The FRC ecosystem in Türkiye grows when teams mentor each other, not only when one team wins.'
 				},
 				{
-					name: 'Responsible making',
+					name: 'Regional reach',
 					description:
-						'Material reuse, repairability, and an honest account of what a build actually costs.'
+						'Events, workshops and fields where they do not usually happen. Distance is an accessibility problem.'
 				}
 			]
 		},
 		record: {
 			title: 'Programme record',
-			body: 'Individual workshops, visits and collaborations will be listed here as they are documented, with dates and what was actually done.'
+			body: 'Two projects so far, both documented on this page. Further workshops, visits and collaborations will be listed here as they happen, with dates and what was actually done — never as reach figures.'
 		},
 		collaborate: {
 			title: 'Work with us',
@@ -334,22 +488,30 @@ export const en = {
 	team: {
 		eyebrow: 'Team',
 		title: 'Students run this. The structure is how.',
-		lede: 'RO6ONE is organized into disciplines with clear ownership and deliberate overlap.',
+		lede: 'RO6ONE is organized as a network of responsibilities: clear ownership, deliberate overlap, and people who move to where the work is.',
 		structure: {
-			title: 'Departments',
-			lede: 'Each department owns part of the build and is accountable at shared reviews.'
+			title: 'The network',
+			lede: 'Seven domains inside one flexible pool. Select a domain to see what it owns.'
+		},
+		engineering: {
+			title: 'Engineering disciplines',
+			lede: 'Inside engineering, four disciplines share the machine.'
+		},
+		platform: {
+			title: 'Engineering the organization',
+			lede: 'The team runs on infrastructure the team maintains.'
 		},
 		roster: {
 			title: 'Members',
 			lede: 'Profiles are maintained per season.',
 			empty: {
 				title: 'Member profiles are being prepared',
-				body: 'This section renders from one content file. Once names, roles and photos are added, cards appear here grouped by department.'
+				body: 'Names and portraits are published only with consent, so this section stays closed until that is in place. It renders from one content file and groups people by domain automatically.'
 			}
 		},
 		join: {
 			title: 'Joining the team',
-			body: 'If you’re a student in Trabzon who wants to build things, get in touch. Design, writing, filming, budgeting and organizing matter here as much as machining does.',
+			body: 'If you’re a student in Trabzon who wants to build things, write to us. Design, writing, filming, budgeting and organizing matter here as much as machining does — and most people end up doing more than one of them.',
 			cta: 'Contact the team'
 		}
 	},
@@ -357,7 +519,18 @@ export const en = {
 	partners: {
 		eyebrow: 'Partners',
 		title: 'Support turns a plan into a machine.',
-		lede: 'Partnership in FRC is closer to industrial collaboration than to advertising.',
+		lede: 'One institutional relationship, one school, and room for the organizations that join next.',
+		institutional: {
+			title: 'Trabzonspor',
+			body: [
+				'In March 2026, Trabzonspor and Trabzon Merkez Fen Lisesi signed a cooperation protocol in science, technology and engineering. It commits the club to supporting the FRC team with material and in-kind contributions through national and international competitions, and frames the relationship as a lasting one rather than a single sponsorship.',
+				'For a team formed a month earlier, that protocol changed what was possible. It is why we compete as Trabzonspor Ro6one Robotics, and part of why an FRC Off-Season could be held in Trabzon in July.'
+			],
+			schoolTitle: 'Trabzon Merkez Fen Lisesi',
+			schoolBody:
+				'The school the team was formed in and still works from: the workshop, the student pool, and the first audience for everything we build.',
+			since: 'Protocol signed'
+		},
 		why: {
 			title: 'What a partnership means here',
 			body: [
@@ -395,28 +568,28 @@ export const en = {
 			]
 		},
 		current: {
-			title: 'Current partners',
+			title: 'Supporters',
 			lede: 'Organizations supporting the current season.',
 			empty: {
-				title: 'This list is maintained by the team',
-				body: 'Partner names, logos and descriptions come from one content file. Nothing appears here until a partnership is confirmed.'
+				title: 'This list is published, not padded',
+				body: 'Names appear here once a partnership is confirmed and the organization is happy to be named. Conversations in progress stay private until then.'
 			}
 		},
 		pack: {
-			title: 'Sponsorship document',
-			body: 'A downloadable partnership document will be linked here once it is finished.'
+			title: 'Partnership document',
+			body: 'A downloadable partnership document is being prepared. Until it is finished, write to us and we will send the current version.'
 		},
 		cta: {
 			title: 'Start a conversation',
 			body: 'Tell us what you can offer and we’ll tell you exactly where it goes.',
-			action: 'Contact us'
+			action: 'Partnership enquiries'
 		}
 	},
 
 	contact: {
 		eyebrow: 'Contact',
 		title: 'Get in touch.',
-		lede: 'The direct ways to reach the team.',
+		lede: 'Two addresses and three channels, all of them real.',
 		reasons: {
 			title: 'Who writes to us',
 			items: [
@@ -440,22 +613,24 @@ export const en = {
 		},
 		channels: {
 			title: 'Direct',
-			emailLabel: 'Email',
-			emailPending: 'A public address will be published here.',
+			generalLabel: 'General',
+			generalNote: 'Questions, collaboration, press, anything else.',
+			sponsorshipLabel: 'Partnerships',
+			sponsorshipNote: 'Sponsorship, material support, institutional contact.',
 			locationLabel: 'Based in',
-			socialLabel: 'Elsewhere',
-			socialPending: 'Official accounts will be linked here once they are confirmed.'
+			socialLabel: 'Channels',
+			copy: 'Copy address',
+			copied: 'Copied'
 		},
 		form: {
 			title: 'Write a message',
-			note: 'This form composes a message in your own mail app. Nothing is sent from this page and nothing is stored.',
+			note: 'This form composes a draft in your own mail app. Nothing is sent from this page and nothing is stored.',
 			name: 'Your name',
 			email: 'Your email',
 			subject: 'Subject',
+			topicLabel: 'Goes to',
 			message: 'Message',
 			submit: 'Open in mail app',
-			unavailable:
-				'A contact address hasn’t been published yet, so this form is inactive. It activates as soon as one is added.',
 			optional: 'Optional'
 		}
 	},
@@ -464,6 +639,7 @@ export const en = {
 		explore: 'Explore',
 		connect: 'Connect',
 		identity: 'Identity',
+		homeLabel: 'Home',
 		rights: 'All rights reserved.',
 		first:
 			'FIRST®, FIRST® Robotics Competition and FRC® are trademarks of FIRST®, which does not sponsor, support or endorse this site.'
@@ -483,39 +659,39 @@ export const en = {
 
 	seo: {
 		home: {
-			title: 'RO6ONE Robotics — FRC Team #11919',
+			title: 'Trabzonspor Ro6one Robotics — FRC Team #11919',
 			description:
-				'RO6ONE Robotics is FIRST Robotics Competition team #11919 from Trabzon, Türkiye. We design, build and compete — and the work continues beyond a single season.'
+				'FRC team #11919 from Trabzon, Türkiye. Formed in February 2026 at Trabzon Merkez Fen Lisesi: Spor STEAM Fest ’26, the first FRC Off-Season in the Black Sea Region, and a first official season ahead.'
 		},
 		about: {
 			title: 'About',
 			description:
-				'How RO6ONE Robotics, FRC Team #11919 from Trabzon, approaches engineering, documentation and continuity between seasons.'
+				'How Trabzonspor Ro6one Robotics was formed in February 2026, its home at Trabzon Merkez Fen Lisesi, the Trabzonspor cooperation protocol, and how the team works.'
 		},
 		robotics: {
 			title: 'Robotics',
 			description:
-				'Competition robots, prototypes, software and tooling: how a RO6ONE build moves from reading the game to the post-season retrospective.'
+				'Disciplines, subsystems and the build process behind FRC team #11919’s first official competition robot.'
 		},
 		impact: {
 			title: 'Impact',
 			description:
-				'STEAM for STEM, STEM for People — how RO6ONE Robotics thinks about outreach, open documentation and engineering that leaves the workshop.'
+				'Spor STEAM Fest ’26 and the Trabzon Off-Season: how RO6ONE brings FRC and STEAM to the Eastern Black Sea.'
 		},
 		team: {
 			title: 'Team',
 			description:
-				'The departments that make up RO6ONE Robotics: mechanical, CAD and design, software, electrical, media and operations.'
+				'The network of responsibilities behind RO6ONE: engineering, operations, media, PR, creative, sponsorship and finance — plus Ekip Ro6one, the platform the team runs itself.'
 		},
 		partners: {
 			title: 'Partners',
 			description:
-				'Ways to support FRC Team #11919 in Trabzon: materials, machining, tools, logistics, mentorship and funding.'
+				'The Trabzonspor cooperation protocol, Trabzon Merkez Fen Lisesi, and how organizations can support FRC team #11919.'
 		},
 		contact: {
 			title: 'Contact',
 			description:
-				'Reach RO6ONE Robotics, FRC Team #11919 in Trabzon, Türkiye — for sponsorship, collaboration, workshops or joining the team.'
+				'Reach Trabzonspor Ro6one Robotics — iletisim@ro6one.com for general enquiries, sponsorluk@ro6one.com for partnerships.'
 		}
 	}
 };

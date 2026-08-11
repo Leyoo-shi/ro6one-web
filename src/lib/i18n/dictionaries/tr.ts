@@ -2,9 +2,13 @@ import type { Dictionary } from './en';
 
 /**
  * Turkish copy is written, not translated: the English source is treated as
- * intent, and each string is re-expressed the way a Turkish engineering team
- * would actually say it. Sentence structure deliberately differs from English
- * where a literal translation would read like machine output.
+ * intent, and each string is re-expressed the way this team would actually say
+ * it. Sentence structure deliberately differs from English where a literal
+ * rendering would read like machine output.
+ *
+ * Proper nouns stay in their official form (Trabzon Merkez Fen Lisesi, Hayri
+ * Gür Spor Salonu, Spor STEAM Fest ’26), and the two brand principles stay in
+ * English in both languages because that is how the team uses them.
  */
 export const tr: Dictionary = {
 	common: {
@@ -15,7 +19,8 @@ export const tr: Dictionary = {
 		menuOpen: 'Menüyü aç',
 		menuClose: 'Menüyü kapat',
 		languageLabel: 'Dil',
-		backToTop: 'Yukarı dön'
+		backToTop: 'Yukarı dön',
+		people: 'kişi'
 	},
 
 	nav: {
@@ -27,14 +32,30 @@ export const tr: Dictionary = {
 		contact: 'İletişim'
 	},
 
+	media: {
+		categories: {
+			team: 'Takım arşivi',
+			steamfest: 'Spor STEAM Fest ’26',
+			offseason: 'Trabzon Off-Season',
+			infrastructure: 'Altyapı',
+			robotics: 'Atölye',
+			trabzonspor: 'Kurumsal',
+			brand: 'Marka'
+		}
+	},
+
 	hero: {
-		eyebrow: 'FRC TAKIMI #11919',
-		titleTop: 'Ebeni',
+		eyebrow: 'Trabzonspor Ro6one Robotics',
+		titleTop: 'Sıradakini',
 		titleBottom: 'inşa et.',
-		description: 'Tasarlıyoruz, üretiyoruz, yarışıyoruz — ama iş tek bir sezonda bitmiyor.',
+		description:
+			'Şubat 2026’da Trabzon Merkez Fen Lisesi’nde kurulduk. Robotu da, etrafındaki organizasyonu da biz kuruyoruz.',
 		meta: {
-			season: 'Sezon',
-			team: 'Takım'
+			founded: 'Kuruluş',
+			foundedValue: 'Şubat 2026',
+			home: 'Yuva',
+			next: 'Sırada',
+			nextValue: 'İlk resmî sezon'
 		},
 		scroll: 'Keşfetmek için kaydır'
 	},
@@ -45,119 +66,242 @@ export const tr: Dictionary = {
 			description:
 				'Şasi, hareket sistemi ve mekanizmalar: konsept çiziminden maçtan sağlam çıkan parçaya kadar.'
 		},
-		design: {
-			name: 'CAD ve Tasarım',
+		cad: {
+			name: 'CAD',
 			description:
-				'Tam montaj CAD’i, tolerans kararları ve atölyenin gerçekten üzerinden ürettiği teknik resimler.'
-		},
-		software: {
-			name: 'Yazılım',
-			description:
-				'Robot kontrolü, algılama ve sürücü arayüzleri; ayrıca takımın günlük işini yürüten iç araçlar.'
+				'Tam montaj modelleme, tolerans kararları ve atölyenin gerçekten üzerinden ürettiği teknik resimler.'
 		},
 		electrical: {
 			name: 'Elektrik ve Elektronik',
 			description:
 				'Güç dağıtımı, kablolama disiplini, sensörler ve arızayı bir sonraki maçtan önce bulmak.'
 		},
-		media: {
-			name: 'Medya ve İletişim',
+		software: {
+			name: 'Yazılım',
 			description:
-				'Fotoğraf, video, kimlik ve dokümantasyon: işin başkaları için okunur hâle gelmesi.'
+				'Robot kontrolü, algılama ve sürücü arayüzleri; ayrıca takımın günlük işini yürüten iç araçlar.'
+		}
+	},
+
+	organization: {
+		hint: 'Bir alan seçin',
+		flex: {
+			name: 'İhtiyaca Göre Görev',
+			description:
+				'İşin olduğu yere giden esnek kapasite: üretim günleri, etkinlik operasyonu, çekim, hazırlık. Bir departman değil; bütün ağın içinde durduğu alan.'
 		},
-		operations: {
-			name: 'Organizasyon',
-			description: 'Planlama, lojistik, paydaş ilişkileri ve planı üretime çeviren bütçe.'
+		domains: {
+			engineering: {
+				name: 'Mühendislik',
+				description:
+					'Mekanik, CAD, elektrik ve yazılım. Makineyi ve onu şekillendiren kararları üstlenir.'
+			},
+			operations: {
+				name: 'Organizasyon',
+				description:
+					'Takımı hizada tutar: koordinasyon, planlama, kararlar, takip ve bir üretim haftasını yaşanabilir kılan iç destek.'
+			},
+			media: {
+				name: 'Medya',
+				description:
+					'Önce kayıt üzerine kurulu bir hat. Bir operatör arşivi sürekli büyütür, yönetim hangi hikâyelerin üretileceğine karar verir, iki kameracı o hikâyelerin ihtiyacını çeker, iki kurgucu uzun ve kısa formu ayrı ayrı toparlar.',
+				roles: {
+					capture: 'Kayıt — tek operatör, sürekli arşiv',
+					direction: 'Yönetim — neyin üretileceğine karar verir',
+					camera: 'İki kameracı — brief’e göre çeker',
+					edit: 'İki kurgucu — uzun form ve kısa form'
+				}
+			},
+			pr: {
+				name: 'PR liderleri',
+				description:
+					'Sosyal medya hesabı değil. Fırsatı bulan, fikri şekillendiren, kurumla iletişime geçen, kaba bir plan çıkaran, takıma sunan ve sonra işi en uygun kişiye devreden üç kişi.'
+			},
+			creative: {
+				name: 'Kreatif ve Hazırlık',
+				description:
+					'RO6ONE’ı dışarıda görünür kılan fikirler — seminerler, atölyeler, etkinlik alanları — ve o fikirlerin ihtiyaç duyduğu fiziksel malzemenin günü gelmeden hazırlanması.'
+			},
+			sponsorship: {
+				name: 'Sponsorluk',
+				description:
+					'Şirketleri, vakıfları ve kurumları araştırır, görüşmeleri ayarlar; malzeme, ayni ve finansal desteğe giden yolu açar.'
+			},
+			finance: {
+				name: 'Finans',
+				description: 'Geliri, gideri ve nakit akışını takip eder; üçünü de görünür tutar.'
+			}
+		},
+		pipeline: {
+			title: 'Bir proje nasıl başlar',
+			stages: {
+				spot: 'Fark et',
+				shape: 'Şekillendir',
+				reach: 'İletişime geç',
+				plan: 'Planla',
+				decide: 'Takım karar verir',
+				handOver: 'Devret'
+			},
+			note: 'Projeyi bulan kişinin, projeyi yürüten kişi olması gerekmiyor.'
+		},
+		platform: {
+			kicker: 'İç platform',
+			name: 'Ekip Ro6one',
+			description:
+				'Takım iletişimi, toplantılar ve dosyalar kendi kurduğumuz Nextcloud tabanlı ortamda yürüyor. Nextcloud’u biz yazmadık; onu yapılandırıyor, kendi geliştiricilerimizin yazdığı eklentilerle genişletiyor, loglarını kendi araçlarımızla yönetiyoruz. Alan adı, e-posta ve bu web sitesi de kendi işlettiğimiz altyapıda çalışıyor.',
+			facts: {
+				comms: 'Takım iletişimi',
+				meetings: 'Toplantılar',
+				mail: 'Kendi e-posta alan adımız',
+				site: 'Bu web sitesi'
+			}
+		}
+	},
+
+	events: {
+		facts: {
+			date: 'Tarih',
+			schools: 'Okul',
+			teams: 'Takım',
+			role: 'Rolümüz',
+			venue: 'Mekân',
+			support: 'Sponsor',
+			organiser: 'Organizatör'
+		},
+		coverageLabel: 'Kaynak',
+		steamfest: {
+			label: 'Spor STEAM Fest ’26',
+			title: 'Aynı anda iki yarışma yürüten bir spor salonu.',
+			lede: 'Dört okul. Bir futbol turnuvası, bir voleybol turnuvası ve maç aralarında bir kat dolusu STEM standı.',
+			court: {
+				title: 'Saha',
+				items: ['Erkekler futbol turnuvası', 'Kızlar voleybol turnuvası', 'Dört okul, tek tribün']
+			},
+			lab: {
+				title: 'Laboratuvar',
+				items: [
+					'TÜBİTAK ve TEKNOFEST projeleri',
+					'Kimya ve biyoloji standları',
+					'Mühendislik sergileri ve çizgi izleyen robotlar',
+					'Matematik standları',
+					'Aralarda kimya ve fizik gösterileri'
+				]
+			},
+			merge: {
+				title: 'Kesiştikleri yer',
+				body: 'Amaç, bir turnuvanın yanına usulca bilim fuarı kurmak değildi. Maç için gelen öğrenci kendini bir kimya gösterisinin önünde buldu; standlar için gelen öğrenci sahaya çıktı. “STEAM for STEM” pratikte tam olarak bu çarpışma demek.'
+			},
+			support:
+				'Trabzonspor sponsorluğunda, RO6ONE tarafından Trabzon Merkez Fen Lisesi’nde düzenlendi.',
+			schoolsLabel: 'Katılan okullar'
+		},
+		offseason: {
+			label: 'Trabzon Off-Season',
+			title: '21 takım Trabzon’a geldi.',
+			lede: 'Temmuz 2026, Hayri Gür Spor Salonu — Karadeniz Bölgesi’nde düzenlenen ilk FRC Off-Season; organizasyonu beş aylık bir takım üstlendi.',
+			body: [
+				'Türkiye’de FRC ağırlıkla tek bir hat üzerinde büyüdü: İstanbul, Ankara, İzmir. Bu kez İstanbul, Ankara, Bursa, Kocaeli ve Trabzon’dan takımlar robotlarını doğuya getirdi; bir spor salonunun içine kurulan tam sahaya.',
+				'Takımlar işin yalnızca yarısıydı. İçeri giren yerel öğrencilerin, ailelerin ve çocukların çoğu için bir FRC sahası ilk kez ulaşılabilir mesafedeydi — ve etkinlik ulusal basında yer aldı.'
+			],
+			originsLabel: 'Geldikleri şehirler',
+			proof: {
+				title: 'Kanıtladığı şey',
+				body: 'İlk olmamız değil. Haritanın üç şehirden ibaret olmadığı ve bir takım kurmaya karar verdiği anda bir bölgenin bunu ağırlayabildiği.'
+			},
+			mascot: 'Etkinliğin, yalnızca o üç gün için hazırlanmış kendi maskotu vardı.'
 		}
 	},
 
 	home: {
-		identity: {
-			label: 'Kimiz',
-			title: 'Mühendislik organizasyonu gibi çalışan bir robotik takımı.',
+		origin: {
+			label: 'Kuruluş',
+			title: 'Şubat 2026. Bu sitedeki her şey ondan sonra oldu.',
 			body: [
-				'RO6ONE, Trabzon merkezli bir FIRST Robotics Competition takımı. Her sezon bir yarışma robotu tasarlayıp üretiyoruz; bir yandan da sıradaki üretimi bir öncekinden iyi yapacak sistemleri, dokümantasyonu ve alışkanlıkları kuruyoruz.',
-				'Çizim, inceleme, prototip, ölçüm, hata, revizyon. Robot görünen sonuç; asıl inşa ettiğimiz şey süreç.'
+				'RO6ONE, Trabzon Merkez Fen Lisesi’nde neredeyse hiç FRC deneyimi olmayan öğrencilerle başladı: geçmiş bir üretim yok, arşiv yok, devralınacak bir süreç yok. Tasarlamamız gereken ilk şey takımın kendisiydi.',
+				'Martta Trabzonspor ile imzalanan iş birliği protokolü bu takıma kurumsal bir zemin verdi. Nisanda bir festival düzenledik. Temmuzda 21 takımlı bir turnuva organize ettik. İlk resmî yarışma sezonumuz ise hâlâ önümüzde.'
 			],
-			principles: [
-				{
-					term: 'STEAM for STEM',
-					gloss:
-						'Tasarım, iletişim ve zanaat birer mühendislik aracı; en sona eklenen bir süs değil.'
-				},
-				{
-					term: 'STEM for People',
-					gloss: 'Teknoloji, atölyenin dışındaki birine ulaştığında tamamlanmış olur.'
-				}
-			]
+			timelineLabel: 'Kuruluştan bu yana geçen ay',
+			schoolLabel: 'Yuva'
 		},
-		disciplines: {
-			label: 'Nasıl çalışıyoruz',
-			title: 'Tek bir makine, uyuşmak zorunda olan altı disiplin.',
-			lede: 'Bir sezon, mekanik bir problem olmadan önce bir entegrasyon problemi. Ortada buluşmak zorunda olan gruplar şunlar.'
+		timeline: {
+			formation: { name: 'Kuruluş', note: 'Trabzon Merkez Fen Lisesi' },
+			protocol: { name: 'Trabzonspor protokolü', note: 'İş birliği protokolü imzalandı' },
+			steamfest: { name: 'Spor STEAM Fest ’26', note: 'Dört okul; spor ve STEM aynı salonda' },
+			offseason: { name: 'Trabzon Off-Season', note: '21 takım, Hayri Gür Spor Salonu' },
+			season: { name: 'İlk resmî sezon', note: 'Önümüzde' }
 		},
-		continuity: {
-			label: 'Sezonun ötesinde',
-			title: 'Sezon biter. İş bitmez.',
-			body: 'Yarışmalar arasında prototip üretiyoruz, araçlarımızı yeniden kuruyoruz, öğrendiklerimizi yazıya geçiriyoruz ve sıradaki üretimi yürütecek kişileri yetiştiriyoruz. Süreklilik şans değil; bir tasarım kararı.',
-			items: [
-				{
-					name: 'Prototipleme',
-					description: 'Fikirler, sezon taahhüdüne dönüşmeden çok önce düşük maliyetle sınanır.'
-				},
-				{
-					name: 'Dokümantasyon',
-					description: 'Kararlar, gerekçesi hâlâ tazeyken yazıya geçer.'
-				},
-				{
-					name: 'Devir',
-					description: 'Her rolün, ihtiyaç doğmadan önce o rolü öğrenmiş bir devralanı var.'
-				}
-			]
+		monolith: {
+			label: 'Takım numarası',
+			assigned: 'FIRST tarafından atandı, 2026',
+			pivot:
+				'Yukarıdaki her şey ilk resmî sezonumuzdan önce oldu. Bundan sonrası, bunun sürmesi için kurduğumuz sistem.'
 		},
-		impact: {
-			label: 'Etki',
-			title: 'Atölyeden çıkan mühendislik.',
-			body: '“STEAM for STEM” ve “STEM for People” duvara asılan sloganlar değil. İşimizin nerede karşılık bulmasını istediğimizi anlatıyorlar: sınıflarda, başka takımların pit alanlarında, onu üretmemiş insanların elinde.',
-			link: 'Etki yaklaşımımız'
+		machine: {
+			label: 'Makine',
+			title: 'Dört disiplin, tek robot, tek teslim tarihi.',
+			lede: 'İlk resmî robotumuz önümüzde. Onu nasıl üreteceğimiz ise doğaçlama değil.',
+			link: 'Üretim nasıl ilerliyor'
 		},
-		team: {
-			label: 'Ekip',
-			title: 'Bir takım, bir organizasyondur.',
-			body: 'Bölümler, devirler, incelemeler, mentorluk. İşi öğrenciler yürütüyor; yapı da bunu mümkün kılıyor.',
-			link: 'Yapımıza bakın'
+		system: {
+			label: 'Organizasyon',
+			title: 'Takımı da robotu kurduğumuz gibi kuruyoruz.',
+			body: 'Yedi alan, bir esnek havuz ve kendi işlettiğimiz bir platform. Kimse bir kutuya kilitli değil: rol, nerede sorumlu olduğunuzu söyler; nerede çalışabileceğinizi değil.',
+			link: 'Takım nasıl çalışıyor'
 		},
-		partners: {
-			label: 'Paydaşlar',
-			title: 'Sezonları mümkün kılan şey, takımın dışındaki insanlar.',
-			body: 'Malzeme, işleme zamanı, takım-tezgâh, ulaşım, mentorluk, bütçe. Trabzon’da mühendislik eğitimini desteklemek istiyorsanız bunun somut bir yolu var.',
-			link: 'Destek yolları'
+		principles: {
+			label: 'İlkeler',
+			title: 'Kendimizi sürekli sınadığımız iki cümle.',
+			steam: {
+				term: 'STEAM for STEM',
+				body: 'Tasarım, spor, film ve yazı; teknik işin, teknik iş için gelmemiş birine ulaşma yolu. Spor STEAM Fest, bu savın bir spor salonuna kurulmuş hâliydi.'
+			},
+			people: {
+				term: 'STEM for People',
+				body: 'Bir saha, yalnızca ona ulaşabilenlerin işine yarar. Trabzon’a bir saha getirmek, bizim için başkasının sahasına gitmekten daha önemliydi.'
+			},
+			link: 'Etkiyi ayrıntısıyla gör'
+		},
+		institutional: {
+			label: 'Kurumsal',
+			title: 'Bu şehrin zaten bildiği bir adla yarışıyoruz.',
+			body: [
+				'Mart 2026’da Trabzonspor ile Trabzon Merkez Fen Lisesi arasında bilim, teknoloji ve mühendislik alanında bir iş birliği protokolü imzalandı: ulusal ve uluslararası yarışmalar boyunca FRC takımına malzeme ve ayni destek, ve tek bir sezondan uzun sürmesi amaçlanan bir ilişki.',
+				'Takımın adının Trabzonspor Ro6one Robotics olmasının sebebi bu; 21 takımlı bir turnuvanın burada yapılabilmesinin sebeplerinden biri de. Robotu yine de biz üreteceğiz.'
+			],
+			link: 'İlişkinin ayrıntısı'
 		},
 		contact: {
 			label: 'İletişim',
 			title: 'Bize yazın.',
-			body: 'Takımı desteklemek, birlikte bir şey üretmek ya da yalnızca bir işi nasıl yaptığımızı sormak için.',
+			body: 'Şirketler, öğretmenler, öğrenciler, diğer takımlar, basın. İki adres, üç kanal ve sessizce hiçbir yere gitmeyen bir form yok.',
 			link: 'İletişime geçin'
 		}
 	},
 
 	about: {
 		eyebrow: 'Hakkımızda',
-		title: 'Her sezon bir robot, her an bir organizasyon kuruyoruz.',
-		lede: 'RO6ONE Robotics, Trabzon merkezli FRC #11919 takımı. Bu sayfa işe nasıl baktığımızı anlatıyor.',
+		title: 'Robotu üretebilmek için önce kendi sürecini kurmak zorunda kalan bir takım.',
+		lede: 'RO6ONE Robotics — tam adıyla Trabzonspor Ro6one Robotics — Şubat 2026’da Trabzon Merkez Fen Lisesi’nde kurulan FRC #11919 takımı.',
 		story: {
 			title: 'Kısa hâli',
 			body: [
-				'Bir FIRST Robotics Competition sezonu takıma yoğun birkaç hafta veriyor: yeni bir oyun, yeni kısıtlar ve belirli bir tarihte var olmak zorunda olan bir makine. Sıkı bir takvime bağlanmış bir mühendislik problemi.',
-				'Bu tarihi amaç değil, zorlayıcı bir mekanizma olarak görüyoruz. Sezonun ürettiği şey robot; bizde kalan şey yöntem — kararların nasıl alındığı, parçaların nasıl belgelendiği, yeni birinin iki ay değil iki haftada nasıl faydalı hâle geldiği.',
-				'Bu site de bu yüzden var. Yazılmayan iş, yeniden keşfedilmek zorunda kalan iştir.'
+				'Şubat 2026’da Trabzon Merkez Fen Lisesi’nde bir grup öğrenci FIRST Robotics Competition’a girmeye karar verdi. Neredeyse hiçbirinin deneyimi yoktu. Öğrenilecek geçmiş bir üretim, bir arşiv, yazılı bir çalışma biçimi yoktu; dolayısıyla ilk mühendislik problemi makine değil, takımın kendisiydi.',
+				'Mentörümüzün yönlendirmesiyle yapı hızla oturdu: sorumluluğu net disiplinler, onları hizada tutan bir organizasyon grubu ve kararları gerekçesi tazeyken yazıya geçirme alışkanlığı.',
+				'Beş ay sonra dört okula bir festival düzenlemiş ve 21 takımlı bir FRC Off-Season organize etmiştik. Hâlâ resmî bir sezonda yarışmadık. Sırada o var; ve bu takımın ilk kez organize ettiği işle değil, bir puan tablosuyla ölçüleceği yer orası olacak.'
+			]
+		},
+		home: {
+			title: 'Yuva',
+			body: [
+				'Trabzon Merkez Fen Lisesi, takımın kurulduğu ve hâlâ çalıştığı yer. Okul bir dekor değil: öğrenci havuzu da, atölye de, ilk seyirci de aynı koridorlardan çıktı.',
+				'Daha geniş kimlik Mart 2026’da geldi; Trabzonspor ile okul arasında bilim, teknoloji ve mühendislik alanında bir iş birliği protokolü imzalandı. O günden beri takım Trabzonspor Ro6one Robotics adıyla yarışıyor.'
 			]
 		},
 		frc: {
 			title: 'FRC nedir, bağlamıyla',
 			body: [
-				'FIRST Robotics Competition uluslararası bir lise programı: takımlara bir oyun ve sınırlı bir üretim süresi veriliyor, ardından bölgesel etkinliklerde yarışıyorlar. Robot büyük bir beyaz eşya boyutunda ve hızla başka robotların üzerine sürülmeye dayanmak zorunda.',
-				'Program aynı zamanda robotun etrafındaki her şeyle ilgili: sosyal etki, dokümantasyon, güvenlik, iletişim ve takımı tek bir mezun kuşağın ötesinde ayakta tutmak.'
+				'FIRST Robotics Competition uluslararası bir lise programı: takımlara bir oyun ve sınırlı bir üretim süresi veriliyor, ardından resmî etkinliklerde yarışıyorlar. Robot büyük bir beyaz eşya boyutunda ve hızla başka robotların üzerine sürülmeye dayanmak zorunda.',
+				'Program aynı zamanda robotun etrafındaki her şeyle ilgili: sosyal etki, dokümantasyon, güvenlik, iletişim ve takımı tek bir mezun kuşağın ötesinde ayakta tutmak. Yeni bir takımın hemen başlayabileceği kısım burası; biz de buradan başladık.'
 			]
 		},
 		principles: {
@@ -176,28 +320,37 @@ export const tr: Dictionary = {
 					description: 'En ucuz hata, malzeme pahalı hâle gelmeden önce yapılan hatadır.'
 				},
 				{
-					name: 'Önce bitir, sonra iyileştir',
+					name: 'Kutunun değil, alanın sahibi ol',
 					description:
-						'Maç günü çalışan bir alt sistem, zarif ama bitmemiş olanı her seferinde geçer.'
+						'Rol, neyden sorumlu olduğunu tarif eder; dokunmana izin verilen tek işi değil.'
 				},
 				{
 					name: 'İşi anlat',
 					description:
-						'Bir tasarım kararını takım dışından birine anlatamıyorsak, onu henüz anlamamışız demektir.'
+						'Bir kararı takım dışından birine anlatamıyorsak, onu henüz anlamamışız demektir.'
 				}
 			]
 		},
-		organisation: {
-			title: 'Yapı',
-			body: 'Takım, üretimin bir parçasını üstlenen disiplinlere ayrılıyor; kesiştikleri yerlerde ortak incelemeler yapılıyor. Roller bilinçli olarak devredilir; böylece bir öğrenci mezun olduğunda bilgi takımdan çıkmaz.',
-			cta: 'Bölümleri görün'
+		next: {
+			title: 'Sırada ne var',
+			body: 'İlk resmî sezon, ilk yarışma robotu ve bu yıl başlattığımız işlerin ikinci baskısı. Aradaki her şeyi, bizden sonra gelen takım bizden hızlı olsun diye kuruyoruz.',
+			cta: 'Takımın nasıl örgütlendiğini gör'
 		}
 	},
 
 	robotics: {
 		eyebrow: 'Robotik',
 		title: 'Makine ve çalışması için doğru olması gereken her şey.',
-		lede: 'Yarışma robotları, prototipler, yazılım ve bunların etrafındaki araçlar.',
+		lede: 'İlk resmî yarışma robotumuz önümüzde. Bu sayfa, onun içinde üretileceği yapıyı anlatıyor.',
+		status: {
+			label: 'Üretim durumu',
+			value: 'Sezon öncesi',
+			note: 'Henüz resmî bir yarışma robotu yok. Bu sayfa hayalî render’larla değil, gerçek makinelerle dolacak.'
+		},
+		disciplines: {
+			title: 'Kim neyi üretiyor',
+			lede: 'Sorumluluğu net, kesişimi sürekli dört disiplin.'
+		},
 		subsystems: {
 			title: 'Bir sezon robotu nelerden oluşur',
 			lede: 'Her yıl oyun değişiyor, mekanizmalar da onunla değişiyor. Alttaki katmanlar tanıdık kalıyor.',
@@ -275,8 +428,8 @@ export const tr: Dictionary = {
 				planned: 'Planlanan'
 			},
 			empty: {
-				title: 'Dokümantasyon hazırlanıyor',
-				body: 'Proje kayıtları üretim notlarından yazılıyor. Bu dizin tek bir içerik dosyasını okuyor ve kayıtlar eklendikçe doluyor.'
+				title: 'Burada uydurma hiçbir şey yok',
+				body: 'Kayıtlar, iş belgelendikçe sezonu, disiplini ve durumuyla birlikte görünecek. Boş bir dizin, kurgu bir dizinden daha faydalıdır.'
 			}
 		}
 	},
@@ -284,14 +437,14 @@ export const tr: Dictionary = {
 	impact: {
 		eyebrow: 'Etki',
 		title: 'STEAM for STEM. STEM for People.',
-		lede: 'Mühendisliğin kimin için olduğu konusunda kendimizi dürüst tutmak için kullandığımız iki ifade.',
+		lede: 'İki ilke ve bu ilkeleri gerçekten savunup savunmadığımızı anlamak için yaptığımız iki proje.',
 		steam: {
 			title: 'STEAM for STEM',
-			body: 'STEM’e sanatı ve tasarımı eklemek süsleme değil. Çizmek, yazmak, çekmek ve anlatmak; teknik işin anlaşılır hâle gelme biçimi — ve tasarım için gelen bir öğrencinin sonunda statik öğrenme biçimi.'
+			body: 'STEM’e sanatı, tasarımı ve sporu eklemek süsleme değil. Çizmek, çekmek, yazmak ve anlatmak; teknik işin anlaşılır hâle gelme biçimi — ve başka bir şey için gelen öğrencinin sonunda statik öğrenme biçimi.'
 		},
 		people: {
 			title: 'STEM for People',
-			body: 'Yalnızca başka robotik takımlarını etkileyen bir robotun izleyicisi azdır. İşin, hayatında hiç pit alanına girmeyecek insanlar için de kullanışlı olmasını istiyoruz: ne okuyacağına karar veren öğrenciler, materyal arayan öğretmenler, atölyede ne olduğunu merak eden komşular.'
+			body: 'Yalnızca başka robotik takımlarını etkileyen bir robotun izleyicisi azdır. İşin, hayatında hiç pit alanına girmeyecek insanlar için de kullanışlı olmasını istiyoruz: ne okuyacağına karar veren öğrenciler, materyal arayan öğretmenler, atölyede ne olduğunu merak eden aileler.'
 		},
 		focus: {
 			title: 'Odaklandığımız alanlar',
@@ -311,15 +464,15 @@ export const tr: Dictionary = {
 						'Türkiye’deki FRC ekosistemi bir takım kazandığında değil, takımlar birbirine mentorluk ettiğinde büyüyor.'
 				},
 				{
-					name: 'Sorumlu üretim',
+					name: 'Bölgesel erişim',
 					description:
-						'Malzemenin yeniden kullanımı, tamir edilebilirlik ve bir üretimin gerçek maliyetinin dürüst hesabı.'
+						'Alışıldık olmayan yerlerde etkinlikler, atölyeler ve sahalar. Mesafe bir erişilebilirlik problemidir.'
 				}
 			]
 		},
 		record: {
 			title: 'Program kayıtları',
-			body: 'Tek tek atölyeler, ziyaretler ve iş birlikleri; belgelendikçe tarihleriyle ve gerçekte ne yapıldığıyla birlikte burada listelenecek.'
+			body: 'Şimdiye kadar iki proje; ikisi de bu sayfada belgeli. Bundan sonraki atölyeler, ziyaretler ve iş birlikleri gerçekleştikçe tarihleriyle ve gerçekte ne yapıldığıyla buraya eklenecek — erişim rakamlarıyla değil.'
 		},
 		collaborate: {
 			title: 'Birlikte çalışın',
@@ -331,22 +484,30 @@ export const tr: Dictionary = {
 	team: {
 		eyebrow: 'Ekip',
 		title: 'Bu işi öğrenciler yürütüyor. Yapı da bunun nasılı.',
-		lede: 'RO6ONE; sorumlulukları net, kesişimleri bilinçli disiplinlere ayrılmış durumda.',
+		lede: 'RO6ONE bir sorumluluk ağı olarak örgütlendi: net sahiplik, bilinçli kesişim ve işin olduğu yere giden insanlar.',
 		structure: {
-			title: 'Bölümler',
-			lede: 'Her bölüm üretimin bir parçasını üstleniyor ve ortak incelemelerde hesap veriyor.'
+			title: 'Ağ',
+			lede: 'Tek bir esnek havuzun içinde yedi alan. Alanın neyi üstlendiğini görmek için üzerine gidin.'
+		},
+		engineering: {
+			title: 'Mühendislik disiplinleri',
+			lede: 'Mühendisliğin içinde makineyi paylaşan dört disiplin var.'
+		},
+		platform: {
+			title: 'Organizasyonu kurmak',
+			lede: 'Takım, bakımını takımın yaptığı bir altyapı üzerinde çalışıyor.'
 		},
 		roster: {
 			title: 'Üyeler',
 			lede: 'Profiller her sezon güncelleniyor.',
 			empty: {
 				title: 'Üye profilleri hazırlanıyor',
-				body: 'Bu bölüm tek bir içerik dosyasından üretiliyor. İsimler, roller ve fotoğraflar eklendiğinde kartlar burada bölümlere göre gruplanarak görünecek.'
+				body: 'İsimler ve portreler yalnızca rıza alındığında yayımlanıyor; o tamamlanana kadar bu bölüm kapalı kalıyor. Bölüm tek bir içerik dosyasından üretiliyor ve kişileri otomatik olarak alanlarına göre grupluyor.'
 			}
 		},
 		join: {
 			title: 'Takıma katılmak',
-			body: 'Trabzon’da bir şeyler üretmek isteyen bir öğrenciysen bize yaz. Burada tasarım, yazı, çekim, bütçe ve organizasyon; talaşlı imalat kadar önemli.',
+			body: 'Trabzon’da bir şeyler üretmek isteyen bir öğrenciysen bize yaz. Burada tasarım, yazı, çekim, bütçe ve organizasyon; talaşlı imalat kadar önemli — ve çoğu kişi bunlardan birden fazlasını yapıyor.',
 			cta: 'Takımla iletişime geçin'
 		}
 	},
@@ -354,7 +515,18 @@ export const tr: Dictionary = {
 	partners: {
 		eyebrow: 'Paydaşlar',
 		title: 'Destek, planı bir makineye dönüştürür.',
-		lede: 'FRC’de paydaşlık, reklamdan çok endüstriyel iş birliğine yakın.',
+		lede: 'Bir kurumsal ilişki, bir okul ve sonra katılacak kurumlar için ayrılmış yer.',
+		institutional: {
+			title: 'Trabzonspor',
+			body: [
+				'Mart 2026’da Trabzonspor ile Trabzon Merkez Fen Lisesi arasında bilim, teknoloji ve mühendislik alanında bir iş birliği protokolü imzalandı. Protokol, kulübün FRC takımını ulusal ve uluslararası yarışmalar boyunca malzeme ve ayni katkılarla desteklemesini öngörüyor ve ilişkiyi tek seferlik bir sponsorluk değil, sürdürülebilir bir bağ olarak tanımlıyor.',
+				'Bir ay önce kurulmuş bir takım için bu protokol mümkün olanı değiştirdi. Trabzonspor Ro6one Robotics adıyla yarışmamızın sebebi bu; Temmuzda Trabzon’da bir FRC Off-Season düzenlenebilmesinin sebeplerinden biri de.'
+			],
+			schoolTitle: 'Trabzon Merkez Fen Lisesi',
+			schoolBody:
+				'Takımın kurulduğu ve hâlâ çalıştığı okul: atölye, öğrenci havuzu ve ürettiğimiz her şeyin ilk seyircisi.',
+			since: 'Protokol tarihi'
+		},
 		why: {
 			title: 'Burada paydaşlık ne demek',
 			body: [
@@ -393,28 +565,28 @@ export const tr: Dictionary = {
 			]
 		},
 		current: {
-			title: 'Mevcut paydaşlar',
+			title: 'Destekçiler',
 			lede: 'İçinde bulunduğumuz sezonu destekleyen kurumlar.',
 			empty: {
-				title: 'Bu liste takım tarafından güncelleniyor',
-				body: 'Paydaş adları, logoları ve açıklamaları tek bir içerik dosyasından geliyor. Bir paydaşlık teyit edilmeden burada hiçbir şey görünmüyor.'
+				title: 'Bu liste doldurulmuyor, yayımlanıyor',
+				body: 'İsimler ancak paydaşlık teyit edildiğinde ve kurum adının yazılmasından memnun olduğunda burada görünür. Devam eden görüşmeler o ana kadar gizli kalır.'
 			}
 		},
 		pack: {
-			title: 'Destek dosyası',
-			body: 'İndirilebilir paydaşlık dosyası tamamlandığında buraya eklenecek.'
+			title: 'Paydaşlık dosyası',
+			body: 'İndirilebilir paydaşlık dosyası hazırlanıyor. Tamamlanana kadar bize yazın, güncel sürümü gönderelim.'
 		},
 		cta: {
 			title: 'Konuşmaya başlayalım',
 			body: 'Neyi sunabileceğinizi yazın; tam olarak nereye gittiğini anlatalım.',
-			action: 'İletişime geçin'
+			action: 'Paydaşlık başvuruları'
 		}
 	},
 
 	contact: {
 		eyebrow: 'İletişim',
 		title: 'İletişime geçin.',
-		lede: 'Takıma ulaşmanın doğrudan yolları.',
+		lede: 'İki adres, üç kanal; hepsi gerçek.',
 		reasons: {
 			title: 'Bize kimler yazıyor',
 			items: [
@@ -438,22 +610,24 @@ export const tr: Dictionary = {
 		},
 		channels: {
 			title: 'Doğrudan',
-			emailLabel: 'E-posta',
-			emailPending: 'Buraya herkese açık bir adres eklenecek.',
+			generalLabel: 'Genel',
+			generalNote: 'Sorular, iş birliği, basın ve diğer her şey.',
+			sponsorshipLabel: 'Paydaşlık',
+			sponsorshipNote: 'Sponsorluk, malzeme desteği, kurumsal iletişim.',
 			locationLabel: 'Merkez',
-			socialLabel: 'Diğer kanallar',
-			socialPending: 'Resmî hesaplar teyit edildiğinde burada bağlanacak.'
+			socialLabel: 'Kanallar',
+			copy: 'Adresi kopyala',
+			copied: 'Kopyalandı'
 		},
 		form: {
 			title: 'Mesaj yazın',
-			note: 'Bu form mesajı kendi e-posta uygulamanızda oluşturur. Bu sayfadan hiçbir şey gönderilmez ve hiçbir veri saklanmaz.',
+			note: 'Bu form, mesajı kendi e-posta uygulamanızda taslak olarak oluşturur. Bu sayfadan hiçbir şey gönderilmez ve hiçbir veri saklanmaz.',
 			name: 'Adınız',
 			email: 'E-posta adresiniz',
 			subject: 'Konu',
+			topicLabel: 'Gideceği adres',
 			message: 'Mesajınız',
 			submit: 'E-posta uygulamasında aç',
-			unavailable:
-				'Henüz herkese açık bir iletişim adresi yayınlanmadı, bu yüzden form şimdilik devre dışı. Adres eklendiği anda etkinleşecek.',
 			optional: 'İsteğe bağlı'
 		}
 	},
@@ -462,6 +636,7 @@ export const tr: Dictionary = {
 		explore: 'Keşfet',
 		connect: 'Bağlan',
 		identity: 'Kimlik',
+		homeLabel: 'Yuva',
 		rights: 'Tüm hakları saklıdır.',
 		first:
 			'FIRST®, FIRST® Robotics Competition ve FRC® isimleri FIRST®’e ait ticari markalardır. FIRST® bu siteye sponsor değildir ve siteyi onaylamamaktadır.'
@@ -481,39 +656,39 @@ export const tr: Dictionary = {
 
 	seo: {
 		home: {
-			title: 'RO6ONE Robotics — FRC Takımı #11919',
+			title: 'Trabzonspor Ro6one Robotics — FRC Takımı #11919',
 			description:
-				'RO6ONE Robotics, Trabzon’dan FIRST Robotics Competition #11919 takımı. Tasarlıyoruz, üretiyoruz, yarışıyoruz — ve iş tek bir sezonda bitmiyor.'
+				'Trabzon’dan FRC #11919 takımı. Şubat 2026’da Trabzon Merkez Fen Lisesi’nde kuruldu: Spor STEAM Fest ’26, Karadeniz’in ilk FRC Off-Season’ı ve önümüzdeki ilk resmî sezon.'
 		},
 		about: {
 			title: 'Hakkımızda',
 			description:
-				'Trabzon’dan FRC #11919 takımı RO6ONE Robotics’in mühendisliğe, dokümantasyona ve sezonlar arası sürekliliğe yaklaşımı.'
+				'Trabzonspor Ro6one Robotics’in Şubat 2026’daki kuruluşu, Trabzon Merkez Fen Lisesi’ndeki yuvası, Trabzonspor iş birliği protokolü ve takımın çalışma biçimi.'
 		},
 		robotics: {
 			title: 'Robotik',
 			description:
-				'Yarışma robotları, prototipler, yazılım ve araçlar: bir RO6ONE üretiminin oyunu okumaktan sezon sonu değerlendirmesine kadar izlediği yol.'
+				'FRC #11919 takımının ilk resmî yarışma robotunun arkasındaki disiplinler, alt sistemler ve üretim süreci.'
 		},
 		impact: {
 			title: 'Etki',
 			description:
-				'STEAM for STEM, STEM for People — RO6ONE Robotics’in sosyal etki, açık dokümantasyon ve atölyeden çıkan mühendisliğe bakışı.'
+				'Spor STEAM Fest ’26 ve Trabzon Off-Season: RO6ONE’ın FRC’yi ve STEAM’i Doğu Karadeniz’e taşıma biçimi.'
 		},
 		team: {
 			title: 'Ekip',
 			description:
-				'RO6ONE Robotics’i oluşturan bölümler: mekanik, CAD ve tasarım, yazılım, elektrik-elektronik, medya ve organizasyon.'
+				'RO6ONE’ın arkasındaki sorumluluk ağı: mühendislik, organizasyon, medya, PR, kreatif, sponsorluk ve finans — ve takımın kendi işlettiği platform Ekip Ro6one.'
 		},
 		partners: {
 			title: 'Paydaşlar',
 			description:
-				'Trabzon’daki FRC #11919 takımını desteklemenin yolları: malzeme, işleme, takım-tezgâh, lojistik, mentorluk ve finansal destek.'
+				'Trabzonspor iş birliği protokolü, Trabzon Merkez Fen Lisesi ve kurumların FRC #11919 takımını destekleme yolları.'
 		},
 		contact: {
 			title: 'İletişim',
 			description:
-				'Trabzon merkezli FRC #11919 takımı RO6ONE Robotics’e ulaşın — destek, iş birliği, atölyeler ya da takıma katılmak için.'
+				'Trabzonspor Ro6one Robotics’e ulaşın — genel konular için iletisim@ro6one.com, paydaşlık için sponsorluk@ro6one.com.'
 		}
 	}
 };

@@ -24,9 +24,13 @@ Per pixel, at a low resolution that is then scaled up by the browser:
    still catches light when the pointer is far away.
 4. **Anisotropy.** The normal's Y component is damped when computing the specular term, which
    stretches the highlight horizontally — the visual signature of a brushed finish.
-5. **Tone.** Base graphite `rgb(13 14 17)` with the blue channel weighted slightly highest, an
-   ordered 4×4 Bayer dither to break up banding in the dark tones, and a mild vignette that reads
-   as the viewing character of the surface rather than a separate oval light.
+5. **Tone.** Base graphite `rgb(13 14 17)`, an ordered 4×4 Bayer dither to break up banding in
+   the dark tones, and a mild vignette that reads as the viewing character of the surface rather
+   than a separate oval light.
+6. **Institutional colour, as light.** The key light's specular tip carries a few units of extra
+   red (a burgundy warmth) and the fixed fill light carries extra blue (a navy coolness). The base
+   material stays neutral graphite, so the club colours only appear where the surface curves into
+   the light — felt rather than seen. Channel weights live at the end of `renderSurface`.
 
 The pointer does not drag the light around directly: the target is smoothed by a small
 spring/damper (X slightly faster than Y), so the highlight follows with weight.

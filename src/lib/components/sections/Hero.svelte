@@ -37,20 +37,25 @@
 		</div>
 
 		<div class="hero__foot">
-			<a class="hero__scroll" href="#identity">
+			<a class="hero__scroll" href="#origin">
 				<span>{i18n.t.hero.scroll}</span>
 				<span class="hero__scroll-line" aria-hidden="true"></span>
 			</a>
 
 			<dl class="hero__meta">
 				<div class="hero__meta-item">
-					<dt class="label">{i18n.t.hero.meta.season}</dt>
-					<dd>{site.season.label}</dd>
+					<dt class="label">{i18n.t.hero.meta.founded}</dt>
+					<dd>{i18n.t.hero.meta.foundedValue}</dd>
 				</div>
 
 				<div class="hero__meta-item">
-					<dt class="label">{i18n.t.hero.meta.team}</dt>
-					<dd>{site.teamLabel}</dd>
+					<dt class="label">{i18n.t.hero.meta.home}</dt>
+					<dd>{site.school}</dd>
+				</div>
+
+				<div class="hero__meta-item hero__meta-item--next">
+					<dt class="label">{i18n.t.hero.meta.next}</dt>
+					<dd>{i18n.t.hero.meta.nextValue}</dd>
 				</div>
 			</dl>
 		</div>
@@ -257,6 +262,22 @@
 		font-weight: 500;
 		letter-spacing: -0.01em;
 		color: var(--text-secondary);
+	}
+
+	/* The one forward-looking fact in the strip gets the live marker. */
+	.hero__meta-item--next dd {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.hero__meta-item--next dd::before {
+		content: '';
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: var(--signal);
+		box-shadow: 0 0 0 3px var(--signal-dim);
 	}
 
 	/* ------------------------------------------------------------- entrance */

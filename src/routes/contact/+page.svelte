@@ -13,18 +13,34 @@
 	let email = $state('');
 	let subject = $state('');
 	let message = $state('');
+	let topic = $state<'general' | 'sponsorship'>('general');
+
+	const recipient = $derived(
+		topic === 'sponsorship' ? site.contact.sponsorship : site.contact.general
+	);
+
+	const mailChannels = $derived([
+		{
+			id: 'general',
+			address: site.contact.general,
+			label: copy.channels.generalLabel,
+			note: copy.channels.generalNote
+		},
+		{
+			id: 'sponsorship',
+			address: site.contact.sponsorship,
+			label: copy.channels.sponsorshipLabel,
+			note: copy.channels.sponsorshipNote
+		}
+	]);
 
 	/*
-	 * The form is honest about what it does: it composes a draft in the
-	 * visitor's own mail client. There is no backend, so it never claims a
-	 * message was sent — and it stays disabled until a real address exists.
+	 * No backend, and the page says so. Submitting composes a draft in the
+	 * visitor's own mail client, addressed to whichever channel they picked —
+	 * nothing is transmitted from here and nothing is stored.
 	 */
-	const canSend = $derived(Boolean(site.contact.email));
-
 	function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
-
-		if (!canSend) return;
 
 		const body = [message, '', `— ${name}${email ? ` <${email}>` : ''}`].join('\n');
 		const query = new URLSearchParams({
@@ -32,7 +48,22 @@
 			body
 		});
 
-		window.location.href = `mailto:${site.contact.email}?${query.toString()}`;
+		window.location.href = `mailto:${recipient}?${query.toString()}`;
+	}
+
+	let copiedAddress = $state('');
+	let copyTimer: ReturnType<typeof setTimeout> | undefined;
+
+	async function copyAddress(address: string) {
+		try {
+			await navigator.clipboard.writeText(address);
+			copiedAddress = address;
+
+			clearTimeout(copyTimer);
+			copyTimer = setTimeout(() => (copiedAddress = ''), 2000);
+		} catch {
+			/* Clipboard blocked: the address is visible and selectable anyway. */
+		}
 	}
 </script>
 
@@ -41,6 +72,43 @@
 <PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
 
 <Section index="01" rule={false}>
+	<!-- Addresses are written out, readable and copyable — not hidden behind icons. -->
+	<div class="channels">
+		{#each mailChannels as channel (channel.id)}
+			<article class="channel" use:reveal>
+				<p class="label">{channel.label}</p>
+				<a class="channel__address" href="mailto:{channel.address}">{channel.address}</a>
+				<p class="channel__note">{channel.note}</p>
+
+				<button type="button" class="channel__copy" onclick={() => copyAddress(channel.address)}>
+					{copiedAddress === channel.address ? copy.channels.copied : copy.channels.copy}
+				</button>
+			</article>
+		{/each}
+
+		<article class="channel channel--social" use:reveal={{ delay: 80 }}>
+			<p class="label">{copy.channels.socialLabel}</p>
+
+			<ul>
+				{#each site.social as link (link.id)}
+					<li>
+						<a href={link.href} target="_blank" rel="me noopener">
+							<span class="channel__platform">{link.label}</span>
+							<span class="channel__handle">{link.handle}</span>
+						</a>
+					</li>
+				{/each}
+			</ul>
+
+			<dl class="channel__place">
+				<dt class="label">{copy.channels.locationLabel}</dt>
+				<dd>{site.location}</dd>
+			</dl>
+		</article>
+	</div>
+</Section>
+
+<Section index="02" tone="void">
 	<div class="contact">
 		<div class="contact__left">
 			<h2 class="contact__title" use:reveal>{copy.reasons.title}</h2>
@@ -53,48 +121,28 @@
 					</li>
 				{/each}
 			</ul>
-
-			<dl class="channels" use:reveal>
-				<div class="channel">
-					<dt class="label">{copy.channels.emailLabel}</dt>
-					<dd>
-						{#if site.contact.email}
-							<a class="channel__link" href="mailto:{site.contact.email}">{site.contact.email}</a>
-						{:else}
-							<span class="channel__pending">{copy.channels.emailPending}</span>
-						{/if}
-					</dd>
-				</div>
-
-				<div class="channel">
-					<dt class="label">{copy.channels.locationLabel}</dt>
-					<dd>{site.location}</dd>
-				</div>
-
-				<div class="channel">
-					<dt class="label">{copy.channels.socialLabel}</dt>
-					<dd>
-						{#if site.social.length > 0}
-							<ul class="channel__social">
-								{#each site.social as link (link.href)}
-									<li>
-										<a class="channel__link" href={link.href} target="_blank" rel="me noopener">
-											{link.label}
-										</a>
-									</li>
-								{/each}
-							</ul>
-						{:else}
-							<span class="channel__pending">{copy.channels.socialPending}</span>
-						{/if}
-					</dd>
-				</div>
-			</dl>
 		</div>
 
 		<form class="form" onsubmit={handleSubmit} use:reveal={{ delay: 80 }}>
 			<h2 class="form__title">{copy.form.title}</h2>
 			<p class="form__note" id="form-note">{copy.form.note}</p>
+
+			<fieldset class="topic">
+				<legend class="label">{copy.form.topicLabel}</legend>
+
+				<div class="topic__options">
+					<label class="topic__option">
+						<input type="radio" name="topic" value="general" bind:group={topic} />
+						<span>{copy.channels.generalLabel}</span>
+					</label>
+					<label class="topic__option">
+						<input type="radio" name="topic" value="sponsorship" bind:group={topic} />
+						<span>{copy.channels.sponsorshipLabel}</span>
+					</label>
+				</div>
+
+				<p class="topic__target">{recipient}</p>
+			</fieldset>
 
 			<div class="field">
 				<label for="field-name">{copy.form.name}</label>
@@ -119,23 +167,115 @@
 				<textarea id="field-message" name="message" rows="6" bind:value={message}></textarea>
 			</div>
 
-			<button
-				class="form__submit"
-				type="submit"
-				disabled={!canSend}
-				aria-describedby={canSend ? 'form-note' : 'form-unavailable'}
-			>
+			<button class="form__submit" type="submit" aria-describedby="form-note">
 				{copy.form.submit}
 			</button>
-
-			{#if !canSend}
-				<p class="form__unavailable" id="form-unavailable">{copy.form.unavailable}</p>
-			{/if}
 		</form>
 	</div>
 </Section>
 
 <style>
+	/* -------------------------------------------------------------- channels */
+
+	.channels {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: clamp(1rem, 2.5vw, 2rem);
+	}
+
+	.channel {
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+
+		padding: clamp(1.25rem, 2.5vw, 1.85rem);
+		border: 1px solid var(--edge-faint);
+		border-radius: var(--radius-m);
+		background: linear-gradient(180deg, rgb(244 244 242 / 0.02), transparent 70%);
+	}
+
+	.channel__address {
+		align-self: flex-start;
+
+		font-size: var(--type-body-lg);
+		letter-spacing: -0.015em;
+		color: var(--text-primary);
+		border-bottom: 1px solid var(--edge);
+		transition: border-color var(--duration-fast) var(--ease-out);
+	}
+
+	.channel__address:hover {
+		border-color: var(--signal);
+	}
+
+	.channel__note {
+		font-size: var(--type-small);
+		line-height: 1.55;
+		color: var(--text-muted);
+	}
+
+	.channel__copy {
+		align-self: flex-start;
+		margin-top: auto;
+		padding-top: var(--space-s);
+
+		font-family: var(--font-mono);
+		font-size: var(--type-micro);
+		letter-spacing: var(--tracking-label);
+		text-transform: uppercase;
+		color: var(--text-faint);
+		transition: color var(--duration-fast) var(--ease-out);
+	}
+
+	.channel__copy:hover {
+		color: var(--text-secondary);
+	}
+
+	.channel--social ul {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.channel--social a {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.75rem;
+
+		padding-block: 0.35rem;
+		border-bottom: 1px solid var(--edge-faint);
+		color: var(--text-secondary);
+		transition: color var(--duration-fast) var(--ease-out);
+	}
+
+	.channel--social a:hover {
+		color: var(--text-primary);
+	}
+
+	.channel__platform {
+		font-size: var(--type-small);
+		font-weight: 500;
+	}
+
+	.channel__handle {
+		font-family: var(--font-mono);
+		font-size: var(--type-micro);
+		color: var(--text-muted);
+	}
+
+	.channel__place {
+		margin: auto 0 0;
+		padding-top: var(--space-s);
+	}
+
+	.channel__place dd {
+		margin: 0.35rem 0 0;
+		font-size: var(--type-small);
+		color: var(--text-secondary);
+	}
+
+	/* --------------------------------------------------------------- reasons */
+
 	.contact {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -171,44 +311,13 @@
 		color: var(--text-muted);
 	}
 
-	.channels {
-		display: grid;
-		gap: var(--space-m);
-		margin: var(--space-xl) 0 0;
-	}
-
-	.channel dd {
-		margin: 0.5rem 0 0;
-		font-size: var(--type-small);
-		color: var(--text-secondary);
-	}
-
-	.channel__pending {
-		color: var(--text-muted);
-	}
-
-	.channel__link {
-		border-bottom: 1px solid var(--edge);
-		transition: border-color var(--duration-fast) var(--ease-out);
-	}
-
-	.channel__link:hover {
-		border-color: var(--text-secondary);
-	}
-
-	.channel__social {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-s) var(--space-m);
-	}
-
 	/* ------------------------------------------------------------------ form */
 
 	.form {
 		padding: clamp(1.5rem, 3vw, 2.5rem);
 		border: 1px solid var(--edge-faint);
 		border-radius: var(--radius-m);
-		background: linear-gradient(180deg, rgb(244 244 242 / 0.02), transparent);
+		background: linear-gradient(180deg, rgb(35 64 95 / 0.08), transparent 60%);
 	}
 
 	.form__title {
@@ -221,6 +330,63 @@
 		margin-top: var(--space-s);
 		font-size: var(--type-small);
 		line-height: 1.55;
+		color: var(--text-muted);
+	}
+
+	.topic {
+		margin: var(--space-l) 0 0;
+		padding: 0;
+		border: 0;
+	}
+
+	.topic legend {
+		padding: 0;
+	}
+
+	.topic__options {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 0.6rem;
+	}
+
+	.topic__option {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		padding: 0.5rem 0.85rem;
+		border: 1px solid var(--edge-faint);
+		border-radius: var(--radius-s);
+
+		font-size: var(--type-small);
+		color: var(--text-secondary);
+		cursor: pointer;
+		transition:
+			border-color var(--duration-fast) var(--ease-out),
+			color var(--duration-fast) var(--ease-out);
+	}
+
+	.topic__option:hover {
+		border-color: var(--edge);
+		color: var(--text-primary);
+	}
+
+	.topic__option:has(input:checked) {
+		border-color: var(--signal-dim);
+		background: rgb(159 188 208 / 0.06);
+		color: var(--text-primary);
+	}
+
+	.topic__option input {
+		accent-color: var(--signal);
+	}
+
+	.topic__target {
+		margin-top: 0.65rem;
+		font-family: var(--font-mono);
+		font-size: var(--type-micro);
+		letter-spacing: 0.04em;
 		color: var(--text-muted);
 	}
 
@@ -288,30 +454,25 @@
 		background: var(--text-primary);
 		border-radius: var(--radius-s);
 
-		transition:
-			opacity var(--duration-fast) var(--ease-out),
-			transform var(--duration-fast) var(--ease-out);
+		transition: transform var(--duration-fast) var(--ease-out);
 	}
 
-	.form__submit:hover:not(:disabled) {
+	.form__submit:hover {
 		transform: translateY(-1px);
 	}
 
-	.form__submit:disabled {
-		cursor: not-allowed;
-		color: var(--text-muted);
-		background: rgb(244 244 242 / 0.08);
+	@media (max-width: 1024px) {
+		.channels {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.channel--social {
+			grid-column: 1 / -1;
+		}
 	}
 
-	.form__unavailable {
-		max-width: 46ch;
-		margin-top: var(--space-s);
-		font-size: var(--type-small);
-		line-height: 1.55;
-		color: var(--text-muted);
-	}
-
-	@media (max-width: 900px) {
+	@media (max-width: 760px) {
+		.channels,
 		.contact {
 			grid-template-columns: minmax(0, 1fr);
 		}

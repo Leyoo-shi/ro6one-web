@@ -7,7 +7,8 @@
 		/** Chapter number, e.g. '02'. Rendered in the section head. */
 		index?: string;
 		label?: string;
-		tone?: 'base' | 'void';
+		/** `navy` and `burgundy` are graphite with a few percent of hue — material, not branding. */
+		tone?: 'base' | 'void' | 'navy' | 'burgundy';
 		/** Hairline above the section head; on by default. */
 		rule?: boolean;
 		class?: string;
@@ -51,6 +52,14 @@
 
 	.section--void {
 		background: var(--surface-void);
+	}
+
+	.section--navy {
+		background: var(--surface-navy);
+	}
+
+	.section--burgundy {
+		background: var(--surface-burgundy);
 	}
 
 	.section__head {
