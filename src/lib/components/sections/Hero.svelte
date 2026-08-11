@@ -1,5 +1,9 @@
 <script lang="ts">
 	import HeroLightCanvas from '$lib/components/ui/HeroLightCanvas.svelte';
+	import { site } from '$lib/content/site';
+	import { useI18n } from '$lib/i18n/context.svelte';
+
+	const i18n = useI18n();
 </script>
 
 <section class="hero">
@@ -9,46 +13,47 @@
 
 	<div class="hero__grid">
 		<div class="hero__eyebrow-mask">
-            <p class="eyebrow">RO6ONE · FRC TEAM #11919</p>
-        </div>
+			<p class="hero__eyebrow">
+				<span>{site.location}</span>
+				<span class="hero__eyebrow-divider" aria-hidden="true"></span>
+				<span>{i18n.t.hero.eyebrow}</span>
+			</p>
+		</div>
 
-        <h1 class="hero__title">
-            <span class="hero__title-mask">
-                <span class="hero__title-line">Build what</span>
-            </span>
+		<span class="hero__rule" aria-hidden="true"></span>
 
-            <span class="hero__title-mask hero__title-mask--offset">
-                <span class="hero__title-line">comes next.</span>
-            </span>
-        </h1>
+		<h1 class="hero__title">
+			<span class="hero__title-mask">
+				<span class="hero__title-line">{i18n.t.hero.titleTop}</span>
+			</span>
 
-        <div class="hero__description-mask">
-            <p class="description">
-                We design, build and compete — but the work continues beyond a single season.
-            </p>
-        </div>
+			<span class="hero__title-mask hero__title-mask--offset">
+				<span class="hero__title-line">{i18n.t.hero.titleBottom}</span>
+			</span>
+		</h1>
 
-        <div class="hero__meta">
-            <div class="hero__meta-item">
-                <span class="hero__meta-label">Season</span>
-                <span class="hero__meta-value">2026</span>
-            </div>
+		<div class="hero__description-mask">
+			<p class="hero__description">{i18n.t.hero.description}</p>
+		</div>
 
-            <div class="hero__meta-item">
-                <span class="hero__meta-label">Project</span>
-                <span class="hero__meta-value">Atlas</span>
-            </div>
+		<div class="hero__foot">
+			<a class="hero__scroll" href="#identity">
+				<span>{i18n.t.hero.scroll}</span>
+				<span class="hero__scroll-line" aria-hidden="true"></span>
+			</a>
 
-            <div class="hero__meta-item">
-                <span class="hero__meta-label">Based in</span>
-                <span class="hero__meta-value">Trabzon, Türkiye</span>
-            </div>
-        </div>
+			<dl class="hero__meta">
+				<div class="hero__meta-item">
+					<dt class="label">{i18n.t.hero.meta.season}</dt>
+					<dd>{site.season.label}</dd>
+				</div>
 
-        <a class="hero__scroll" href="#about" aria-label="Scroll to explore">
-            <span>Scroll to explore</span>
-            <span class="hero__scroll-line" aria-hidden="true"></span>
-        </a>
+				<div class="hero__meta-item">
+					<dt class="label">{i18n.t.hero.meta.team}</dt>
+					<dd>{site.teamLabel}</dd>
+				</div>
+			</dl>
+		</div>
 	</div>
 </section>
 
@@ -59,408 +64,363 @@
 		isolation: isolate;
 
 		min-height: 100svh;
-		padding: clamp(2rem, 4vw, 4rem) 6vw;
+		padding: calc(var(--header-height) + clamp(1rem, 2vw, 2rem)) var(--shell-gutter)
+			clamp(1.75rem, 3.5vw, 3rem);
 
-		background: #111;
-		color: #f4f4f2;
+		background: var(--surface-base);
+		color: var(--text-primary);
 	}
 
 	.hero__grid {
 		position: relative;
-		z-index: 1;
+		z-index: var(--z-content);
 
 		display: grid;
 		grid-template-columns: repeat(12, minmax(0, 1fr));
-		grid-template-rows: auto auto;
-		align-content: clamp(3.5rem, 6vh, 5rem);
-
-		min-height: calc(100svh - clamp(4rem, 8vw, 8rem));
+		grid-template-rows: auto auto 1fr auto;
 		column-gap: clamp(1rem, 1.5vw, 1.75rem);
+
+		width: 100%;
+		max-width: var(--shell-max);
+		margin-inline: auto;
+		min-height: calc(100svh - var(--header-height) - clamp(2.75rem, 5.5vw, 5rem));
 	}
 
-	.eyebrow {
-		margin: 0 0 clamp(1.4rem, 2.3vw, 2.25rem);
+	/* --------------------------------------------------------------- eyebrow */
 
-		font-family:
-			ui-sans-serif,
-			system-ui,
-			-apple-system,
-			BlinkMacSystemFont,
-			"Segoe UI",
-			sans-serif;
+	.hero__eyebrow-mask {
+		grid-column: 1 / -1;
+		grid-row: 1;
+		overflow: hidden;
+	}
 
-		font-size: clamp(0.62rem, 0.65vw, 0.75rem);
-		font-weight: 600;
+	.hero__eyebrow {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+
+		font-family: var(--font-mono);
+		font-size: var(--type-micro);
+		font-weight: 500;
 		line-height: 1;
-		letter-spacing: 0.22em;
+		letter-spacing: var(--tracking-label);
 		text-transform: uppercase;
+		color: var(--text-muted);
 
-		color: rgba(244, 244, 242, 0.5);
+		opacity: 0;
+		transform: translateY(120%);
+		animation: hero-copy-enter 0.72s var(--ease-out) 0.38s forwards;
 	}
+
+	.hero__eyebrow-divider {
+		width: 1.75rem;
+		height: 1px;
+		background: var(--edge-strong);
+	}
+
+	/* Drafting rule under the identity row: structure, not decoration. */
+	.hero__rule {
+		grid-column: 1 / -1;
+		grid-row: 2;
+
+		height: 1px;
+		margin-top: clamp(1rem, 1.8vw, 1.5rem);
+		background: var(--edge-faint);
+
+		transform: scaleX(0);
+		transform-origin: left;
+		animation: hero-rule-enter 1.1s var(--ease-material) 0.5s forwards;
+	}
+
+	/* ---------------------------------------------------------------- title */
 
 	.hero__title {
 		grid-column: 1 / 10;
-		grid-row: 2;
+		grid-row: 3;
+		align-self: center;
 
-		max-width: 9.5ch;
-		margin: 0;
+		max-width: 11ch;
+		padding-block: clamp(2rem, 5vh, 4rem);
 
-		font-family:
-			ui-sans-serif,
-			system-ui,
-			-apple-system,
-			BlinkMacSystemFont,
-			"Segoe UI",
-			sans-serif;
+		font-size: var(--type-display);
+		font-weight: 600;
+		line-height: 0.87;
+		letter-spacing: -0.06em;
+	}
 
-		font-size: clamp(4.25rem, 9.2vw, 9rem);
-		font-weight: 620;
-		line-height: 0.86;
-		letter-spacing: -0.075em;
+	.hero__title-mask {
+		display: block;
+		overflow: hidden;
+	}
 
-		text-wrap: balance;
+	.hero__title-mask--offset {
+		margin-left: 0.38em;
 	}
 
 	.hero__title-line {
 		display: block;
+
+		opacity: 0;
+		transform: translateY(112%);
+		animation: hero-title-enter 0.88s var(--ease-material) forwards;
 	}
 
-	.description {
-		max-width: 31rem;
-		margin: 0;
-        padding-top: clamp(0.5rem, 2.2vw, 2.2rem);
+	.hero__title-mask:first-child .hero__title-line {
+		animation-delay: 0.44s;
+	}
 
-		font-family:
-			ui-sans-serif,
-			system-ui,
-			-apple-system,
-			BlinkMacSystemFont,
-			"Segoe UI",
-			sans-serif;
+	.hero__title-mask--offset .hero__title-line {
+		animation-delay: 0.54s;
+	}
 
-		font-size: clamp(0.95rem, 1.1vw, 1.15rem);
-		font-weight: 400;
+	/* ---------------------------------------------------------- description */
+
+	.hero__description-mask {
+		grid-column: 8 / 13;
+		grid-row: 3;
+		align-self: end;
+
+		padding-bottom: clamp(2rem, 6vh, 4.5rem);
+		overflow: hidden;
+	}
+
+	.hero__description {
+		max-width: 30rem;
+
+		font-size: var(--type-body-lg);
 		line-height: 1.55;
-		letter-spacing: -0.015em;
+		color: var(--text-secondary);
 
-		color: rgba(244, 244, 242, 0.64);
+		opacity: 0;
+		transform: translateY(1rem);
+		animation: hero-description-enter 0.72s var(--ease-out) 0.72s forwards;
 	}
 
-    .hero__meta {
-        position: absolute;
-        right: 0;
-        bottom: 0;
+	/* ----------------------------------------------------------------- foot */
 
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        gap: clamp(1.5rem, 3vw, 3.5rem);
+	.hero__foot {
+		grid-column: 1 / -1;
+		grid-row: 4;
 
-        opacity: 0;
-        transform: translateY(0.8rem);
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: var(--space-m);
+	}
 
-        animation:
-            hero-description-enter 0.72s cubic-bezier(0.22, 1, 0.36, 1)
-            0.86s forwards;
-    }
+	.hero__scroll {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
 
-    .hero__meta-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-    }
+		font-family: var(--font-mono);
+		font-size: var(--type-micro);
+		font-weight: 500;
+		line-height: 1;
+		letter-spacing: var(--tracking-label);
+		text-transform: uppercase;
+		color: var(--text-muted);
 
-    .hero__meta-label {
-        font-size: 0.62rem;
-        font-weight: 600;
-        line-height: 1;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
+		opacity: 0;
+		transform: translateY(0.8rem);
+		animation: hero-description-enter 0.72s var(--ease-out) 0.94s forwards;
+		transition: color var(--duration-fast) var(--ease-out);
+	}
 
-        color: rgba(244, 244, 242, 0.38);
-    }
+	.hero__scroll:hover {
+		color: var(--text-secondary);
+	}
 
-    .hero__meta-value {
-        font-size: 0.82rem;
-        font-weight: 500;
-        line-height: 1.2;
-        letter-spacing: -0.01em;
+	.hero__scroll-line {
+		width: 3.5rem;
+		height: 1px;
 
-        color: rgba(244, 244, 242, 0.75);
-    }
+		background: var(--edge-strong);
+		transform-origin: left;
+		animation: scroll-line-pulse 2.8s ease-in-out 1.4s infinite;
+	}
 
-    .hero__reveal {
-	position: absolute;
-	inset: 0;
-	z-index: 2;
+	.hero__meta {
+		display: flex;
+		gap: clamp(1.5rem, 3vw, 3.5rem);
+		margin: 0;
 
-	pointer-events: none;
-	background: #111318;
+		opacity: 0;
+		transform: translateY(0.8rem);
+		animation: hero-description-enter 0.72s var(--ease-out) 0.86s forwards;
+	}
 
-	transform-origin: top;
-	animation: reveal-surface 1.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-    }
+	.hero__meta-item dd {
+		margin: 0.45rem 0 0;
 
-    .hero__eyebrow-mask,
-    .hero__title-mask,
-    .hero__description-mask {
-        overflow: hidden;
-    }
+		font-size: var(--type-small);
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		color: var(--text-secondary);
+	}
 
-    .hero__eyebrow-mask {
-        grid-column: 1 / 7;
-        grid-row: 1;
-    }
+	/* ------------------------------------------------------------- entrance */
 
-    .hero__title-mask {
-        display: block;
-    }
+	/*
+	 * The surface wipe reads as the panel being lit rather than a loading
+	 * screen: it never blocks interaction and is gone in under a second.
+	 */
+	.hero__reveal {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
 
-    .hero__title-mask--offset {
-        margin-left: 0.38em;
-    }
+		pointer-events: none;
+		background: var(--surface-void);
 
-    .hero__description-mask {
-        grid-column: 8 / 13;
-        grid-row: 2;
-        align-self: center;
-        padding-top: clamp(4rem, 8vw, 8rem);
-    }
+		transform-origin: top;
+		animation: reveal-surface 1.05s var(--ease-in-out) forwards;
+	}
 
-    .eyebrow {
-        opacity: 0;
-        transform: translateY(120%);
-
-        animation:
-            hero-copy-enter 0.72s cubic-bezier(0.22, 1, 0.36, 1)
-            0.38s forwards;
-    }
-
-    .hero__title-line {
-        display: block;
-
-        opacity: 0;
-        transform: translateY(112%);
-
-        animation:
-            hero-title-enter 0.88s cubic-bezier(0.16, 1, 0.3, 1)
-            forwards;
-    }
-
-    .hero__title-mask:first-child .hero__title-line {
-        animation-delay: 0.44s;
-    }
-
-    .hero__title-mask:nth-child(2) .hero__title-line {
-        animation-delay: 0.54s;
-    }
-
-    .description {
-        opacity: 0;
-        transform: translateY(1rem);
-
-        animation:
-            hero-description-enter 0.72s cubic-bezier(0.22, 1, 0.36, 1)
-            0.72s forwards;
-    }
-
-    .hero__scroll {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        font-size: 0.63rem;
-        font-weight: 600;
-        line-height: 1;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        text-decoration: none;
-
-        color: rgba(244, 244, 242, 0.45);
-
-        opacity: 0;
-        transform: translateY(0.8rem);
-
-        animation:
-            hero-description-enter 0.72s cubic-bezier(0.22, 1, 0.36, 1)
-            0.94s forwards;
-
-        transition: color 180ms ease;
-    }
-
-    .hero__scroll:hover {
-        color: rgba(244, 244, 242, 0.8);
-    }
-
-    .hero__scroll-line {
-        width: 3.5rem;
-        height: 1px;
-
-        background: rgba(244, 244, 242, 0.3);
-        transform-origin: left;
-
-        animation: scroll-line-pulse 2.4s ease-in-out 1.2s infinite;
-    }
-
-    @keyframes scroll-line-pulse {
-        0%,
-        100% {
-            transform: scaleX(0.45);
-            opacity: 0.35;
-        }
-
-        50% {
-            transform: scaleX(1);
-            opacity: 0.8;
-        }
-    }
-
-    @keyframes reveal-surface {
-        0% {
-            opacity: 1;
-            transform: scaleY(1);
-        }
-
-        55% {
-            opacity: 1;
-        }
-
-        100% {
-            opacity: 0;
-            transform: scaleY(0);
-            visibility: hidden;
-        }
-    }
-
-    @keyframes hero-title-enter {
-        from {
-            opacity: 0;
-            transform: translateY(112%);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes hero-copy-enter {
-        from {
-            opacity: 0;
-            transform: translateY(120%);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes hero-description-enter {
-        from {
-            opacity: 0;
-            transform: translateY(1rem);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-	@media (max-width: 900px) {
-		.hero {
-			padding: 2rem 1.5rem;
+	@keyframes reveal-surface {
+		0% {
+			opacity: 1;
+			transform: scaleY(1);
 		}
 
+		55% {
+			opacity: 1;
+		}
+
+		100% {
+			opacity: 0;
+			transform: scaleY(0);
+			visibility: hidden;
+		}
+	}
+
+	@keyframes hero-title-enter {
+		from {
+			opacity: 0;
+			transform: translateY(112%);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes hero-copy-enter {
+		from {
+			opacity: 0;
+			transform: translateY(120%);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes hero-description-enter {
+		from {
+			opacity: 0;
+			transform: translateY(1rem);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes hero-rule-enter {
+		to {
+			transform: scaleX(1);
+		}
+	}
+
+	@keyframes scroll-line-pulse {
+		0%,
+		100% {
+			transform: scaleX(0.45);
+			opacity: 0.4;
+		}
+
+		50% {
+			transform: scaleX(1);
+			opacity: 0.85;
+		}
+	}
+
+	/* ----------------------------------------------------------- responsive */
+
+	@media (max-width: 960px) {
 		.hero__grid {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-
-			min-height: calc(100svh - 4rem);
-		}
-
-		.eyebrow {
-			margin-bottom: 1.5rem;
+			grid-template-columns: minmax(0, 1fr);
+			grid-template-rows: auto auto 1fr auto;
 		}
 
 		.hero__title {
+			grid-column: 1;
 			max-width: none;
-			font-size: clamp(3.75rem, 14vw, 7rem);
+			font-size: clamp(3.4rem, 13vw, 7rem);
 		}
 
-		.description {
+		.hero__description-mask {
+			grid-column: 1;
+			grid-row: 3;
+			align-self: start;
+			padding-bottom: 0;
+		}
+
+		.hero__description {
 			max-width: 34rem;
-			margin-top: 2.5rem;
 		}
-
-        .hero__meta {
-            position: static;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1.5rem;
-
-            width: 100%;
-            margin-top: 3rem;
-        }
-
-        .hero__meta-item:last-child {
-            grid-column: 1 / -1;
-        }
-
-        .hero__scroll {
-            left: 1.5rem;
-            bottom: 1.5rem;
-        }
 	}
 
-	@media (max-width: 520px) {
+	@media (max-width: 640px) {
 		.hero__title {
-			font-size: clamp(3.3rem, 16vw, 5.5rem);
-			line-height: 0.9;
-			letter-spacing: -0.065em;
+			padding-block: clamp(1.5rem, 4vh, 2.5rem);
+			line-height: 0.92;
+			letter-spacing: -0.05em;
 		}
 
-		.description {
-			max-width: 27rem;
-			margin-top: 2rem;
-			font-size: 0.95rem;
+		.hero__foot {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--space-m);
 		}
 
-        .hero__meta {
-            display: none;
-        }
+		.hero__meta {
+			width: 100%;
+			justify-content: space-between;
+		}
 
-        .hero__scroll-line {
-            width: 2.5rem;
-        }
+		.hero__eyebrow {
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
 	}
 
-    @media (prefers-reduced-motion: reduce) {
-        .hero__reveal {
-            display: none;
-        }
+	@media (prefers-reduced-motion: reduce) {
+		.hero__reveal {
+			display: none;
+		}
 
-        .eyebrow,
-        .hero__title-line,
-        .description {
-            opacity: 1;
-            transform: none;
-            animation: none;
-        }
+		.hero__eyebrow,
+		.hero__title-line,
+		.hero__description,
+		.hero__meta,
+		.hero__scroll {
+			opacity: 1;
+			transform: none;
+			animation: none;
+		}
 
-        .hero__meta,
-        .hero__scroll {
-            opacity: 1;
-            transform: none;
-            animation: none;
-        }
+		.hero__rule {
+			transform: scaleX(1);
+			animation: none;
+		}
 
-        .hero__scroll-line {
-            animation: none;
-        }
-    }
+		.hero__scroll-line {
+			animation: none;
+		}
+	}
 </style>

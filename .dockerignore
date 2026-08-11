@@ -1,0 +1,54 @@
+# Build inputs are copied from the repository; everything below is either
+# regenerated inside the image or has no business being in a production build.
+# Note that src/, static/ and the config files are intentionally NOT ignored.
+
+# Dependencies and build output (recreated by `npm ci` / `npm run build`)
+node_modules
+.svelte-kit
+build
+.output
+.vercel
+.netlify
+.wrangler
+
+# Version control and CI metadata
+.git
+.gitignore
+.github
+
+# Editor / tooling / agent metadata
+.vscode
+.idea
+.claude
+*.code-workspace
+
+# Local environment files — secrets must never be baked into an image.
+# .env.example is kept so the image build does not depend on it existing.
+.env
+.env.*
+!.env.example
+
+# Logs, caches, coverage
+logs
+*.log
+npm-debug.log*
+coverage
+.nyc_output
+.cache
+.temp
+.tmp
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Docs and container files (not needed at runtime)
+docs
+README.md
+Dockerfile
+compose.yml
+.dockerignore
+
+# Vite timestamp artefacts
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

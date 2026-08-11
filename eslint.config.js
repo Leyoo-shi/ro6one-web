@@ -34,8 +34,19 @@ export default defineConfig(
 		}
 	},
 	{
-		// Override or add rule settings here, such as:
-		// 'svelte/button-has-type': 'error'
-		rules: {}
+		rules: {
+			/*
+			 * The site is served from the domain root, so `paths.base` is empty
+			 * and resolve() would be an identity call on every link. Link hrefs
+			 * also come from the shared navigation config and generic link
+			 * components, where the rule cannot see through the indirection —
+			 * instead, NavItem['href'] is typed as SvelteKit's generated
+			 * `Pathname`, which catches bad routes at type-check time.
+			 *
+			 * Programmatic navigation (goto / pushState / replaceState) is still
+			 * checked. Re-enable link checking if a base path is ever configured.
+			 */
+			'svelte/no-navigation-without-resolve': ['error', { ignoreLinks: true }]
+		}
 	}
 );

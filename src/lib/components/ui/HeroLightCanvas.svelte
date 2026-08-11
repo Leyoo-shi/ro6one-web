@@ -1,407 +1,279 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	/*
+	 * Hero yüzeyi.
+	 *
+	 * Tek parça, hafifçe içbükey bir metal panel simüle ediyoruz: ışık imleçle
+	 * birlikte ağırlıklı biçimde kayıyor, yüzeyin eğrilirini ortaya çıkarıyor.
+	 * Hesap düşük çözünürlükte yapılıp tarayıcıya büyütülüyor.
+	 *
+	 * Bu sürümde dört şey değişti:
+	 *  - tampon boyutu artık konteynerin en/boy oranına göre hesaplanıyor,
+	 *    böylece panel dikey ekranlarda sıkışmıyor,
+	 *  - ışık durduğunda döngü tamamen duruyor (boşta CPU tüketimi yok),
+	 *  - specular yatayda hafifçe uzatıldı: fırçalanmış alüminyum karakteri,
+	 *  - koyu tonlardaki bantlaşmayı kırmak için düzenli (ordered) dither.
+	 */
+
 	let container!: HTMLDivElement;
 	let canvas!: HTMLCanvasElement;
 
 	onMount(() => {
-		const context = canvas.getContext('2d');
+		const context = canvas.getContext('2d', { alpha: false });
 
 		if (!context) {
 			console.error('Hero light canvas context could not be created.');
 			return;
 		}
 
-		/*
-		 * Işığı düşük çözünürlükte hesaplıyoruz.
-		 * Sonra tarayıcı bunu Hero boyutuna büyütüyor.
-		 *
-		 * Böylece her piksel için ışık hesabı yapabilmemize rağmen
-		 * performans kabul edilebilir seviyede kalıyor.
-		 */
-		const renderWidth = 260;
-		const renderHeight = 150;
-
-		canvas.width = renderWidth;
-		canvas.height = renderHeight;
-
 		context.imageSmoothingEnabled = true;
 
-		const imageData = context.createImageData(
-			renderWidth,
-			renderHeight
+		/* Piksel bütçesi: en/boy oranı değişse de hesap yükü sabit kalır. */
+		const pixelBudget = 40_000;
+		const minSide = 96;
+		const maxSide = 460;
+
+		/* ---------------------------------------------------------- yüzey formu
+		 *
+		 * concavityStrength: çukurun derinliği (fazlası kase gibi görünür).
+		 * concavityRadius*: çukurun panele yayılması, panel birimlerinde.
+		 * concavityCenterY: çukur merkezi geometrik merkezin biraz üstünde.
+		 */
+		const concavityStrength = 0.3;
+		const concavityRadiusX = 1.12;
+		const concavityRadiusY = 1.02;
+		const concavityCenterX = 0;
+		const concavityCenterY = 0.08;
+
+		/* Sabit dolgu ışığı: imleç uzaktayken de panel kenarları ışık yakalar. */
+		const fillX = -0.85;
+		const fillY = 0.65;
+		const fillZ = 1.4;
+
+		/* 4×4 Bayer eşiği, -0.5..+0.5 aralığına normalize edildi. */
+		const bayer = new Float32Array(
+			[0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((value) => value / 16 - 0.469)
 		);
 
-		const pixels = imageData.data;
+		let renderWidth = 0;
+		let renderHeight = 0;
+		let aspect = 1;
+
+		let imageData: ImageData | null = null;
+		let pixels: Uint8ClampedArray | null = null;
+		let surfaceNoise = new Float32Array(0);
+
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
 		/*
-		 * Mouse'un gerçek hedef konumu.
-		 * Değerler -1 ile +1 arasında tutuluyor.
+		 * Dinlenme konumu: ışık hafifçe sol üstten geliyor. İmleç yoksa
+		 * (dokunmatik cihaz, azaltılmış hareket) kompozisyon bu haliyle kalıyor.
 		 */
-		let targetX = 0;
-		let targetY = 0;
+		const restX = -0.17;
+		const restY = 0.11;
 
-		/*
-		 * Yumuşatılmış ışık konumu.
-		 */
-		let lightX = 0;
-		let lightY = 0;
-        let velocityX = 0;
-        let velocityY = 0;
+		let targetX = restX;
+		let targetY = restY;
+		let lightX = restX;
+		let lightY = restY;
+		let velocityX = 0;
+		let velocityY = 0;
 
 		let animationFrame = 0;
-		let isVisible = true;
-
-        /*
-        * Makro yüzey formu.
-        *
-        * concavityStrength:
-        * Çukurun derinliği. Fazla artırılırsa kase gibi görünür.
-        *
-        * concavityRadius:
-        * Çukurun yüzeyin ne kadarına yayıldığı.
-        *
-        * concavityCenterY:
-        * Çukuru tam geometrik merkezden biraz yukarı taşıyoruz.
-        * Hero kompozisyonunda daha doğal görünür.
-        */
-        const concavityStrength = 0.26;
-        const concavityRadius = 0.95;
-
-        const concavityCenterX = 0;
-        const concavityCenterY = 0.06;
-
-		/*
-		 * Sabit pseudo-random noise.
-		 *
-		 * Her frame değişmediği için yüzey titreşmiyor.
-		 * Yalnızca malzemenin mikroskobik pürüzlülüğü gibi davranıyor.
-		 */
-		const surfaceNoise = new Float32Array(
-			renderWidth * renderHeight
-		);
-
-		for (let index = 0; index < surfaceNoise.length; index++) {
-			const x = index % renderWidth;
-			const y = Math.floor(index / renderWidth);
-
-			const fineNoise =
-				Math.sin(x * 12.9898 + y * 78.233) *
-				43758.5453;
-
-			const broadNoise =
-				Math.sin(x * 0.15) *
-				Math.cos(y * 0.12);
-
-			const randomPart =
-				(fineNoise - Math.floor(fineNoise)) * 2 - 1;
-
-			surfaceNoise[index] =
-				randomPart * 0.65 +
-				broadNoise * 0.35;
-		}
-
-		function handlePointerMove(event: PointerEvent) {
-			const rect = container.getBoundingClientRect();
-
-			if (rect.width === 0 || rect.height === 0) return;
-
-			const normalizedX =
-				(event.clientX - rect.left) / rect.width;
-
-			const normalizedY =
-				(event.clientY - rect.top) / rect.height;
-
-			/*
-			 * Mouse bütün ekran boyunca hareket etse de
-			 * ışık kaynağı yalnızca sınırlı miktarda kayıyor.
-			 *
-			 * Bu yüzden ışık mouse'un altına yapışmıyor.
-			 */
-			const safeX = clamp(normalizedX, 0, 1);
-            const safeY = clamp(normalizedY, 0, 1);
-
-            targetX = (safeX * 2 - 1) * 0.38;
-            targetY = (1 - safeY * 2) * 0.24;
-		}
+		let running = false;
+		let visible = true;
+		let dirty = true;
 
 		function clamp(value: number, min: number, max: number) {
 			return Math.max(min, Math.min(max, value));
 		}
 
+		function buildBuffers() {
+			const rect = container.getBoundingClientRect();
+
+			if (rect.width === 0 || rect.height === 0) return;
+
+			aspect = rect.width / rect.height;
+
+			const height = clamp(Math.round(Math.sqrt(pixelBudget / aspect)), minSide, maxSide);
+			const width = clamp(Math.round(height * aspect), minSide, maxSide);
+
+			if (width === renderWidth && height === renderHeight) return;
+
+			renderWidth = width;
+			renderHeight = height;
+
+			canvas.width = renderWidth;
+			canvas.height = renderHeight;
+
+			imageData = context!.createImageData(renderWidth, renderHeight);
+			pixels = imageData.data;
+
+			buildNoise();
+			dirty = true;
+		}
+
+		/*
+		 * Sabit pseudo-random doku. Her frame yeniden üretilmediği için yüzey
+		 * titremiyor; yalnızca malzemenin mikro pürüzlülüğü gibi davranıyor.
+		 */
+		function buildNoise() {
+			surfaceNoise = new Float32Array(renderWidth * renderHeight);
+
+			for (let index = 0; index < surfaceNoise.length; index++) {
+				const x = index % renderWidth;
+				const y = Math.floor(index / renderWidth);
+
+				const fineNoise = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+				const broadNoise = Math.sin(x * 0.15) * Math.cos(y * 0.12);
+				const randomPart = (fineNoise - Math.floor(fineNoise)) * 2 - 1;
+
+				surfaceNoise[index] = randomPart * 0.65 + broadNoise * 0.35;
+			}
+		}
+
 		function renderSurface() {
-			/*
-			 * Daha önce seçtiğimiz hareket karakteri:
-			 *
-			 * X daha hızlı
-			 * Y biraz daha ağır
-			 */
-			velocityX += (targetX - lightX) * 0.018;
-            velocityY += (targetY - lightY) * 0.014;
-
-            velocityX *= 0.84;
-            velocityY *= 0.82;
-
-            lightX += velocityX;
-            lightY += velocityY;
+			if (!imageData || !pixels) return;
 
 			/*
-			 * Işık kullanıcının/kameranın önünden geliyor.
-			 *
-			 * X ve Y hafifçe hareket ediyor.
-			 * Z sabit ve yüzeyin önünde.
+			 * Işık kaynağı kullanıcının önünde; X/Y hafifçe kayıyor, Z sabit.
+			 * X ekseni panel genişliğine göre ölçeklenir, böylece geniş
+			 * ekranlarda da imleç hareketi yüzeyde aynı oranda karşılık bulur.
 			 */
-			const sourceX = lightX;
+			const sourceX = lightX * aspect;
 			const sourceY = lightY;
 			const sourceZ = 1.65;
 
+			const invRadiusX = 1 / (concavityRadiusX * aspect);
+			const invRadiusY = 1 / concavityRadiusY;
+
 			for (let y = 0; y < renderHeight; y++) {
+				const surfaceY = 1 - (y / (renderHeight - 1)) * 2;
+				const bayerRow = (y & 3) * 4;
+
 				for (let x = 0; x < renderWidth; x++) {
 					const pixelIndex = y * renderWidth + x;
 					const dataIndex = pixelIndex * 4;
 
-					/*
-					 * Pikseli -1 / +1 yüzey koordinatlarına çevir.
-					 */
-					const surfaceX =
-						(x / (renderWidth - 1)) * 2 - 1;
-
-					const surfaceY =
-						1 - (y / (renderHeight - 1)) * 2;
+					/* Panel birimleri: yarı yükseklik 1, yarı genişlik = aspect. */
+					const surfaceX = ((x / (renderWidth - 1)) * 2 - 1) * aspect;
 
 					const noise = surfaceNoise[pixelIndex];
+					const secondNoise = surfaceNoise[(pixelIndex + 97) % surfaceNoise.length];
+
+					/* Normalize edilmiş çukur koordinatları. */
+					const dishX = (surfaceX - concavityCenterX * aspect) * invRadiusX;
+					const dishY = (surfaceY - concavityCenterY) * invRadiusY;
+
+					const dishRadius = Math.hypot(dishX, dishY);
+					const normalizedRadius = clamp(dishRadius, 0, 1);
 
 					/*
-					 * Yüzey normalini çok hafif bozuyoruz.
-					 *
-					 * Düz bir yüzey:
-					 * normal = 0, 0, 1
-					 *
-					 * Pürüzlü yüzey:
-					 * X ve Y eksenlerinde küçük sapmalar.
+					 * Merkezden kenara yumuşak geçiş. Kenarda eğim sıfıra
+					 * yaklaşır; yüzey ayrı bir çukur disk gibi görünmez.
 					 */
-					const secondNoise =
-                        surfaceNoise[
-                            (pixelIndex + 97) % surfaceNoise.length
-                        ];
+					const falloff = 1 - normalizedRadius;
+					const smoothFalloff = falloff * falloff * (3 - 2 * falloff);
+					const macroSlope = concavityStrength * smoothFalloff * normalizedRadius;
 
-                    /*
-                    * Pikselin çukur merkezine uzaklığı.
-                    */
-                    const concavityX =
-                        surfaceX - concavityCenterX;
+					let macroNormalX = 0;
+					let macroNormalY = 0;
 
-                    const concavityY =
-                        surfaceY - concavityCenterY;
+					if (dishRadius > 0.0001) {
+						/* Yükseklik alanının gradyanı; X yönü panel genişliğiyle yumuşar. */
+						macroNormalX = (dishX / dishRadius) * macroSlope * invRadiusX * concavityRadiusX;
+						macroNormalY = (dishY / dishRadius) * macroSlope * invRadiusY * concavityRadiusY;
+					}
 
-                    /*
-                    * Hero geniş olduğu için çukuru da yatayda genişletiyoruz.
-                    * Böylece yuvarlak bir kase yerine geniş metal panel hissi oluşuyor.
-                    */
-                    const scaledConcavityX = concavityX * 0.72;
-                    const scaledConcavityY = concavityY * 1.05;
+					let normalX = macroNormalX + noise * 0.012;
+					let normalY = macroNormalY + secondNoise * 0.012;
+					let normalZ = 1;
 
-                    const radialDistance = Math.sqrt(
-                        scaledConcavityX * scaledConcavityX +
-                            scaledConcavityY * scaledConcavityY
-                    );
-
-                    const normalizedRadius = clamp(
-                        radialDistance / concavityRadius,
-                        0,
-                        1
-                    );
-
-                    /*
-                    * Merkezden kenarlara yumuşak geçiş.
-                    *
-                    * Kenarda eğim sıfıra yaklaşır; böylece yüzey ayrı bir
-                    * çukur disk gibi görünmez.
-                    */
-                    const concavityFalloff =
-                        1 - normalizedRadius;
-
-                    const smoothConcavity =
-                        concavityFalloff *
-                        concavityFalloff *
-                        (3 - 2 * concavityFalloff);
-
-                    /*
-                    * Yükseklik haritasının eğimini yaklaşık olarak türetiyoruz.
-                    *
-                    * Çukur yüzeyde normal merkeze doğru eğilir.
-                    */
-                    const macroSlope =
-                        concavityStrength *
-                        smoothConcavity *
-                        normalizedRadius;
-
-                    let macroNormalX = 0;
-                    let macroNormalY = 0;
-
-                    if (radialDistance > 0.0001) {
-                        macroNormalX =
-                            (scaledConcavityX / radialDistance) *
-                            macroSlope *
-                            0.72;
-
-                        macroNormalY =
-                            (scaledConcavityY / radialDistance) *
-                            macroSlope *
-                            1.05;
-                    }
-
-                    /*
-                    * Mikro doku şimdilik çok düşük tutuluyor.
-                    * Makro yüzey formunu değerlendirmemizi engellememeli.
-                    */
-                    const microNormalX = noise * 0.012;
-                    const microNormalY = secondNoise * 0.012;
-
-                    let normalX =
-                        macroNormalX + microNormalX;
-
-                    let normalY =
-                        macroNormalY + microNormalY;
-
-                    let normalZ = 1;
-
-					const normalLength = Math.hypot(
-						normalX,
-						normalY,
-						normalZ
-					);
+					const normalLength = Math.hypot(normalX, normalY, normalZ);
 
 					normalX /= normalLength;
 					normalY /= normalLength;
 					normalZ /= normalLength;
 
-					/*
-					 * Yüzey pikselinden ışık kaynağına giden vektör.
-					 */
+					/* --------------------------------------------- ana ışık */
 					let directionX = sourceX - surfaceX;
 					let directionY = sourceY - surfaceY;
 					let directionZ = sourceZ;
 
-					const distance = Math.hypot(
-						directionX,
-						directionY,
-						directionZ
-					);
+					const distance = Math.hypot(directionX, directionY, directionZ);
 
 					directionX /= distance;
 					directionY /= distance;
 					directionZ /= distance;
 
-					/*
-					 * Lambert diffuse:
-					 * Işığın yüzeye geliş açısı.
-					 */
 					const diffuse = Math.max(
 						0,
-						normalX * directionX +
-							normalY * directionY +
-							normalZ * directionZ
+						normalX * directionX + normalY * directionY + normalZ * directionZ
 					);
 
-					/*
-					 * Mesafeyle fiziksel olarak yaklaşık zayıflama.
-					 * Tam ters-kare kullanmıyoruz; çok sert görünürdü.
-					 */
-					const attenuation =
-						1 / (1 + distance * distance * 0.72);
+					/* Tam ters-kare çok sert görünüyordu; yumuşatılmış zayıflama. */
+					const attenuation = 1 / (1 + distance * distance * 0.72);
 
 					/*
-					 * Kamera yüzeye önden bakıyor:
-					 * view direction yaklaşık 0, 0, 1.
-					 *
-					 * Half-vector ile basit specular hesaplıyoruz.
+					 * Half-vector ile specular. Normalin Y bileşeni kısılıyor:
+					 * parlama yatayda uzuyor, fırçalanmış metal gibi davranıyor.
 					 */
 					let halfX = directionX;
 					let halfY = directionY;
 					let halfZ = directionZ + 1;
 
-					const halfLength = Math.hypot(
-						halfX,
-						halfY,
-						halfZ
-					);
+					const halfLength = Math.hypot(halfX, halfY, halfZ);
 
 					halfX /= halfLength;
 					halfY /= halfLength;
 					halfZ /= halfLength;
 
-					const normalHalf = Math.max(
+					const anisotropic = Math.max(
 						0,
-						normalX * halfX +
-							normalY * halfY +
-							normalZ * halfZ
+						normalX * halfX + normalY * 0.55 * halfY + normalZ * halfZ
+					);
+
+					const specular = Math.pow(anisotropic, 11) * attenuation;
+
+					/* -------------------------------------------- dolgu ışığı */
+					let fillDirectionX = fillX * aspect - surfaceX;
+					let fillDirectionY = fillY - surfaceY;
+
+					const fillDistance = Math.hypot(fillDirectionX, fillDirectionY, fillZ);
+
+					fillDirectionX /= fillDistance;
+					fillDirectionY /= fillDistance;
+
+					const fillDiffuse = Math.max(
+						0,
+						normalX * fillDirectionX + normalY * fillDirectionY + normalZ * (fillZ / fillDistance)
 					);
 
 					/*
-					 * Üs küçüldükçe yüzey matlaşır.
-					 * Çok parlak plastik gibi görünmesini istemiyoruz.
-					 */
-					const specular =
-                        Math.pow(normalHalf, 10) *
-                        attenuation;
-
-					/*
-					 * Ekranın kenarlarını çok hafif karartıyoruz.
-					 * Bu bağımsız bir oval ışık değil;
+					 * Kenarların hafif kararması bağımsız bir oval ışık değil;
 					 * yüzeyin görüntüleme karakteri.
 					 */
 					const edgeDistance = Math.sqrt(
-						surfaceX * surfaceX * 0.42 +
+						(surfaceX / Math.max(aspect, 0.001)) * (surfaceX / Math.max(aspect, 0.001)) * 0.42 +
 							surfaceY * surfaceY * 0.58
 					);
 
-					const vignette = clamp(
-						1 - edgeDistance * 0.12,
-						0.84,
-						1
-					);
+					const vignette = clamp(1 - edgeDistance * 0.16, 0.8, 1);
 
-					const materialVariation =
-						noise * 0.9;
+					const materialVariation = noise * 0.9;
+					const dither = bayer[bayerRow + (x & 3)] * 1.6;
 
-					const diffuseLight =
-                        diffuse *
-                        attenuation *
-                        58;
+					const diffuseLight = diffuse * attenuation * 58;
+					const specularLight = specular * 34;
+					const fillLight = fillDiffuse * 7.5;
 
-                    const specularLight =
-                        specular * 34;
+					const base = diffuseLight + fillLight + materialVariation + dither;
 
-					/*
-					 * Mat, koyu ve hafif soğuk bir yüzey.
-					 */
-					const red = clamp(
-						13 +
-							diffuseLight * 0.83 +
-							specularLight * 0.92 +
-							materialVariation,
-						0,
-						255
-					);
-
-					const green = clamp(
-						14 +
-							diffuseLight * 0.9 +
-							specularLight * 0.97 +
-							materialVariation,
-						0,
-						255
-					);
-
-					const blue = clamp(
-						17 +
-							diffuseLight +
-							specularLight +
-							materialVariation,
-						0,
-						255
-					);
+					const red = 13 + base * 0.83 + specularLight * 0.92;
+					const green = 14 + base * 0.9 + specularLight * 0.97;
+					const blue = 17 + base + specularLight;
 
 					pixels[dataIndex] = red * vignette;
 					pixels[dataIndex + 1] = green * vignette;
@@ -413,52 +285,160 @@
 			context!.putImageData(imageData, 0, 0);
 		}
 
-		function animate() {
-			if (isVisible) {
-				renderSurface();
+		/*
+		 * Hareket karakteri: X biraz daha hızlı, Y daha ağır. Işık imlecin
+		 * altına yapışmıyor, arkasından ağırlıkla geliyor.
+		 */
+		function step() {
+			animationFrame = 0;
+
+			const distanceX = targetX - lightX;
+			const distanceY = targetY - lightY;
+			const settled =
+				Math.hypot(distanceX, distanceY) < 0.0005 && Math.hypot(velocityX, velocityY) < 0.0004;
+
+			if (settled) {
+				if (lightX !== targetX || lightY !== targetY) {
+					lightX = targetX;
+					lightY = targetY;
+					dirty = true;
+				}
+
+				velocityX = 0;
+				velocityY = 0;
+			} else {
+				velocityX = (velocityX + distanceX * 0.018) * 0.84;
+				velocityY = (velocityY + distanceY * 0.014) * 0.82;
+
+				lightX += velocityX;
+				lightY += velocityY;
+				dirty = true;
 			}
 
-			animationFrame = requestAnimationFrame(animate);
+			if (dirty) {
+				renderSurface();
+				dirty = false;
+			}
+
+			if (settled || !visible) {
+				running = false;
+				return;
+			}
+
+			animationFrame = requestAnimationFrame(step);
 		}
 
-		/*
-		 * Hero ekranda değilken boşuna piksel hesaplamıyoruz.
-		 */
+		/* Işık durduğunda döngü kapanır; yeniden uyanmasını olaylar tetikler. */
+		function wake() {
+			if (!visible || document.hidden) return;
+			if (running) return;
+
+			/*
+			 * Sekme arka plandayken yeniden boyutlandırma olduysa rAF hiç
+			 * çalışmamış olabilir; uyanırken tamponu doğruluyoruz.
+			 * Ölçüler değişmediyse bu çağrı bir şey yapmıyor.
+			 */
+			buildBuffers();
+
+			running = true;
+			animationFrame = requestAnimationFrame(step);
+		}
+
+		function stop() {
+			running = false;
+
+			if (animationFrame) {
+				cancelAnimationFrame(animationFrame);
+				animationFrame = 0;
+			}
+		}
+
+		function handlePointerMove(event: PointerEvent) {
+			if (event.pointerType !== 'mouse') return;
+
+			const rect = container.getBoundingClientRect();
+
+			if (rect.width === 0 || rect.height === 0) return;
+
+			const normalizedX = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+			const normalizedY = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+
+			/*
+			 * İmleç ekranın tamamında gezse de ışık yalnızca sınırlı miktarda
+			 * kayıyor: dinlenme konumu etrafında ölçülü bir aralık.
+			 */
+			targetX = restX + (normalizedX * 2 - 1) * 0.34;
+			targetY = restY + (1 - normalizedY * 2) * 0.22;
+
+			wake();
+		}
+
+		const pointerTracking = finePointer.matches && !reducedMotion.matches;
+
+		buildBuffers();
+		renderSurface();
+		dirty = false;
+
+		/* Panel yeniden ölçeklendiğinde tamponu ve dokuyu yeniden kur. */
+		let resizeFrame = 0;
+
+		const resizeObserver = new ResizeObserver(() => {
+			if (resizeFrame) return;
+
+			resizeFrame = requestAnimationFrame(() => {
+				resizeFrame = 0;
+				buildBuffers();
+
+				if (dirty) {
+					renderSurface();
+					dirty = false;
+				}
+			});
+		});
+
+		resizeObserver.observe(container);
+
+		/* Hero ekranda değilken hesap yapmıyoruz. */
 		const intersectionObserver = new IntersectionObserver(
 			(entries) => {
-				isVisible = entries[0]?.isIntersecting ?? true;
+				visible = entries[0]?.isIntersecting ?? true;
+
+				if (visible) wake();
+				else stop();
 			},
-			{
-				threshold: 0
-			}
+			{ threshold: 0 }
 		);
 
 		intersectionObserver.observe(container);
-		window.addEventListener(
-			'pointermove',
-			handlePointerMove
-		);
 
-		animate();
+		function handleVisibilityChange() {
+			if (document.hidden) stop();
+			else wake();
+		}
+
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+
+		if (pointerTracking) {
+			window.addEventListener('pointermove', handlePointerMove, { passive: true });
+		}
 
 		return () => {
-			cancelAnimationFrame(animationFrame);
+			stop();
 
-			window.removeEventListener(
-				'pointermove',
-				handlePointerMove
-			);
+			if (resizeFrame) cancelAnimationFrame(resizeFrame);
 
+			resizeObserver.disconnect();
 			intersectionObserver.disconnect();
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
+
+			if (pointerTracking) {
+				window.removeEventListener('pointermove', handlePointerMove);
+			}
 		};
 	});
 </script>
 
-<div
-	bind:this={container}
-	class="hero-light-canvas"
-	aria-hidden="true"
->
+<div bind:this={container} class="hero-light-canvas" aria-hidden="true">
 	<canvas bind:this={canvas}></canvas>
 </div>
 
@@ -466,22 +446,39 @@
 	.hero-light-canvas {
 		position: absolute;
 		inset: 0;
-		z-index: 0;
+		z-index: var(--z-canvas);
+
 		overflow: hidden;
 		pointer-events: none;
-		background: #0d0e11;
+		background: var(--surface-base);
 	}
 
 	canvas {
-		display: block;
 		width: 100%;
 		height: 100%;
 
 		/*
-		 * Düşük çözünürlüklü ışık hesabını büyütürken
-		 * piksellerin görünmesini engelliyoruz.
+		 * Düşük çözünürlüklü hesabı büyütürken piksel kenarlarını yumuşatıyoruz.
 		 */
 		filter: blur(0.7px);
 		transform: scale(1.01);
+	}
+
+	/* Üstte hafif karartma: sabit başlık her zaman okunur kalıyor. */
+	.hero-light-canvas::before {
+		content: '';
+		position: absolute;
+		inset: 0 0 auto;
+		height: 28%;
+		background: linear-gradient(to bottom, rgb(8 9 11 / 0.5), transparent);
+	}
+
+	/* Altta panelin sayfa yüzeyine karıştığı geçiş. */
+	.hero-light-canvas::after {
+		content: '';
+		position: absolute;
+		inset: auto 0 0;
+		height: 26%;
+		background: linear-gradient(to bottom, transparent, var(--surface-base));
 	}
 </style>

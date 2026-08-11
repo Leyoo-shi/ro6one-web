@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
@@ -11,10 +11,14 @@ export default defineConfig({
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
 
-			// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-			adapter: adapter()
+			/*
+			 * adapter-node: the site is deployed as a long-running Node server in
+			 * a container, behind a reverse proxy. Server-side rendering is
+			 * required — the request locale (cookie / Accept-Language) is resolved
+			 * in hooks.server.ts, so the first paint is already in the right
+			 * language. See README for the runtime environment variables.
+			 */
+			adapter: adapter({ out: 'build' })
 		})
 	]
 });
