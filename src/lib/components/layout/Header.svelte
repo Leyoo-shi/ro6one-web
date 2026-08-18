@@ -45,6 +45,14 @@
 <header class="header" class:header--scrolled={scrolled}>
 	<div class="shell header__inner">
 		<a class="brand" href="/">
+			<img
+				class="brand__logo"
+				src={site.mark}
+				alt=""
+				width="128"
+				height="128"
+				fetchpriority="high"
+			/>
 			<span class="brand__mark">{site.name}</span>
 			<span class="brand__rule" aria-hidden="true"></span>
 			<span class="brand__number">{site.teamNumber}</span>
@@ -154,7 +162,23 @@
 		display: flex;
 		align-items: center;
 		gap: 0.6rem;
+		/* Pushes the nav cluster to the far edge of the header. */
 		margin-right: auto;
+	}
+
+	/*
+	 * The mark is decorative here — the wordmark beside it already names the
+	 * team, so a screen reader should not hear it twice.
+	 */
+	.brand__logo {
+		width: clamp(1.5rem, 2vw, 1.85rem);
+		height: auto;
+		margin-right: 0.15rem;
+		transition: transform var(--motion-light) var(--ease-out);
+	}
+
+	.brand:hover .brand__logo {
+		transform: scale(1.06);
 	}
 
 	.brand__mark {

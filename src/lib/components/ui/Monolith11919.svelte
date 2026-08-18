@@ -55,9 +55,9 @@
 
 <section class="monolith" bind:this={band} style="--mx: {x}%; --my: {y}%">
 	<div class="shell monolith__inner">
-		<!-- Chapter 04 of the homepage: the hinge between history and system. -->
+		<!-- Chapter 05 of the homepage: the hinge between history and system. -->
 		<p class="label monolith__label">
-			<span class="monolith__index">04</span>
+			<span class="monolith__index">05</span>
 			<span>{copy.label}</span>
 		</p>
 
@@ -85,7 +85,16 @@
 		isolation: isolate;
 
 		padding-block: var(--space-3xl);
+		/*
+		 * Two raking lights, blue from the upper left and claret from the lower
+		 * right, so the cast numerals read as a physical surface catching light
+		 * from the rooms on either side of them. Without these the block sat
+		 * between the arena and the steel bay as a dead black gap — the concept
+		 * was right, it just had no light in it.
+		 */
 		background:
+			radial-gradient(70% 80% at 12% 6%, rgb(63 143 216 / 0.2), transparent 62%),
+			radial-gradient(65% 75% at 88% 96%, rgb(141 36 64 / 0.24), transparent 62%),
 			radial-gradient(140% 90% at var(--mx) 0%, rgb(35 64 95 / 0.16), transparent 60%),
 			linear-gradient(180deg, var(--surface-void), #0a0a0c 55%, var(--surface-void));
 	}
@@ -160,9 +169,15 @@
 		color: transparent;
 	}
 
-	/* The recess: dark fill, a shadow above the edge and a light lip below it. */
+	/*
+	 * The recess: dark fill, a shadow above the edge and a light lip below it.
+	 * The fill is graded blue → neutral → claret along the same diagonal as the
+	 * two raking lights, so the casting picks up the colour of the rooms either
+	 * side of it instead of being a flat black that only appears under a
+	 * pointer. The sheen still does the rest on hover.
+	 */
 	.digits--cut {
-		background-image: linear-gradient(180deg, #0a0b0e 20%, #141519 70%, #0d0e11);
+		background-image: linear-gradient(158deg, #16202f 10%, #1b1d23 46%, #2a1119 92%);
 		text-shadow:
 			0 -1px 1px rgb(0 0 0 / 0.85),
 			0 1px 0 rgb(244 244 242 / 0.07),

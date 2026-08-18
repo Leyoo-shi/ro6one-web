@@ -8,7 +8,7 @@
 	const copy = $derived(i18n.t.home.principles);
 </script>
 
-<Section id="principles" index="07" label={copy.label}>
+<Section id="principles" index="08" label={copy.label} tone="paper">
 	<h2 class="title" use:reveal>{copy.title}</h2>
 
 	<!--

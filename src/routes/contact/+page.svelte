@@ -69,9 +69,9 @@
 
 <Seo title={i18n.t.seo.contact.title} description={i18n.t.seo.contact.description} />
 
-<PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} tone="claret" />
 
-<Section index="01" rule={false}>
+<Section index="01" rule={false} tone="claret">
 	<!-- Addresses are written out, readable and copyable — not hidden behind icons. -->
 	<div class="channels">
 		{#each mailChannels as channel (channel.id)}
@@ -108,7 +108,7 @@
 	</div>
 </Section>
 
-<Section index="02" tone="void">
+<Section index="02" tone="steel">
 	<div class="contact">
 		<div class="contact__left">
 			<h2 class="contact__title" use:reveal>{copy.reasons.title}</h2>

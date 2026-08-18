@@ -20,14 +20,14 @@
 
 <Seo title={i18n.t.seo.partners.title} description={i18n.t.seo.partners.description} />
 
-<PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} tone="claret" figure="01" />
 
 <!--
 	The institutional relationship gets a chapter, not a logo tile — and the
 	chapter is written in RO6ONE's voice about what the relationship made
 	possible, so the team stays the subject of every sentence.
 -->
-<Section index="01" rule={false} tone="burgundy">
+<Section index="01" rule={false} tone="claret">
 	<div class="institution">
 		<div class="institution__copy">
 			<h2 class="institution__title" use:reveal>{copy.institutional.title}</h2>
@@ -101,7 +101,7 @@
 	</dl>
 </Section>
 
-<Section index="04">
+<Section index="04" tone="steel">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.current.title}</h2>
 		<p class="lede">{copy.current.lede}</p>

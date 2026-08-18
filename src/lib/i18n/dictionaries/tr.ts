@@ -57,7 +57,68 @@ export const tr: Dictionary = {
 			next: 'Sırada',
 			nextValue: 'İlk resmî sezon'
 		},
-		scroll: 'Keşfetmek için kaydır'
+		scroll: 'Aşağı kaydır'
+	},
+
+	roles: {
+		robotics: 'Robotik',
+		pr: 'PR',
+		organisation: 'Organizasyon',
+		finance: 'Finans',
+		mentor: 'Mentör / Baş Koç'
+	},
+
+	daily: {
+		label: 'Bugün',
+		months: [
+			'Ocak',
+			'Şubat',
+			'Mart',
+			'Nisan',
+			'Mayıs',
+			'Haziran',
+			'Temmuz',
+			'Ağustos',
+			'Eylül',
+			'Ekim',
+			'Kasım',
+			'Aralık'
+		],
+		birthday: {
+			label: 'Doğum günü',
+			wish: 'İyi ki doğdun. Atölye seninle daha iyi.',
+			wishPlural: 'İyi ki doğdunuz. Atölye ikinizle daha iyi.'
+		},
+		signal: {
+			label: 'Kayıtlardan',
+			read: 'Devamı',
+			nextLabel: 'Sıradaki',
+			facts: {
+				founded:
+					'RO6ONE, Şubat 2026’da Trabzon Merkez Fen Lisesi’ndeki tek bir öğrenci havuzundan kuruldu.',
+				home: 'Ev, Trabzon Merkez Fen Lisesi: takımın çıktığı okul, kiraladığı bir salon değil.',
+				number:
+					'Takım FRC #11919 olarak yarışıyor. Numara atandı; ona dönüştürdüğümüz şey bize ait.',
+				steamfest:
+					'28 Nisan 2026’da takım, dört okulu tek salonda buluşturan Spor STEAM Fest’26’yı düzenledi.',
+				steamfestConcept:
+					'STEAMFest’te bir futbol maçı ile bir kimya gösterisi aynı öğleden sonrayı bilerek paylaştı.',
+				offseason:
+					'Temmuz 2026’da RO6ONE, Hayri Gür Spor Salonu’nda Trabzon Off-Season’ı organize etti.',
+				offseasonTeams:
+					'Yirmi bir takım, bölgede daha önce hiç yapılmamış bir FRC Off-Season için robotlarıyla Trabzon’a geldi.',
+				platform:
+					'Takım iletişimi, toplantılar ve dosyalar, takımın kendi kurup sürdürdüğü bir platformda çalışıyor.',
+				infrastructure:
+					'Alan adı, e-posta ve bu web sitesi takım tarafından işletiliyor; hizmet olarak kiralanmıyor.',
+				firstSeason:
+					'Yaklaşan sezon RO6ONE’ın ilk resmî FRC yarışma sezonu. Şimdiye kadarki her şey ondan önce oldu.',
+				steamForStem:
+					'STEAM for STEM: çizmek, yazmak ve çekmek, teknik işin anlaşılır hâle gelme biçimidir.',
+				stemForPeople:
+					'STEM for People: teknoloji, atölyenin dışındaki birine ulaştığında tamamlanır.'
+			}
+		}
 	},
 
 	departments: {
@@ -215,7 +276,10 @@ export const tr: Dictionary = {
 	home: {
 		origin: {
 			label: 'Kuruluş',
-			title: 'Şubat 2026. Bu sitedeki her şey ondan sonra oldu.',
+			month: 'Şubat',
+			year: '2026',
+			/* "…ondan sonra oldu" was flabby; Turkish drops the verb here happily. */
+			title: 'Bu sitedeki her şey ondan sonra başladı.',
 			body: [
 				'RO6ONE, Trabzon Merkez Fen Lisesi’nde neredeyse hiç FRC deneyimi olmayan öğrencilerle başladı: geçmiş bir üretim yok, arşiv yok, devralınacak bir süreç yok. Tasarlamamız gereken ilk şey takımın kendisiydi.',
 				'Martta Trabzonspor ile imzalanan iş birliği protokolü bu takıma kurumsal bir zemin verdi. Nisanda bir festival düzenledik. Temmuzda 21 takımlı bir turnuva organize ettik. İlk resmî yarışma sezonumuz ise hâlâ önümüzde.'
@@ -229,6 +293,17 @@ export const tr: Dictionary = {
 			steamfest: { name: 'Spor STEAM Fest ’26', note: 'Dört okul; spor ve STEM aynı salonda' },
 			offseason: { name: 'Trabzon Off-Season', note: '21 takım, Hayri Gür Spor Salonu' },
 			season: { name: 'İlk resmî sezon', note: 'Önümüzde' }
+		},
+		people: {
+			label: 'Ekip',
+			titleLead: 'Elli bir öğrenci,',
+			titleAccent: 'tek bir iş.',
+			lede: 'Portresi ulaşan herkes burada, akıp gidiyor. Diğerleri de yolda.',
+			countPeople: 'kişi',
+			countNote: 'Robotik, PR, organizasyon, finans — ve yanlarında, üstlerinde değil, iki mentör.',
+			cta: 'Ekibin tamamı',
+			hintScroll: 'Kaydırmaya devam edin',
+			hintSwipe: 'Kaydırın'
 		},
 		monolith: {
 			label: 'Takım numarası',
@@ -436,6 +511,15 @@ export const tr: Dictionary = {
 
 	impact: {
 		eyebrow: 'Etki',
+		/* Türkçe burada kaynak dil: haberler zaten Türkçe yayımlandı. */
+		coverage: {
+			label: 'Basın',
+			title: 'Haber şehirden bizden önce çıktı.',
+			body: 'Off-Season’ı önce Trabzon’un yerel gazeteleri yazdı; ardından aynı ajans haberi Karadeniz’le hiçbir bağı olmayan haber merkezlerine düştü. Bir spor salonundaki robot hafta sonu Gaziantep’te, Mersin’de, Karabük’te okundu.',
+			note: 'Haberlerde organizasyon ortakları olarak Trabzonspor ve Trabzon Merkez Fen Lisesi geçiyor. Okunma sayısı tutmadık, tutmayacağız da.',
+			wire: 'Aynı ajans haberi',
+			original: 'Kendi haberi'
+		},
 		title: 'STEAM for STEM. STEM for People.',
 		lede: 'İki ilke ve bu ilkeleri gerçekten savunup savunmadığımızı anlamak için yaptığımız iki proje.',
 		steam: {
@@ -499,11 +583,18 @@ export const tr: Dictionary = {
 		},
 		roster: {
 			title: 'Üyeler',
-			lede: 'Profiller her sezon güncelleniyor.',
-			empty: {
-				title: 'Üye profilleri hazırlanıyor',
-				body: 'İsimler ve portreler yalnızca rıza alındığında yayımlanıyor; o tamamlanana kadar bu bölüm kapalı kalıyor. Bölüm tek bir içerik dosyasından üretiliyor ve kişileri otomatik olarak alanlarına göre grupluyor.'
-			}
+			lead: 'Elli bir kişi.',
+			accent: 'Bir alan seçin.',
+			lede: 'Bir alanı açın ya da doğrudan isim arayın.',
+			pending: 'Portre bekleniyor',
+			searchLabel: 'İsimle ara',
+			searchPlaceholder: 'İsim',
+			filterAll: 'Tümü',
+			resultsLabel: 'kişi görünüyor',
+			noResults: 'Bu aramaya uyan kimse yok.',
+			portraitNote: 'Portreler üyeler gönderdikçe ekleniyor; boş çerçeveler sezon içinde doluyor.',
+			openLabel: 'Portreyi aç',
+			closeLabel: 'Kapat'
 		},
 		join: {
 			title: 'Takıma katılmak',
@@ -633,6 +724,9 @@ export const tr: Dictionary = {
 	},
 
 	footer: {
+		/* Kapanış, hero’daki "Sıradakini inşa et."e cevap veriyor. */
+		closing: 'Trabzon’da elli bir öğrenci,',
+		closingTurn: 'sıradakini inşa ediyor.',
 		explore: 'Keşfet',
 		connect: 'Bağlan',
 		identity: 'Kimlik',

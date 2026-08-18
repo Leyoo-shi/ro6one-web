@@ -34,6 +34,7 @@
 		<img
 			class="frame__image"
 			src={media.src}
+			srcset={media.srcset}
 			alt={resolveText(media.alt, i18n.locale)}
 			{sizes}
 			loading={media.priority ? 'eager' : 'lazy'}
@@ -86,13 +87,19 @@
 	 * The empty state reads as a machined recess in the page surface: a slightly
 	 * darker field, a hairline, and drafting crop marks at the corners.
 	 */
+	/*
+	 * Darkens whatever room it is standing in rather than painting itself
+	 * black. Hardcoding --surface-void meant an empty aperture punched a black
+	 * rectangle through the claret, steel and paper rooms; a translucent shade
+	 * reads as a recess in every one of them.
+	 */
 	.frame__field {
 		position: relative;
 		overflow: hidden;
 
 		background:
 			radial-gradient(120% 100% at 50% 0%, rgb(244 244 242 / 0.035), transparent 70%),
-			var(--surface-void);
+			rgb(0 0 0 / 0.24);
 		box-shadow:
 			inset 0 1px 0 rgb(244 244 242 / 0.04),
 			inset 0 0 0 1px rgb(244 244 242 / 0.05);

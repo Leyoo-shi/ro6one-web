@@ -10,71 +10,93 @@
 	const event = getEvent('steamfest');
 </script>
 
-<Section id="steamfest" index="02" label={copy.label}>
-	<header class="intro">
-		<h2 class="intro__title" use:reveal>{copy.title}</h2>
-		<p class="lede intro__lede" use:reveal={{ delay: 80 }}>{copy.lede}</p>
-	</header>
+<!--
+	03 — the collision.
 
-	<!--
-		Two systems running in the same hall. The columns are built as mirror
-		images either side of a centre rule, and the rule ends where the two
-		descriptions meet — the composition makes the argument the copy makes.
-	-->
+	STEAMFest is not a science fair standing next to a tournament, so the
+	chapter is not one room: it is two, meeting down the middle. The court half
+	stands in claret, the lab half in blue, and each photograph runs to the
+	outer edge of its own field. The composition makes the argument the copy
+	makes, and the seam down the centre is where the event actually happened.
+-->
+<Section id="steamfest" index="03" label={copy.label} bleed>
+	<div class="shell">
+		<header class="intro">
+			<h2 class="intro__title" use:reveal>{copy.title}</h2>
+			<p class="lede intro__lede" use:reveal={{ delay: 80 }}>{copy.lede}</p>
+		</header>
+	</div>
+
 	<div class="halves">
 		<div class="half half--court" use:reveal>
-			<h3 class="half__title">{copy.court.title}</h3>
-			<ul class="half__list">
-				{#each copy.court.items as item (item)}
-					<li>{item}</li>
-				{/each}
-			</ul>
-			<MediaFrame id="home.steamfest.court" sizes="(max-width: 900px) 100vw, 42vw" />
+			<div class="half__text">
+				<h3 class="half__title">{copy.court.title}</h3>
+				<ul class="half__list">
+					{#each copy.court.items as item (item)}
+						<li>{item}</li>
+					{/each}
+				</ul>
+			</div>
+			<MediaFrame
+				id="home.steamfest.court"
+				sizes="(max-width: 900px) 100vw, 50vw"
+				showCaption={false}
+			/>
 		</div>
 
 		<span class="halves__rule" aria-hidden="true"></span>
 
 		<div class="half half--lab" use:reveal={{ delay: 90 }}>
-			<h3 class="half__title">{copy.lab.title}</h3>
-			<ul class="half__list">
-				{#each copy.lab.items as item (item)}
-					<li>{item}</li>
-				{/each}
-			</ul>
-			<MediaFrame id="home.steamfest.lab" sizes="(max-width: 900px) 100vw, 42vw" />
+			<div class="half__text">
+				<h3 class="half__title">{copy.lab.title}</h3>
+				<ul class="half__list">
+					{#each copy.lab.items as item (item)}
+						<li>{item}</li>
+					{/each}
+				</ul>
+			</div>
+			<MediaFrame
+				id="home.steamfest.lab"
+				sizes="(max-width: 900px) 100vw, 50vw"
+				showCaption={false}
+			/>
 		</div>
 	</div>
 
-	<div class="merge" use:reveal>
-		<span class="merge__mark" aria-hidden="true"></span>
-		<h3 class="merge__title">{copy.merge.title}</h3>
-		<p class="merge__body">{copy.merge.body}</p>
-	</div>
-
-	<div class="meta" use:reveal>
-		<dl class="facts">
-			{#each event.facts as fact (fact.key)}
-				<div>
-					<dt class="label">{i18n.t.events.facts[fact.key as keyof typeof i18n.t.events.facts]}</dt>
-					<dd>
-						{fact.localized
-							? i18n.t.events.facts[fact.value as keyof typeof i18n.t.events.facts]
-							: fact.value}
-					</dd>
-				</div>
-			{/each}
-		</dl>
-
-		<div class="schools">
-			<p class="label">{copy.schoolsLabel}</p>
-			<ul>
-				{#each steamFestSchools as school (school)}
-					<li>{school}</li>
-				{/each}
-			</ul>
+	<div class="shell">
+		<div class="merge" use:reveal>
+			<span class="merge__mark" aria-hidden="true"></span>
+			<h3 class="merge__title">{copy.merge.title}</h3>
+			<p class="merge__body">{copy.merge.body}</p>
 		</div>
 
-		<p class="meta__support">{copy.support}</p>
+		<div class="meta" use:reveal>
+			<dl class="facts">
+				{#each event.facts as fact (fact.key)}
+					<div>
+						<dt class="label">
+							{i18n.t.events.facts[fact.key as keyof typeof i18n.t.events.facts]}
+						</dt>
+						<dd>
+							{fact.localized
+								? i18n.t.events.facts[fact.value as keyof typeof i18n.t.events.facts]
+								: fact.value}
+						</dd>
+					</div>
+				{/each}
+			</dl>
+
+			<div class="schools">
+				<p class="label">{copy.schoolsLabel}</p>
+				<ul>
+					{#each steamFestSchools as school (school)}
+						<li>{school}</li>
+					{/each}
+				</ul>
+			</div>
+
+			<p class="meta__support">{copy.support}</p>
+		</div>
 	</div>
 </Section>
 
@@ -96,11 +118,16 @@
 
 	/* ---------------------------------------------------------------- halves */
 
+	/*
+	 * Two colour fields running the full width of the viewport, meeting at a
+	 * seam in the middle. No gap between them: the whole point is that the two
+	 * halves touch.
+	 */
 	.halves {
 		position: relative;
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: clamp(1.5rem, 5vw, 5rem);
+		margin-top: var(--space-2xl);
 	}
 
 	.halves__rule {
@@ -109,19 +136,39 @@
 		bottom: 0;
 		left: 50%;
 		width: 1px;
+		z-index: 1;
 
 		background: linear-gradient(
 			to bottom,
-			var(--edge-faint),
-			var(--edge-strong) 35%,
-			var(--edge-faint)
+			transparent,
+			rgb(244 244 242 / 0.4) 30%,
+			rgb(244 244 242 / 0.4) 70%,
+			transparent
 		);
 	}
 
 	.half {
 		display: grid;
-		gap: var(--space-m);
+		gap: var(--space-l);
 		align-content: start;
+		padding-block: clamp(2rem, 5vw, 4rem);
+	}
+
+	.half--court {
+		background: linear-gradient(200deg, var(--claret-deep), var(--room-claret-deep));
+		padding-left: var(--shell-gutter);
+		padding-right: clamp(1.25rem, 3vw, 3rem);
+	}
+
+	.half--lab {
+		background: linear-gradient(160deg, var(--blue-deep), var(--room-arena-deep));
+		padding-right: var(--shell-gutter);
+		padding-left: clamp(1.25rem, 3vw, 3rem);
+	}
+
+	.half__text {
+		display: grid;
+		gap: var(--space-m);
 	}
 
 	.half__title {
@@ -134,11 +181,29 @@
 	}
 
 	.half--court .half__title {
-		color: var(--signal-warm);
+		color: var(--claret-bright);
 	}
 
 	.half--lab .half__title {
-		color: var(--signal);
+		color: var(--blue-bright);
+	}
+
+	/*
+	 * Each photograph runs off the outer edge of its own field, so the two
+	 * images push in towards the seam from opposite sides and face each other
+	 * across it. Squared corners, because these are fields rather than cards.
+	 */
+	.half :global(.frame__image) {
+		border-radius: 0;
+		aspect-ratio: 4 / 3;
+	}
+
+	.half--court :global(.frame) {
+		margin-left: calc(-1 * var(--shell-gutter));
+	}
+
+	.half--lab :global(.frame) {
+		margin-right: calc(-1 * var(--shell-gutter));
 	}
 
 	.half__list {
@@ -253,18 +318,28 @@
 			align-items: start;
 		}
 
+		/*
+		 * Stacked, the two fields become two bands one above the other — the
+		 * collision reads vertically instead of horizontally, and the seam
+		 * becomes the horizontal edge where the colours meet.
+		 */
 		.halves {
 			grid-template-columns: minmax(0, 1fr);
-			gap: var(--space-xl);
 		}
 
 		.halves__rule {
-			left: 0;
-			right: auto;
+			display: none;
 		}
 
-		.half {
-			padding-left: var(--space-m);
+		.half--court,
+		.half--lab {
+			padding-inline: var(--shell-gutter);
+		}
+
+		/* Stacked, both photographs bleed the same way — full width of the band. */
+		.half--court :global(.frame),
+		.half--lab :global(.frame) {
+			margin-inline: calc(-1 * var(--shell-gutter));
 		}
 
 		.merge {

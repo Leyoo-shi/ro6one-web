@@ -3,6 +3,7 @@
 	import PageHeader from '$lib/components/layout/PageHeader.svelte';
 	import ActionLink from '$lib/components/ui/ActionLink.svelte';
 	import MediaFrame from '$lib/components/ui/MediaFrame.svelte';
+	import { press, syndicatedCount } from '$lib/content/press';
 	import Section from '$lib/components/ui/Section.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { events, offSeasonOrigins, steamFestSchools } from '$lib/content/events';
@@ -15,9 +16,15 @@
 
 <Seo title={i18n.t.seo.impact.title} description={i18n.t.seo.impact.description} />
 
-<PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
+<PageHeader
+	eyebrow={copy.eyebrow}
+	title={copy.title}
+	lede={copy.lede}
+	tone="arena"
+	media="home.offseason.wide"
+/>
 
-<Section index="01" rule={false}>
+<Section index="01" rule={false} tone="arena">
 	<div class="phrase" use:reveal>
 		<h2 class="phrase__term">{copy.steam.title}</h2>
 		<p class="phrase__body">{copy.steam.body}</p>
@@ -30,7 +37,7 @@
 </Section>
 
 <!-- The two projects, each given a full chapter with its verified record. -->
-<Section index="02" tone="void">
+<Section index="02" tone="paper">
 	<article class="project">
 		<header class="project__head" use:reveal>
 			<div>
@@ -89,7 +96,7 @@
 	</article>
 </Section>
 
-<Section index="03" tone="navy">
+<Section index="03" tone="arena">
 	<article class="project">
 		<header class="project__head" use:reveal>
 			<div>
@@ -151,7 +158,53 @@
 	</article>
 </Section>
 
-<Section index="04">
+<!--
+	04 — coverage, as spread rather than volume.
+
+	Deliberately not a row of article cards with thumbnails. The interesting,
+	checkable fact is that an agency wire carried the same report to newsrooms
+	with no connection to the Black Sea, so the section is a wall of mastheads:
+	the papers that wrote their own piece set large, the wire pickups set small
+	and packed. Every name is a real link to the piece it names.
+
+	The note under it is load-bearing — the press credits Trabzonspor and the
+	school, not RO6ONE, and the copy says so rather than quietly implying the
+	coverage was about the team.
+-->
+<Section index="04" label={copy.coverage.label} tone="paper">
+	<div class="press">
+		<div class="press__lead">
+			<h2 class="press__title" use:reveal>{copy.coverage.title}</h2>
+			<p class="prose" use:reveal={{ delay: 70 }}>{copy.coverage.body}</p>
+			<p class="press__note" use:reveal={{ delay: 120 }}>{copy.coverage.note}</p>
+		</div>
+
+		<div class="press__wall">
+			<p class="label press__kind" use:reveal>{copy.coverage.original}</p>
+			<ul class="mastheads mastheads--original">
+				{#each press.filter((item) => !item.syndicated) as item, index (item.url)}
+					<li use:reveal={{ delay: index * 45 }}>
+						<a href={item.url} target="_blank" rel="noopener">{item.outlet}</a>
+					</li>
+				{/each}
+			</ul>
+
+			<p class="label press__kind press__kind--wire" use:reveal>
+				{copy.coverage.wire}
+				<span class="press__count">{syndicatedCount}</span>
+			</p>
+			<ul class="mastheads mastheads--wire">
+				{#each press.filter((item) => item.syndicated) as item, index (item.url)}
+					<li use:reveal={{ delay: index * 35 }}>
+						<a href={item.url} target="_blank" rel="noopener">{item.outlet}</a>
+					</li>
+				{/each}
+			</ul>
+		</div>
+	</div>
+</Section>
+
+<Section index="05">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.focus.title}</h2>
 		<p class="lede">{copy.focus.lede}</p>
@@ -168,7 +221,7 @@
 	</ul>
 </Section>
 
-<Section index="05">
+<Section index="06">
 	<div class="closing">
 		<div use:reveal>
 			<h2 class="closing__title">{copy.record.title}</h2>
@@ -186,6 +239,108 @@
 </Section>
 
 <style>
+	/* ------------------------------------------------------------- coverage */
+
+	.press {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+		gap: var(--space-xl) clamp(2rem, 6vw, 5rem);
+	}
+
+	.press__title {
+		max-width: 16ch;
+		margin-bottom: var(--space-m);
+		font-size: var(--type-h2);
+		font-weight: 550;
+		line-height: 1.02;
+	}
+
+	.press__note {
+		max-width: 42ch;
+		margin-top: var(--space-l);
+		padding-top: var(--space-s);
+		border-top: 1px solid var(--ink-edge-faint);
+
+		font-size: var(--type-small);
+		line-height: 1.5;
+		color: var(--text-muted);
+	}
+
+	.press__kind {
+		display: flex;
+		align-items: baseline;
+		gap: 0.6rem;
+		color: var(--claret);
+	}
+
+	.press__kind--wire {
+		margin-top: var(--space-xl);
+		color: var(--blue-deep);
+	}
+
+	.press__count {
+		font-family: var(--font-mono);
+		font-size: var(--type-micro);
+		color: var(--text-muted);
+	}
+
+	/*
+	 * Mastheads, not cards. Original reporting is set at heading scale because
+	 * somebody went and wrote it; the wire pickups are set small and packed,
+	 * because the point of them is how many there are and how far they reach.
+	 */
+	.mastheads {
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: var(--space-m);
+	}
+
+	.mastheads a {
+		display: inline-block;
+		border-bottom: 1px solid transparent;
+		transition:
+			border-color var(--duration-fast) var(--ease-out),
+			color var(--duration-fast) var(--ease-out);
+	}
+
+	.mastheads--original {
+		gap: 0.3rem clamp(1.25rem, 3vw, 2.25rem);
+	}
+
+	.mastheads--original a {
+		font-size: var(--type-h3);
+		font-weight: 550;
+		letter-spacing: -0.025em;
+		line-height: 1.15;
+		color: var(--ink-text);
+	}
+
+	.mastheads--original a:hover {
+		border-color: var(--claret);
+		color: var(--claret);
+	}
+
+	.mastheads--wire {
+		gap: 0.35rem clamp(0.9rem, 2vw, 1.5rem);
+		max-width: 34rem;
+	}
+
+	.mastheads--wire a {
+		font-size: var(--type-small);
+		color: var(--text-muted);
+	}
+
+	.mastheads--wire a:hover {
+		border-color: var(--blue-deep);
+		color: var(--blue-deep);
+	}
+
+	@media (max-width: 900px) {
+		.press {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
 	.phrase {
 		max-width: 52rem;
 		padding-block: clamp(1.75rem, 4vw, 3rem);

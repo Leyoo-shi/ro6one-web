@@ -60,15 +60,17 @@ export const site = {
 			id: 'linkedin',
 			label: 'LinkedIn',
 			handle: 'Trabzonspor Ro6one Robotik',
-			href: 'https://www.linkedin.com/company/trabzonspor-ro6one-robotik'
+			/* Canonical profile URL supplied by the team — not a guessed company slug. */
+			href: 'https://www.linkedin.com/in/trabzonspor-ro6one-robotik-7095423bb/'
 		}
 	] as Array<{ id: string; label: string; handle: string; href: string }>,
 
 	/**
-	 * TODO(design): add a 1200×630 social preview built from real team
-	 * photography once the archive arrives, then set the path here.
+	 * Brand assets derived from images/icons/ro6one-logo.jpg by
+	 * scripts/process_brand.py. Re-run that script if the logo is ever replaced.
 	 */
-	ogImage: '' as string
+	mark: '/media/brand/mark-128.png',
+	ogImage: '/media/brand/og.png'
 };
 
 export type Site = typeof site;

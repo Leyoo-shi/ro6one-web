@@ -1,0 +1,767 @@
+{
+	"yigitpursali": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "yigitpursali.jpg"
+	},
+	"zuleyhaaydin": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "zuleyhaaydin.jpg"
+	},
+	"doganefeasci": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				537
+			]
+		],
+		"placeholder": false,
+		"lowResolution": true,
+		"source": "doganefeasci.jpg"
+	},
+	"taharemziaydin": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "taharemziaydin.jpg"
+	},
+	"ilgazguven": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "ilgazguven.jpg"
+	},
+	"yagmurhavvayenibaki": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "yagmurhavvayenibaki.jpg"
+	},
+	"alaaddinbilgintopal": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "alaaddinbilgintopal.jpg"
+	},
+	"azraezgiturhan": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "azraezgiturhan.jpg"
+	},
+	"batuhanverep": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "batuhanverep.jpg"
+	},
+	"betultellioglu": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				531
+			]
+		],
+		"placeholder": false,
+		"lowResolution": true,
+		"source": "betultellioglu.jpg"
+	},
+	"burakyilmazlar": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "burakyilmazlar.jpg"
+	},
+	"denizalisahin": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "denizalisahin.jpg"
+	},
+	"elaecrenakyuz": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "elaecrenakyuz.jpg"
+	},
+	"eliferoglu": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "eliferoglu.jpg"
+	},
+	"elifranakundakci": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				552
+			]
+		],
+		"placeholder": false,
+		"lowResolution": true,
+		"source": "elifranakundakci.jpg"
+	},
+	"elifsenemozturk": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "elifsenemozturk.jpg"
+	},
+	"tugbaezgikara": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "tugbaezgikara.jpg"
+	},
+	"fatihkoroglu": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "fatihkoroglu.jpg"
+	},
+	"furkanhacimahmutoglu": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "furkanhacimahmutoglu.jpg"
+	},
+	"gizemalbayrak": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "gizemalbayrak.jpg"
+	},
+	"hamzanuriasan": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "hamzanuriasan.jpg"
+	},
+	"hayatkarahan": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "hayatkarahan.jpg"
+	},
+	"ipekbilgin": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "ipekbilgin.jpg"
+	},
+	"ipekturgut": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "ipekturgut.jpg"
+	},
+	"kaantanyel": {
+		"srcset": [
+			[
+				320,
+				283
+			],
+			[
+				640,
+				283
+			]
+		],
+		"placeholder": false,
+		"lowResolution": true,
+		"source": "kaantanyel.jpg"
+	},
+	"kaanyavuzcelik": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "kaanyavuzcelik.jpg"
+	},
+	"kemalozturk": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "kemalozturk.jpg"
+	},
+	"keremkongur": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "keremkongur.jpg"
+	},
+	"koraybaki": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "koraybaki.jpg"
+	},
+	"mehmetmesci": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "mehmetmesci.jpg"
+	},
+	"murathanmollamehmetoglu": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "murathanmollamehmetoglu.jpg"
+	},
+	"mustafaerenkarpuz": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "mustafaerenkarpuz.jpg"
+	},
+	"nehirgulay": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "nehirgulay.jpg"
+	},
+	"nesibezenginler": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "nesibezenginler.jpg"
+	},
+	"oktaymetearas": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "oktaymetearas.jpg"
+	},
+	"omerfarukozkul": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "omerfarukozkul.jpg"
+	},
+	"omeruzun": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "omeruzun.jpg"
+	},
+	"oykuyilmaz": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "oykuyilmaz.jpg"
+	},
+	"iremozemtaskin": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "iremozemtaskin.jpg"
+	},
+	"ayseozgeozdener": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "ayseozgeozdener.jpg"
+	},
+	"sidelyacam": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "sidelyaesmanurcam.jpg"
+	},
+	"yigityagizyazici": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "yigityagizyazici.jpg"
+	},
+	"zeynepberreisaoglu": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "zeynepberreisaoglu.jpg"
+	},
+	"zeynepgoksal": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "zeynepgoksal.jpg"
+	},
+	"zeynepkarabacak": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "zeynepkarabacak.jpg"
+	},
+	"zeynepkosterelioglu": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "zeynepkosterelioglu.jpg"
+	},
+	"zeynepmorkan": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "zeynepmorkan.jpg"
+	},
+	"yagizefekalayci": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": false,
+		"lowResolution": false,
+		"source": "yagizefekalayci.jpg"
+	},
+	"semramusrabektas": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "semramusrabektas.jpg"
+	},
+	"ceyhuntemel": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "ceyhuntemel.jpg"
+	},
+	"muhammetsalihartun": {
+		"srcset": [
+			[
+				320,
+				320
+			],
+			[
+				640,
+				640
+			]
+		],
+		"placeholder": true,
+		"lowResolution": false,
+		"source": "muhammetsalihartun.jpg"
+	}
+}

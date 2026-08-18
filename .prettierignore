@@ -10,3 +10,10 @@ bun.lockb
 
 # Agent/editor local state
 .claude/settings.local.json
+
+# Written by scripts/process_media.py
+src/lib/content/generated/
+
+# Project memory, hand-formatted. Prettier reflows its tables and wrapping,
+# which is the part that makes it readable.
+PROJECT_ATLAS_HANDOFF.md

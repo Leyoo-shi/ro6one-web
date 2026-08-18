@@ -157,6 +157,120 @@ canvas {
 	margin-top: var(--space-s);
 }
 
+/* A lede followed by body copy needs a gap, or the two read as one block. */
+.lede + .prose {
+	margin-top: var(--space-m);
+}
+
+/* ------------------------------------------------------------------ rooms */
+
+/*
+ * The room system, shared by `ui/Section.svelte` and `layout/PageHeader.svelte`
+ * so a chapter and a page opening can stand in the same room without either one
+ * redefining it.
+ *
+ * `--room-bg` is published by every room because some components have to draw
+ * *on* the room (TimelineTrack's dimension bracket sits on the surface and has
+ * to punch through its own rule).
+ *
+ * `.room--paper` additionally re-points the whole text ramp at the ink values.
+ * That is what lets a component written for the dark site render correctly in a
+ * light room without knowing the room changed — moving a section to paper is a
+ * one-attribute change, not a rewrite.
+ */
+.room--base {
+	--room-bg: var(--surface-base);
+	background: var(--surface-base);
+}
+
+.room--void {
+	--room-bg: var(--surface-void);
+	background: var(--surface-void);
+}
+
+.room--navy {
+	--room-bg: var(--surface-navy);
+	background: var(--surface-navy);
+}
+
+.room--burgundy {
+	--room-bg: var(--surface-burgundy);
+	background: var(--surface-burgundy);
+}
+
+.room--arena {
+	--room-bg: var(--room-arena);
+	background: var(--room-arena);
+}
+
+.room--claret {
+	--room-bg: var(--room-claret);
+	background: var(--room-claret);
+}
+
+.room--steel {
+	--room-bg: var(--room-steel);
+	background: var(--room-steel);
+}
+
+.room--paper {
+	--room-bg: var(--room-paper);
+	--text-primary: var(--ink-text);
+	--text-secondary: var(--ink-text-secondary);
+	--text-muted: var(--ink-text-muted);
+	--text-faint: var(--ink-text-faint);
+	--edge-faint: var(--ink-edge-faint);
+	--edge: var(--ink-edge);
+	--edge-strong: var(--ink-edge-strong);
+	--edge-burgundy: rgb(141 36 64 / 0.5);
+	--edge-navy: rgb(23 54 95 / 0.45);
+	--signal: var(--blue-deep);
+	--signal-warm: var(--claret);
+
+	background: var(--room-paper);
+	color: var(--ink-text);
+}
+
+/*
+ * The header floats transparently over the top of the page and only picks up a
+ * dark material once you scroll. On a page that *opens* in the paper room that
+ * left light-on-light nav — effectively invisible until the first scroll.
+ *
+ * Same trick as the rooms themselves: re-point the ramp rather than restyle
+ * each element, so the brand, nav, language switcher, Contact button and mobile
+ * menu trigger all invert together. Once `--scrolled` puts the dark material
+ * back under the header, the normal light ramp is correct again.
+ */
+body:has(.page-header.room--paper) .header:not(.header--scrolled) {
+	--text-primary: var(--ink-text);
+	--text-secondary: var(--ink-text-secondary);
+	--text-muted: var(--ink-text-muted);
+	--text-faint: var(--ink-text-faint);
+	--edge-faint: var(--ink-edge-faint);
+	--edge: var(--ink-edge);
+	--edge-strong: var(--ink-edge-strong);
+	--signal: var(--blue-deep);
+
+	color: var(--ink-text);
+}
+
+/*
+ * Two chapters in the *same* room back to back already have the first one's
+ * bottom padding between them, so a full top padding on the second doubles it —
+ * that compounding is what produced the dead vertical gaps on the Team page.
+ * Where the room actually changes the full padding stays, because there the
+ * space belongs to the new colour and is doing real work.
+ *
+ * This has to be global: Svelte scopes component styles and prunes a sibling
+ * combinator it cannot statically prove, so the same rule written inside
+ * Section.svelte compiles away as an unused selector.
+ */
+.section--base + .section--base,
+.section--void + .section--void,
+.section--paper + .section--paper {
+	padding-top: var(--space-l);
+}
+
 /* ---------------------------------------------------------- scroll reveal */
 
 /*

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
 	import ActionLink from '$lib/components/ui/ActionLink.svelte';
+	import MediaFrame from '$lib/components/ui/MediaFrame.svelte';
 	import OrgNetwork from '$lib/components/ui/OrgNetwork.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import { useI18n } from '$lib/i18n/context.svelte';
@@ -10,10 +11,25 @@
 	const platform = $derived(i18n.t.organization.platform);
 </script>
 
-<Section id="system" index="06" label={copy.label} tone="void">
+<!--
+	07 — the organization, in claret.
+
+	The claim here ("we engineer the team the same way we engineer the robot")
+	used to be argued entirely by a diagram, which is the least convincing way
+	to make it. It now opens with a photograph of members actually running an
+	event from a desk — laptops, radios, road cases — and the network diagram
+	follows as the explanation rather than the evidence.
+-->
+<Section id="system" index="07" label={copy.label} tone="claret">
 	<div class="intro">
-		<h2 class="intro__title" use:reveal>{copy.title}</h2>
-		<p class="lede" use:reveal={{ delay: 80 }}>{copy.body}</p>
+		<div class="intro__text">
+			<h2 class="intro__title" use:reveal>{copy.title}</h2>
+			<p class="lede" use:reveal={{ delay: 80 }}>{copy.body}</p>
+		</div>
+
+		<div class="intro__media" use:reveal={{ delay: 120 }}>
+			<MediaFrame id="home.system.desk" sizes="(max-width: 900px) 100vw, 42vw" />
+		</div>
 	</div>
 
 	<div class="network">
@@ -50,8 +66,8 @@
 <style>
 	.intro {
 		display: grid;
-		grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-		gap: var(--space-l) clamp(2rem, 6vw, 6rem);
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+		gap: var(--space-l) clamp(2rem, 6vw, 5rem);
 		align-items: end;
 		margin-bottom: var(--space-2xl);
 	}
@@ -61,6 +77,14 @@
 		font-size: var(--type-h2);
 		font-weight: 550;
 		line-height: 1.02;
+	}
+
+	.intro__text .lede {
+		margin-top: var(--space-m);
+	}
+
+	.intro__media :global(.frame__image) {
+		border: 1px solid var(--edge-burgundy);
 	}
 
 	.network {

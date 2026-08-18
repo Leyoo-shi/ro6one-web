@@ -60,6 +60,67 @@ export const en = {
 		scroll: 'Scroll to explore'
 	},
 
+	roles: {
+		robotics: 'Robotics',
+		pr: 'PR',
+		organisation: 'Organization',
+		finance: 'Finance',
+		mentor: 'Mentor & lead coach'
+	},
+
+	daily: {
+		label: 'Today',
+		months: [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December'
+		],
+		birthday: {
+			label: 'Birthday',
+			wish: 'The workshop is a year better at building things because of you. Happy birthday.',
+			wishPlural:
+				'Two reasons the workshop is a year better at building things. Happy birthday to both of you.'
+		},
+		signal: {
+			label: 'From the record',
+			read: 'Read on',
+			nextLabel: 'Next up',
+			facts: {
+				founded:
+					'RO6ONE was formed in February 2026, out of one student pool at Trabzon Merkez Fen Lisesi.',
+				home: 'Home is Trabzon Merkez Fen Lisesi — the school the team came out of, not a venue it books.',
+				number:
+					'The team competes as FRC #11919. The number was assigned; what it turned into is ours.',
+				steamfest:
+					'On 28 April 2026 the team ran Spor STEAM Fest’26 with four schools in one hall.',
+				steamfestConcept:
+					'At STEAMFest a football match and a chemistry demonstration shared the same afternoon on purpose.',
+				offseason: 'In July 2026 RO6ONE organized the Trabzon Off-Season at Hayri Gür Sports Hall.',
+				offseasonTeams:
+					'Twenty-one teams brought robots to Trabzon for an FRC Off-Season that had never been held in the region before.',
+				platform:
+					'Team communication, meetings and files run on a platform the team configures and maintains itself.',
+				infrastructure:
+					'The domain, the mail and this website are operated by the team, not rented as a service.',
+				firstSeason:
+					'The upcoming season is RO6ONE’s first official FRC competition season. Everything so far came before it.',
+				steamForStem:
+					'STEAM for STEM: drawing, writing and filming are how technical work becomes understandable.',
+				stemForPeople:
+					'STEM for People: technology is only finished when it reaches someone outside the workshop.'
+			}
+		}
+	},
+
 	departments: {
 		mechanical: {
 			name: 'Mechanical',
@@ -218,7 +279,10 @@ export const en = {
 	home: {
 		origin: {
 			label: 'Origin',
-			title: 'February 2026. Everything on this site came after.',
+			/* The heading is assembled from parts so the year can be set as structure. */
+			month: 'February',
+			year: '2026',
+			title: 'Everything on this site came after.',
 			body: [
 				'RO6ONE started at Trabzon Merkez Fen Lisesi with students who had almost no FRC experience: no build history, no archive, no process to inherit. The first thing we had to design was the team itself.',
 				'In March, a cooperation protocol with Trabzonspor gave that team an institutional home. In April we ran a festival. In July we organized a 21-team tournament. Our first official competition season is still ahead of us.'
@@ -232,6 +296,18 @@ export const en = {
 			steamfest: { name: 'Spor STEAM Fest ’26', note: 'Four schools, sport and STEM in one hall' },
 			offseason: { name: 'Trabzon Off-Season', note: '21 teams, Hayri Gür Spor Salonu' },
 			season: { name: 'First official season', note: 'Ahead of us' }
+		},
+		people: {
+			label: 'The people',
+			titleLead: 'Fifty-one students,',
+			titleAccent: 'one build.',
+			lede: 'Everyone whose portrait has arrived, drifting past. The rest are on their way.',
+			countPeople: 'people',
+			countNote:
+				'Robotics, PR, organization, finance — and two mentors alongside them, not above them.',
+			cta: 'The whole team',
+			hintScroll: 'Keep scrolling',
+			hintSwipe: 'Swipe'
 		},
 		monolith: {
 			label: 'Team number',
@@ -440,6 +516,20 @@ export const en = {
 
 	impact: {
 		eyebrow: 'Impact',
+		/*
+		 * Coverage, framed by *spread* rather than by volume. Every claim here is
+		 * checkable from content/press.ts. Note what it does NOT say: none of
+		 * these articles names RO6ONE, so the copy says the event was covered,
+		 * never that the team was. No reach or audience figures exist.
+		 */
+		coverage: {
+			label: 'Coverage',
+			title: 'The story left the city before we did.',
+			body: 'Local papers in Trabzon covered the Off-Season, and an agency wire carried the same report to newsrooms with no connection to the Black Sea at all. A robotics weekend in a Trabzon sports hall was read about in Gaziantep, Mersin and Karabük.',
+			note: 'Press reports credit Trabzonspor and Trabzon Merkez Fen Lisesi as the organizing partners. We have not counted readers, and we are not going to.',
+			wire: 'Same wire report',
+			original: 'Original reporting'
+		},
 		title: 'STEAM for STEM. STEM for People.',
 		lede: 'Two principles, and the two projects we used to find out whether we meant them.',
 		steam: {
@@ -503,11 +593,19 @@ export const en = {
 		},
 		roster: {
 			title: 'Members',
-			lede: 'Profiles are maintained per season.',
-			empty: {
-				title: 'Member profiles are being prepared',
-				body: 'Names and portraits are published only with consent, so this section stays closed until that is in place. It renders from one content file and groups people by domain automatically.'
-			}
+			lead: 'Fifty-one people.',
+			accent: 'Choose a domain.',
+			lede: 'Pick a group to open it, or search for a name.',
+			pending: 'Portrait pending',
+			searchLabel: 'Search by name',
+			searchPlaceholder: 'Name',
+			filterAll: 'Everyone',
+			resultsLabel: 'shown',
+			noResults: 'No one matches that search.',
+			portraitNote:
+				'Portraits arrive as members send them; the empty frames fill in over the season.',
+			openLabel: 'Open portrait',
+			closeLabel: 'Close'
 		},
 		join: {
 			title: 'Joining the team',
@@ -636,6 +734,13 @@ export const en = {
 	},
 
 	footer: {
+		/*
+		 * The ending answers the hero instead of introducing a new idea: the page
+		 * opens on "Build what comes next" and closes on who is doing it. Both
+		 * halves are plain fact — no season, placement or promise is claimed.
+		 */
+		closing: 'Fifty-one students in Trabzon,',
+		closingTurn: 'building what comes next.',
 		explore: 'Explore',
 		connect: 'Connect',
 		identity: 'Identity',

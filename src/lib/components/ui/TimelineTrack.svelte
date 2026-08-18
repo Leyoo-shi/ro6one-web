@@ -204,7 +204,8 @@
 		transform: translateX(-50%);
 		padding-inline: 0.4rem;
 
-		background: var(--surface-base);
+		/* Sits on the room it is drawn in, so the bracket reads as one line. */
+		background: var(--room-bg, var(--surface-base));
 		font-family: var(--font-mono);
 		font-size: var(--type-micro);
 		letter-spacing: 0.1em;

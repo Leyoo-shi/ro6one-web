@@ -13,45 +13,80 @@
 	 * of the hero light surface (rgb 13 14 17) so that the canvas and the rest
 	 * of the site read as one continuous material.
 	 */
+	/*
+	 * Colour is derived from the actual RO6ONE mark: a wave-formed wildcat head
+	 * in bright blue on a deep claret field. Those two are the club's colours
+	 * seen through the team's own artwork, so the site uses them at full
+	 * strength — not as a whisper of tint over grey.
+	 *
+	 *   INK      the dark the site is built on, in three temperatures
+	 *   BLUE     the accent that can be used loud: marks, active states, light
+	 *   CLARET   the second accent: warmth, events, celebration
+	 */
+	--ink: #08090c;
+	--ink-blue: #070d18;
+	--ink-claret: #120709;
+
 	--surface-void: #08090b;
 	--surface-base: #0d0e11;
 	--surface-panel: #14161b;
-
-	/*
-	 * Institutional tint bands.
-	 *
-	 * RO6ONE competes under the Trabzonspor identity, so burgundy and navy
-	 * belong in the palette — but as *material*, never as UI branding. These two
-	 * surfaces are graphite with a hue bias of a few percent: you read them as a
-	 * change of material under the same light, not as a coloured box. Never fill
-	 * a button, badge or card with them.
-	 */
 	--surface-navy: #0a0e16;
 	--surface-burgundy: #100a0e;
 
 	/*
-	 * Pigments. Used for hairline gradients, edge light, active marks and the
-	 * canvas light tint — anywhere light would pick a colour up off a surface.
-	 * Saturation is deliberately low: this is a club colour seen in dark metal,
-	 * not a football shirt.
+	 * ROOMS.
+	 *
+	 * The surfaces above are all within a few percent of black, which is why a
+	 * page built from them reads as one long charcoal corridor no matter which
+	 * "tone" each section asked for. These are rooms you can actually tell
+	 * apart with the lights off: a warm paper room, a blue arena, a claret hall
+	 * and a cold technical bay. A chapter picks one and commits to it.
 	 */
+	--room-paper: #e9e6de;
+	--room-paper-warm: #f3f1ea;
+	--room-paper-deep: #d6d1c5;
+	--room-arena: #0c1e3a;
+	--room-arena-deep: #050e1e;
+	--room-claret: #2b0d19;
+	--room-claret-deep: #17060d;
+	--room-steel: #101a24;
+	--room-steel-lit: #1a2836;
+
+	/*
+	 * Text for the light rooms. Sections that switch to a paper surface
+	 * re-point the text ramp at these, so every child component inverts with
+	 * the room instead of each one hard-coding a colour.
+	 */
+	--ink-text: #14151c;
+	--ink-text-secondary: rgb(20 21 28 / 0.72);
+	--ink-text-muted: rgb(20 21 28 / 0.58);
+	--ink-text-faint: rgb(20 21 28 / 0.46);
+	--ink-edge-faint: rgb(20 21 28 / 0.12);
+	--ink-edge: rgb(20 21 28 / 0.2);
+	--ink-edge-strong: rgb(20 21 28 / 0.34);
+
+	/* Straight from the logo artwork. */
+	--blue: #3f8fd8;
+	--blue-bright: #74baf4;
+	--blue-deep: #17365f;
+	--claret: #8d2440;
+	--claret-bright: #c94a63;
+	--claret-deep: #3d0f1c;
+
 	--pigment-burgundy: #6d2739;
 	--pigment-burgundy-deep: #35141d;
 	--pigment-navy: #23405f;
 	--pigment-navy-deep: #101d2e;
 
-	/* Keylines. The site is built out of hairlines rather than boxes. */
+	/* Keylines. */
 	--edge-faint: rgb(244 244 242 / 0.06);
 	--edge: rgb(244 244 242 / 0.1);
 	--edge-strong: rgb(244 244 242 / 0.2);
-	--edge-burgundy: rgb(160 66 90 / 0.32);
-	--edge-navy: rgb(88 137 190 / 0.3);
+	--edge-burgundy: rgb(201 74 99 / 0.4);
+	--edge-navy: rgb(116 186 244 / 0.36);
 
 	/*
-	 * The ramp is tuned against --surface-base for WCAG AA at small sizes:
-	 * secondary ≈ 7.5:1, muted ≈ 5.9:1, faint ≈ 4.6:1. Going dimmer than
-	 * --text-faint for real text fails contrast — use it for hairlines and
-	 * hover-from states instead.
+	 * Text ramp, tuned against the darkest scene for WCAG AA at small sizes.
 	 */
 	--text-primary: #f4f4f2;
 	--text-secondary: rgb(244 244 242 / 0.64);
@@ -59,16 +94,13 @@
 	--text-faint: rgb(244 244 242 / 0.48);
 
 	/*
-	 * Light itself is the accent: a steel tone that reads as reflected
-	 * highlight, now pulled slightly toward the institutional navy. Used only
-	 * for focus rings, active states and small status marks.
-	 * --signal-warm is its burgundy counterpart, used even more sparingly:
-	 * live/active markers and the second axis of the two brand principles.
+	 * Signal colours. These are allowed to be vivid — they are the site's
+	 * equivalent of a highlighter, used on small marks and active states.
 	 */
-	--signal: #9fbcd0;
-	--signal-dim: rgb(159 188 208 / 0.16);
-	--signal-warm: #d09aa7;
-	--signal-warm-dim: rgb(208 154 167 / 0.16);
+	--signal: var(--blue-bright);
+	--signal-dim: rgb(116 186 244 / 0.18);
+	--signal-warm: var(--claret-bright);
+	--signal-warm-dim: rgb(201 74 99 / 0.18);
 
 	/* ------------------------------------------------------------ typography
 	 *
@@ -79,6 +111,7 @@
 	--font-sans:
 		ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter,
 		'Helvetica Neue', Arial, sans-serif;
+	--font-display: ui-serif, Georgia, 'Times New Roman', 'Nimbus Roman', serif;
 	--font-mono:
 		ui-monospace, SFMono-Regular, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo, Consolas,
 		monospace;
@@ -90,9 +123,16 @@
 	--type-body-lg: clamp(1.05rem, 0.55vw + 0.93rem, 1.3rem);
 	--type-h3: clamp(1.25rem, 0.9vw + 1.05rem, 1.75rem);
 	--type-h2: clamp(1.85rem, 2.4vw + 1.3rem, 3.4rem);
+	/* Chapter statements: bigger than a heading, smaller than the hero. */
+	--type-statement: clamp(2.1rem, 3.6vw + 1.2rem, 4.6rem);
 	--type-h1: clamp(2.6rem, 4.4vw + 1.6rem, 5.4rem);
 	--type-display: clamp(3.6rem, 8.4vw + 0.6rem, 8.75rem);
 
+	/* Architecture: numerals that behave like structure rather than text. */
+	--type-mega: clamp(5rem, 16vw + 1rem, 15rem);
+
+	--tracking-statement: -0.045em;
+	--tracking-mega: -0.07em;
 	--tracking-tight: -0.03em;
 	--tracking-display: -0.055em;
 	--tracking-label: 0.2em;
@@ -120,6 +160,8 @@
 	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 	--ease-material: cubic-bezier(0.16, 1, 0.3, 1);
 	--ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+	/* Light and material respond more slowly than interface does. */
+	--motion-light: 620ms;
 	--duration-fast: 180ms;
 	--duration-base: 320ms;
 	--duration-reveal: 900ms;

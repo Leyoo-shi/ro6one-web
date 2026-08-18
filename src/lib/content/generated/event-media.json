@@ -1,0 +1,322 @@
+{
+	"home.steamfest.court": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "3:2",
+		"event": "steamfest",
+		"caption": "Two school teams line up before kick-off, Trabzon behind them.",
+		"source": "IMG-20260428-WA0107.jpg"
+	},
+	"home.steamfest.lab": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "3:2",
+		"event": "steamfest",
+		"caption": "The chemistry stand mid-demonstration.",
+		"source": "IMG-20260428-WA0100.jpg"
+	},
+	"impact.steamfest.wide": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "21:9",
+		"event": "steamfest",
+		"caption": "The volleyball tournament, in the school sports hall.",
+		"source": "IMG-20260428-WA0105.jpg"
+	},
+	"about.school": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "16:9",
+		"event": "steamfest",
+		"caption": "Trabzon Merkez Fen Lisesi with the festival stands running along the front.",
+		"source": "IMG-20260428-WA0064 (copy).jpg"
+	},
+	"home.offseason.wide": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "21:9",
+		"event": "offseason",
+		"caption": "Hayri Gür Spor Salonu during the Trabzon Off-Season.",
+		"source": "DSCF6396.JPG"
+	},
+	"home.offseason.field": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "16:9",
+		"event": "offseason",
+		"caption": "The field between matches.",
+		"source": "DSCF6452.JPG"
+	},
+	"home.offseason.detail": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "1:1",
+		"event": "offseason",
+		"caption": "A robot working the field.",
+		"source": "DSCF6453.JPG"
+	},
+	"home.offseason.drivers": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "3:2",
+		"event": "offseason",
+		"caption": "Drivers at the station, mid-match.",
+		"source": "DSCF6456.JPG"
+	},
+	"home.offseason.people": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "4:5",
+		"event": "offseason",
+		"caption": "Along the barrier, waiting for the next match.",
+		"source": "DSCF6447.JPG"
+	},
+	"impact.offseason.stands": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "3:2",
+		"event": "offseason",
+		"caption": "The crowd along the field, watching.",
+		"source": "DSCF6449.JPG"
+	},
+	"team.infrastructure": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "16:10",
+		"event": "steamfest",
+		"caption": "The team on its own stand at Spor STEAM Fest ’26.",
+		"source": "IMG-20260429-WA0028.jpg"
+	},
+	"home.system.desk": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "3:2",
+		"event": "steamfest",
+		"caption": "Running the chemistry stand at Spor STEAM Fest ’26.",
+		"source": "IMG-20260428-WA0097.jpg"
+	},
+	"robotics.field": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "16:9",
+		"event": "offseason",
+		"caption": "A full FRC field, built inside a sports hall.",
+		"source": "DSCF6406.JPG"
+	},
+	"robotics.station": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "3:2",
+		"event": "offseason",
+		"caption": "The driver station during a match.",
+		"source": "DSCF6407.JPG"
+	},
+	"about.people": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1475
+			]
+		],
+		"ratio": "3:2",
+		"event": "steamfest",
+		"caption": "The team and its coach behind the chemistry stand.",
+		"source": "IMG-20260428-WA0043.jpg"
+	},
+	"home.media.camera": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1280
+			],
+			[
+				1920,
+				1920
+			]
+		],
+		"ratio": "4:5",
+		"event": "offseason",
+		"caption": "A RO6ONE camera operator, inside the team's own frame prop.",
+		"source": "DSCF6427.JPG"
+	}
+}

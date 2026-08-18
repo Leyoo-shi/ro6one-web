@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
 	import ActionLink from '$lib/components/ui/ActionLink.svelte';
+	import MediaFrame from '$lib/components/ui/MediaFrame.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import { institutions } from '$lib/content/partners';
 	import { site } from '$lib/content/site';
@@ -11,7 +12,17 @@
 	const club = institutions.find((entry) => entry.id === 'trabzonspor');
 </script>
 
-<Section id="institutional" index="08" label={copy.label} tone="burgundy">
+<Section id="institutional" index="09" label={copy.label} tone="claret">
+	<!--
+		The school as a place, at the top of the institutional chapter. It was
+		captured at STEAMFest, which does not make it a STEAMFest photograph: what
+		it shows is the building the team came out of, which is what this section
+		is about.
+	-->
+	<div class="institutional__place" use:reveal>
+		<MediaFrame id="about.school" sizes="100vw" showCaption={false} />
+	</div>
+
 	<div class="institutional">
 		<div class="institutional__copy">
 			<h2 class="institutional__title" use:reveal>{copy.title}</h2>
@@ -67,6 +78,20 @@
 </Section>
 
 <style>
+	/*
+	 * A wide, quiet establishing shot before the argument. Deliberately not
+	 * full-bleed: the Off-Season chapter owns the full-bleed move, and repeating
+	 * it here would flatten both.
+	 */
+	.institutional__place {
+		margin-bottom: var(--space-2xl);
+	}
+
+	.institutional__place :global(.frame__image) {
+		aspect-ratio: 21 / 9;
+		border: 1px solid var(--edge-burgundy);
+	}
+
 	.institutional {
 		display: grid;
 		grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);

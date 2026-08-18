@@ -9,7 +9,7 @@
 	const copy = $derived(i18n.t.home.machine);
 </script>
 
-<Section id="machine" index="05" label={copy.label}>
+<Section id="machine" index="06" label={copy.label} tone="steel">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.title}</h2>
 		<p class="lede intro__lede">{copy.lede}</p>

@@ -15,9 +15,16 @@
 
 <Seo title={i18n.t.seo.about.title} description={i18n.t.seo.about.description} />
 
-<PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
+<PageHeader
+	eyebrow={copy.eyebrow}
+	title={copy.title}
+	lede={copy.lede}
+	tone="paper"
+	figure="2026"
+	media="about.school"
+/>
 
-<Section index="01" rule={false}>
+<Section index="01" rule={false} tone="paper">
 	<h2 class="story__title" use:reveal>{copy.story.title}</h2>
 
 	<div class="story">
@@ -31,7 +38,7 @@
 	</div>
 </Section>
 
-<Section index="02" tone="navy">
+<Section index="02" tone="claret">
 	<div class="home">
 		<div class="home__copy">
 			<h2 class="home__title" use:reveal>{copy.home.title}</h2>
@@ -56,14 +63,18 @@
 			</dl>
 		</div>
 
+		<!--
+			The school photograph is now the page opening, so this chapter shows
+			the team instead: a human moment, and the organization at work.
+		-->
 		<div class="home__media">
-			<MediaFrame id="about.school" sizes="(max-width: 900px) 100vw, 45vw" />
-			<MediaFrame id="about.protocol" sizes="(max-width: 900px) 100vw, 45vw" />
+			<MediaFrame id="about.people" sizes="(max-width: 900px) 100vw, 45vw" />
+			<MediaFrame id="team.infrastructure" sizes="(max-width: 900px) 100vw, 45vw" />
 		</div>
 	</div>
 </Section>
 
-<Section index="03">
+<Section index="03" tone="steel">
 	<div class="frc">
 		<h2 class="frc__title" use:reveal>{copy.frc.title}</h2>
 

@@ -9,7 +9,14 @@
 	const copy = $derived(i18n.t.home.contact);
 </script>
 
-<Section id="contact" index="09" label={copy.label}>
+<!--
+	10 — the resolution.
+
+	Standing in the same claret as the footer means the page stops hitting a
+	seam at the end: the closing chapter and the ending are one continuous room
+	rather than two pieces of furniture pushed together.
+-->
+<Section id="contact" index="10" label={copy.label} tone="claret">
 	<div class="cta">
 		<h2 class="cta__title" use:reveal>{copy.title}</h2>
 

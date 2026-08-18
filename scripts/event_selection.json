@@ -1,0 +1,193 @@
+{
+	"_readme": [
+		"Curated event photography for scripts/process_media.py.",
+		"",
+		"The STEAMFest archive holds 222 photographs, 103 videos and 2 HEIC files.",
+		"Every photograph was reviewed on contact sheets and then at size; four made",
+		"it onto the site. Rejected: near-duplicate frames of the same banner and",
+		"prop, motion-blurred indoor shots, accidental frames, photographs of phone",
+		"screens, and group shots where it cannot be verified from the file alone",
+		"who is a RO6ONE member and who is a guest. Video is untouched because this",
+		"environment has no ffmpeg to transcode it — see the report.",
+		"",
+		"OFF-SEASON: the shared Drive folder ('12 Temmuz', 50 Fujifilm frames) was",
+		"finally paired filename->file-id from the rendered folder DOM, reviewed as",
+		"contact sheets at thumbnail size, and 14 frames were pulled at full",
+		"4608x3456 into images/offseason/. Off-Season frames are used for EVENT",
+		"context only — arena, field, robots, crowd, drivers. Rejected: flat wall",
+		"portraits (6275-6277), other teams' pit scenes, near-duplicate field",
+		"frames, the costume bit (6445/6446), and frames blocked by an arm (6454).",
+		"",
+		"*** IDENTIFICATION — READ THIS BEFORE ADDING ANY PHOTO OF PEOPLE ***",
+		"",
+		"An earlier pass assumed the Trabzonspor crest kit identified RO6ONE",
+		"members and used three Off-Season frames (DSCF6418/6419/6420) to stand",
+		"for our own team on the homepage, Team page and About page. The team",
+		"confirmed those people are NOT RO6ONE members. The assumption was wrong:",
+		"the crest kit is worn well beyond this team, and proximity to the event",
+		"proves nothing.",
+		"",
+		"The only identification accepted now is evidence VISIBLE IN THE FRAME:",
+		"  - the RO6ONE mark on a stand banner, prop or backdrop the people are",
+		"    operating (the STEAMFest KIMYA/BIYOLOJI banners carry it beside the",
+		"    Trabzon Fen Lisesi crest);",
+		"  - RO6ONE-issued event credentials worn by the subjects;",
+		"  - the team's own branded props (Ro6oneCAM frame, STEAMFEST'26 frame).",
+		"Never clothing colour, age, or 'looks like a robotics student'. If the",
+		"frame does not prove it, the photo may only be used as event context.",
+		"",
+		"id     the media slot in src/lib/content/media.ts that receives the image",
+		"focus  [x, y] fractions of the source to keep centred when cropping",
+		"ratio  target aspect, matching the slot's frame"
+	],
+
+	"images": [
+		{
+			"id": "home.steamfest.court",
+			"event": "steamfest",
+			"file": "IMG-20260428-WA0107.jpg",
+			"ratio": "3:2",
+			"focus": [0.5, 0.56],
+			"caption": "Two school teams line up before kick-off, Trabzon behind them.",
+			"note": "The sport half. Both teams, the referee and the city in one frame."
+		},
+		{
+			"id": "home.steamfest.lab",
+			"event": "steamfest",
+			"file": "IMG-20260428-WA0100.jpg",
+			"ratio": "3:2",
+			"focus": [0.56, 0.52],
+			"caption": "The chemistry stand mid-demonstration.",
+			"note": "The STEM half. Hands actually working, indicator solutions on the table."
+		},
+		{
+			"id": "impact.steamfest.wide",
+			"event": "steamfest",
+			"file": "IMG-20260428-WA0105.jpg",
+			"ratio": "21:9",
+			"focus": [0.52, 0.6],
+			"caption": "The volleyball tournament, in the school sports hall.",
+			"note": "Widest usable frame of the sport programme."
+		},
+		{
+			"id": "about.school",
+			"event": "steamfest",
+			"file": "IMG-20260428-WA0064 (copy).jpg",
+			"ratio": "16:9",
+			"focus": [0.5, 0.52],
+			"caption": "Trabzon Merkez Fen Lisesi with the festival stands running along the front.",
+			"note": "The school as a place, which is what that slot is for."
+		},
+
+		{
+			"id": "home.offseason.wide",
+			"event": "offseason",
+			"file": "DSCF6396.JPG",
+			"ratio": "21:9",
+			"focus": [0.5, 0.52],
+			"caption": "Hayri Gür Spor Salonu during the Trabzon Off-Season.",
+			"note": "The scale frame: Trabzonspor tent, the line of students along the barrier, the stands, stage light. The most colourful image in the archive and the one that finally shows how big this was."
+		},
+		{
+			"id": "home.offseason.field",
+			"event": "offseason",
+			"file": "DSCF6452.JPG",
+			"ratio": "16:9",
+			"focus": [0.5, 0.56],
+			"caption": "The field between matches.",
+			"note": "Yellow game pieces across the carpet with the REBUILT goal behind. Reads as an FRC field instantly and carries the yellow that the rest of the page has nowhere else."
+		},
+		{
+			"id": "home.offseason.detail",
+			"event": "offseason",
+			"file": "DSCF6453.JPG",
+			"ratio": "1:1",
+			"focus": [0.44, 0.62],
+			"scale": 0.6,
+			"caption": "A robot working the field.",
+			"note": "Tightened to 0.6 after review: the full-height 1:1 crop put the robot small in the middle of empty carpet and read as a second wide shot rather than a detail. At 0.6 the machine, its game pieces and the red ramp fill the square."
+		},
+		{
+			"id": "home.offseason.drivers",
+			"event": "offseason",
+			"file": "DSCF6456.JPG",
+			"ratio": "3:2",
+			"focus": [0.42, 0.5],
+			"caption": "Drivers at the station, mid-match.",
+			"note": "People and machine in one frame, through the field glass. The human end of the competition."
+		},
+		{
+			"id": "home.offseason.people",
+			"event": "offseason",
+			"file": "DSCF6447.JPG",
+			"ratio": "4:5",
+			"focus": [0.34, 0.52],
+			"caption": "Along the barrier, waiting for the next match.",
+			"note": "Students at the rail with the Trabzonspor tent behind. Crowd energy without needing to identify anyone."
+		},
+		{
+			"id": "impact.offseason.stands",
+			"event": "offseason",
+			"file": "DSCF6449.JPG",
+			"ratio": "3:2",
+			"focus": [0.46, 0.54],
+			"caption": "The crowd along the field, watching.",
+			"note": "Local audience rather than competitors — which is exactly what the impact slot asks for."
+		},
+		{
+			"id": "team.infrastructure",
+			"event": "steamfest",
+			"file": "IMG-20260429-WA0028.jpg",
+			"ratio": "16:10",
+			"focus": [0.5, 0.46],
+			"caption": "The team on its own stand at Spor STEAM Fest \u201926.",
+			"note": "REPLACES DSCF6420 (Off-Season), whose subjects were not RO6ONE members \u2014 unacceptable on the Team page of all places. Identity is proven in-frame: the RO6ONE mark sits top-left of the stand banner with the school crest top-right, and all three wear RO6ONE event credentials. Sharpest and best-exposed frame of this stand; landscape suits the 16:10 slot without cropping anyone out."
+		},
+		{
+			"id": "home.system.desk",
+			"event": "steamfest",
+			"file": "IMG-20260428-WA0097.jpg",
+			"ratio": "3:2",
+			"focus": [0.56, 0.5],
+			"caption": "Running the chemistry stand at Spor STEAM Fest \u201926.",
+			"note": "REPLACES DSCF6419 (Off-Season). The people in that frame were not RO6ONE members, and chapter 07 was using them to represent our own organization. Identity here is proven by the frame itself: the stand banner carries the RO6ONE mark beside the Trabzon Fen Lisesi crest, and the badges are RO6ONE STEAMFEST\u201926 credentials. Fits chapter 07 because it is the organization actually operating something \u2014 members running an activity, visitors being served, work being coordinated \u2014 rather than a posed group."
+		},
+		{
+			"id": "robotics.field",
+			"event": "offseason",
+			"file": "DSCF6406.JPG",
+			"ratio": "16:9",
+			"focus": [0.5, 0.55],
+			"caption": "A full FRC field, built inside a sports hall.",
+			"note": "Three robots, the scoring goals and the venue sign in one frame. The Robotics page has no robot of its own to show yet, so it shows the game the team is building for — captioned as the event, never as our machine."
+		},
+		{
+			"id": "robotics.station",
+			"event": "offseason",
+			"file": "DSCF6407.JPG",
+			"ratio": "3:2",
+			"focus": [0.54, 0.5],
+			"caption": "The driver station during a match.",
+			"note": "Timer, field screen and the people working it. The closest thing in the archive to 'the technical end of a competition' without claiming a robot as ours."
+		},
+		{
+			"id": "about.people",
+			"event": "steamfest",
+			"file": "IMG-20260428-WA0043.jpg",
+			"ratio": "3:2",
+			"scale": 0.72,
+			"focus": [0.66, 0.44],
+			"caption": "The team and its coach behind the chemistry stand.",
+			"note": "REPLACES DSCF6418 (Off-Season) \u2014 two people who are not ours, standing in for our own story on the About page. Identity is proven in-frame by the RO6ONE mark on the stand banner and the RO6ONE credentials every student is wearing. Chosen for About because it is the whole thing in one frame: students, their coach, their own stand, their own school. Tightened to 0.72 and slid right so the crop centres the group instead of the foreground selfie face."
+		},
+		{
+			"id": "home.media.camera",
+			"event": "offseason",
+			"file": "DSCF6427.JPG",
+			"ratio": "4:5",
+			"focus": [0.33, 0.44],
+			"caption": "A RO6ONE camera operator, inside the team's own frame prop.",
+			"note": "The one frame in the archive that identifies itself: the prop carries the team's own Instagram handle, so the person holding the camera is unambiguously ours. Warm, young, and about the media team without naming anybody."
+		}
+	]
+}

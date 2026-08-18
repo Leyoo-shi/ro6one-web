@@ -16,14 +16,21 @@
 
 <Seo title={i18n.t.seo.robotics.title} description={i18n.t.seo.robotics.description} />
 
-<PageHeader eyebrow={copy.eyebrow} title={copy.title} lede={copy.lede} />
+<PageHeader
+	eyebrow={copy.eyebrow}
+	title={copy.title}
+	lede={copy.lede}
+	tone="steel"
+	figure="11919"
+	media="robotics.field"
+/>
 
 <!--
 	The page opens by saying where the team actually is: pre-season, no
 	competition robot yet. Everything below describes the structure that robot
 	will be built inside — not a machine that does not exist.
 -->
-<Section index="01" rule={false}>
+<Section index="01" rule={false} tone="steel">
 	<div class="status" use:reveal>
 		<div class="status__state">
 			<p class="label">{copy.status.label}</p>
@@ -53,12 +60,12 @@
 	</ul>
 
 	<div class="workshop">
-		<MediaFrame id="robotics.build" sizes="(max-width: 900px) 100vw, 55vw" />
-		<MediaFrame id="robotics.detail" sizes="(max-width: 900px) 100vw, 30vw" />
+		<MediaFrame id="home.offseason.detail" sizes="(max-width: 900px) 100vw, 55vw" />
+		<MediaFrame id="robotics.station" sizes="(max-width: 900px) 100vw, 30vw" />
 	</div>
 </Section>
 
-<Section index="02">
+<Section index="02" tone="arena">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.subsystems.title}</h2>
 		<p class="lede">{copy.subsystems.lede}</p>
@@ -94,7 +101,7 @@
 	</ol>
 </Section>
 
-<Section index="04">
+<Section index="04" tone="steel">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.archive.title}</h2>
 		<p class="lede">{copy.archive.lede}</p>

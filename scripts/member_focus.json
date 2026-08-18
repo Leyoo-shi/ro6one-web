@@ -1,0 +1,144 @@
+{
+	"_readme": [
+		"Per-member crop direction for scripts/process_media.py.",
+		"",
+		"RULE: the pipeline takes the largest 4:5 rectangle that fits the source and",
+		"slides it so `focus` is as centred as the boundaries allow. It never zooms in",
+		"to equalise face size — an honest difference in apparent scale beats a soft,",
+		"over-cropped portrait.",
+		"",
+		"focus:   [x, y] fractions of the source, on the person's face.",
+		"tighten: 0.72–1.0. Only for the few frames where the full rectangle really is",
+		"         too wide (a dominant background object, or a figure lost in a",
+		"         landscape). Capped so it can never destroy detail.",
+		"alias:   source filename when it differs from the roster key.",
+		"note:    anything a human should know when re-cropping."
+	],
+	"defaults": {
+		"focus": [0.5, 0.4]
+	},
+	"members": {
+		"ayseozgeozdener": {
+			"focus": [0.5, 0.28]
+		},
+		"azraezgiturhan": {
+			"focus": [0.52, 0.45]
+		},
+		"batuhanverep": {
+			"focus": [0.48, 0.32]
+		},
+		"betultellioglu": {
+			"focus": [0.78, 0.46],
+			"note": "A framed Atatürk portrait fills the left of the source and dominated the full-width crop. Tightened and shifted right so she is the subject; only an edge of the frame remains.",
+			"tighten": 0.72
+		},
+		"burakyilmazlar": {
+			"focus": [0.38, 0.28]
+		},
+		"doganefeasci": {
+			"focus": [0.47, 0.66],
+			"note": "Square source, face low and small. The full rectangle was almost all sky.",
+			"tighten": 0.78
+		},
+		"elaecrenakyuz": {
+			"focus": [0.48, 0.42]
+		},
+		"elifranakundakci": {
+			"focus": [0.58, 0.35]
+		},
+		"elifsenemozturk": {
+			"focus": [0.42, 0.38]
+		},
+		"fatihkoroglu": {
+			"focus": [0.5, 0.2]
+		},
+		"gizemalbayrak": {
+			"focus": [0.5, 0.3]
+		},
+		"hamzanuriasan": {
+			"focus": [0.6, 0.5],
+			"note": "Small figure on a pier at sunset; tightened so he is findable while the sunset survives.",
+			"tighten": 0.74
+		},
+		"ilgazguven": {
+			"focus": [0.45, 0.24]
+		},
+		"ipekbilgin": {
+			"focus": [0.52, 0.42]
+		},
+		"ipekturgut": {
+			"focus": [0.5, 0.45]
+		},
+		"iremozemtaskin": {
+			"focus": [0.45, 0.35]
+		},
+		"kaantanyel": {
+			"focus": [0.5, 0.38],
+			"note": "ID photo, only 295x354 in the source. Framing left wide so nothing is upscaled; this card will be softer than the rest."
+		},
+		"kaanyavuzcelik": {
+			"focus": [0.5, 0.35]
+		},
+		"kemalozturk": {
+			"focus": [0.55, 0.4]
+		},
+		"koraybaki": {
+			"focus": [0.48, 0.4]
+		},
+		"murathanmollamehmetoglu": {
+			"focus": [0.42, 0.58]
+		},
+		"nehirgulay": {
+			"focus": [0.5, 0.36]
+		},
+		"nesibezenginler": {
+			"focus": [0.5, 0.33]
+		},
+		"oktaymetearas": {
+			"focus": [0.5, 0.24]
+		},
+		"omerfarukozkul": {
+			"focus": [0.33, 0.3],
+			"note": "He is holding a chicken. Crop keeps him and part of the bird — it is a good photograph."
+		},
+		"omeruzun": {
+			"focus": [0.5, 0.35]
+		},
+		"sidelyacam": {
+			"alias": "sidelyaesmanurcam",
+			"focus": [0.48, 0.3],
+			"note": "Source filename uses her full name (sidelyaesmanurcam.jpg); roster key is sidelyacam."
+		},
+		"taharemziaydin": {
+			"focus": [0.5, 0.55],
+			"note": "Holding a large model aircraft overhead; face sits low in the frame."
+		},
+		"yagizefekalayci": {
+			"focus": [0.38, 0.3]
+		},
+		"yagmurhavvayenibaki": {
+			"focus": [0.5, 0.42]
+		},
+		"yigitpursali": {
+			"focus": [0.5, 0.4]
+		},
+		"yigityagizyazici": {
+			"focus": [0.55, 0.4]
+		},
+		"zeynepgoksal": {
+			"focus": [0.42, 0.32]
+		},
+		"zeynepkarabacak": {
+			"focus": [0.5, 0.36]
+		},
+		"zeynepkosterelioglu": {
+			"focus": [0.5, 0.3]
+		},
+		"zeynepmorkan": {
+			"focus": [0.45, 0.34]
+		},
+		"zuleyhaaydin": {
+			"focus": [0.48, 0.36]
+		}
+	}
+}
