@@ -5,8 +5,44 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
 		<meta name="theme-color" content="#0d0e11" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" type="image/png" sizes="48x48" />
-		<link rel="apple-touch-icon" href="%sveltekit.assets%/apple-touch-icon.png" />
+		<!--
+			Root-absolute on purpose. %sveltekit.assets% resolves to a *relative*
+			prefix when no assets path is configured, so `./favicon.png` resolved
+			against /about asked the browser for /about/favicon.png — a 404 on
+			every page except the home page. The site is served from the domain
+			root and has no base path, so a leading slash is both correct and
+			stable, which is what Google asks of a favicon URL.
+
+			/favicon.ico is declared *and* present at the well-known path: Google
+			falls back to it, and a 404 there leaves whatever it already has for
+			the hostname in place.
+		-->
+		<link rel="icon" href="/favicon.png" type="image/png" sizes="192x192" />
+		<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<!--
+			Google tag (gtag.js) — GA4 property G-57HT6ZCWB0.
+
+			This is the only place it is declared. app.html is the document shell:
+			it is emitted once per document and the client router never re-renders
+			it, so the external script cannot be appended twice and there is
+			nothing here for Svelte to hydrate.
+
+			send_page_view is off because this is a single-page-routed app. Leaving
+			it on would count the first view here and again from the navigation
+			hook in +layout.svelte. Instead every view — the first one included —
+			is sent from that one place, so each is counted exactly once.
+		-->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-57HT6ZCWB0"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-57HT6ZCWB0', { send_page_view: false });
+		</script>
+
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

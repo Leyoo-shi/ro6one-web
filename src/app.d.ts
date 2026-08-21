@@ -13,6 +13,14 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	/**
+	 * Defined by the Google tag loaded in src/app.html. Absent until that script
+	 * runs, and absent entirely during SSR, so every caller must check first.
+	 */
+	interface Window {
+		gtag?: (...args: unknown[]) => void;
+	}
 }
 
 export {};

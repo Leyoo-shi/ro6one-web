@@ -12,10 +12,28 @@ INPUT
                                       a solid dark burgundy field
 
 OUTPUT
-    static/favicon.png                48px, tight crop of the head
+    src/lib/assets/favicon.ico        16/32/48 multi-resolution, served by the
+                                      /favicon.ico route (see WHY below)
+    static/favicon.png                192px, tight crop of the head
     static/apple-touch-icon.png       180px, padded on the source's own burgundy
     static/media/brand/mark-{64,128,256}.png   background removed, transparent
     static/media/brand/og.png         1200x630 share card
+
+WHY BOTH .ico AND .png
+    Google Search looks for the icon declared in the home page <head> *and* at
+    the well-known /favicon.ico. Leaving /favicon.ico as a 404 gives Google no
+    reason to refresh what it already has for the hostname, which is how a
+    previous occupant's icon can persist in search results. The .ico is the
+    fallback; the .png is what browsers actually use.
+
+    The .png is 192px rather than 48px because Google recommends an icon larger
+    than 48x48 for legibility across its surfaces. The URL is unchanged, which
+    matters more: Google asks that the favicon URL stay stable.
+
+    The .ico is NOT written to static/. adapter-node serves static files through
+    sirv, whose bundled mime table has no .ico entry, so it went out with an
+    empty Content-Type. It lives in src/lib/assets/ and is served by
+    src/routes/favicon.ico/+server.ts, which sets the header explicitly.
 
 NOTES
     The background is a single flat colour, so it is removed by colour distance
@@ -32,6 +50,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "images" / "icons" / "ro6one-logo.jpg"
 STATIC = ROOT / "static"
+ASSETS = ROOT / "src" / "lib" / "assets"
 BRAND_OUT = STATIC / "media" / "brand"
 
 MARK_SIZES = (64, 128, 256)
@@ -145,10 +164,17 @@ def main() -> None:
     favicon = transparent.crop(square(box, 0.02))
     plate = Image.new("RGBA", favicon.size, (*background, 255))
     plate.alpha_composite(favicon)
-    plate.convert("RGB").resize((48, 48), Image.LANCZOS).save(
-        STATIC / "favicon.png", "PNG", optimize=True
-    )
-    print("  favicon      static/favicon.png")
+    flat = plate.convert("RGB")
+
+    flat.resize((192, 192), Image.LANCZOS).save(STATIC / "favicon.png", "PNG", optimize=True)
+    print("  favicon      static/favicon.png (192px)")
+
+    # Multi-resolution ICO. Pillow downsamples each entry from the image given,
+    # so the 16px entry comes off the full-resolution crop rather than off an
+    # already-shrunk 48px plate.
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    flat.save(ASSETS / "favicon.ico", "ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    print("  favicon      src/lib/assets/favicon.ico (16/32/48)")
 
     touch = Image.new("RGBA", favicon.size, (*background, 255))
     touch.alpha_composite(favicon)
