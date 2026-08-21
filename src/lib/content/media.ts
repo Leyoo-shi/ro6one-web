@@ -205,8 +205,27 @@ const slots = [
 	{
 		id: 'about.protocol',
 		category: 'trabzonspor',
-		aspect: '3 / 2',
+		/* A band, not a portrait: see the crop note in event_selection.json. */
+		aspect: '21 / 9',
+		alt: {
+			en: 'The cooperation protocol being signed at a table between Turkish and Trabzonspor flags.',
+			tr: 'Türk bayrağı ile Trabzonspor flamaları arasındaki masada iş birliği protokolünün imzalanması.'
+		},
+		caption: {
+			en: 'The cooperation protocol, signed March 2026. Photograph: Trabzonspor.',
+			tr: 'İş birliği protokolü, Mart 2026’da imzalandı. Fotoğraf: Trabzonspor.'
+		},
 		need: 'The Trabzonspor cooperation protocol signing, or the team at the club. Institutional but not stiff.'
+	},
+	{
+		id: 'about.principal',
+		category: 'team',
+		aspect: '4 / 5',
+		alt: {
+			en: 'Coşkun Çolak, principal of Trabzon Merkez Fen Lisesi, at his desk.',
+			tr: 'Trabzon Merkez Fen Lisesi Müdürü Coşkun Çolak, makamında.'
+		},
+		need: 'The school principal, for a small acknowledgement in the institutional story. Small by design.'
 	},
 
 	// ---------------------------------------------------------------- team ---

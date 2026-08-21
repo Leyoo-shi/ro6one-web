@@ -51,6 +51,13 @@ MEMBER_SRC = ROOT / "images" / "members"
 EVENT_DIRS = {
     "steamfest": ROOT / "images" / "steamfest",
     "offseason": ROOT / "images" / "offseason",
+    # Not events, but the same crop/derivative machinery applies and a slot only
+    # ever names a source folder plus a file.
+    #   trabzonspor/ official club media (protocol signing), downloaded from
+    #               trabzonspor.org.tr — see images/trabzonspor/SOURCE.txt
+    #   ministor/   the school principal's supplied portrait
+    "trabzonspor": ROOT / "images" / "trabzonspor",
+    "ministor": ROOT / "images" / "ministor",
 }
 PLACEHOLDER_LOG = MEMBER_SRC / "_generated-placeholders.txt"
 
@@ -178,6 +185,37 @@ def generated_placeholders() -> set[str]:
     }
 
 
+def looks_generated(path: pathlib.Path) -> bool:
+    """
+    Is this file still one of our generated tiles, or has a real photograph
+    replaced it?
+
+    The log alone cannot answer that: it records what the script *wrote*, so a
+    key stays listed after a real photo is dropped in at the same filename, and
+    the member would keep rendering as "awaiting portrait" until someone hand-
+    edited the log. The tile is deterministic, so its own pixels are the
+    reliable signal.
+
+    Measured margins: generated tiles are exactly 1000x1250 at brightness 19.6
+    and channel spread 5.0; every real portrait in the archive sits at
+    brightness 87-176 and spread 16-46. The thresholds below sit in the gap.
+    """
+    try:
+        with Image.open(path) as image:
+            if image.size != (1000, 1250):
+                return False
+
+            sample = image.convert("RGB").resize((64, 80))
+    except OSError:
+        return False
+
+    pixels = list(sample.getdata())
+    brightness = sum(sum(pixel) / 3 for pixel in pixels) / len(pixels)
+    spread = sum(max(pixel) - min(pixel) for pixel in pixels) / len(pixels)
+
+    return brightness < 45 and spread < 10
+
+
 def make_placeholder(key: str, target: pathlib.Path) -> None:
     """
     A deliberately graphic tile — never a stock photograph of a stranger.
@@ -224,7 +262,13 @@ def ensure_placeholders(aliases: dict[str, str]) -> set[str]:
             continue  # a real photograph — never touched
 
         if target.exists() and key in known:
-            created.add(key)  # still a placeholder from a previous run
+            # Listed in the log, but check the pixels before believing it: a real
+            # photograph dropped in at this filename is exactly how a placeholder
+            # is meant to be replaced, and it must clear its own status.
+            if looks_generated(target):
+                created.add(key)  # still a placeholder from a previous run
+            else:
+                print(f"  replaced     {target.relative_to(ROOT)}")
             continue
 
         make_placeholder(key, target)

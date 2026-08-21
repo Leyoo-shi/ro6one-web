@@ -1,10 +1,21 @@
 import mediaManifest from './generated/member-media.json';
+import type { LocalizedText } from './localized';
 
 /**
- * The team.
+ * The team: 49 students and 2 mentors.
  *
  * Roles are the labels the team supplied — they describe primary ownership, not
  * a silo, and are never inferred from a photograph.
+ *
+ * WHAT TO EDIT HERE, AND ONLY HERE
+ * The member detail card is driven entirely by this file. To fill a member out,
+ * add the fields to their entry; no component changes are needed:
+ *
+ *   grade      10 | 11 | 12. Students only.
+ *   mentorNote what a mentor actually is, in their own words. Mentors only.
+ *   intro      one or two sentences the member wrote about themselves. A plain
+ *              string is shown in both languages; { tr, en } supplies both.
+ *   tags       zero, one or many ids from `memberTags` below.
  *
  * Deliberately *not* stored:
  *  - birth years. The site never shows an age, so shipping 51 birth years to
@@ -15,6 +26,74 @@ import mediaManifest from './generated/member-media.json';
  */
 export type RoleId = 'organisation' | 'robotics' | 'pr' | 'finance' | 'mentor';
 
+/** School year. Mentors do not have one and must not be forced into one. */
+export type Grade = 10 | 11 | 12;
+
+/**
+ * Member tags.
+ *
+ * Three categories, deliberately kept apart so the UI can style them
+ * differently and so a joke never renders as a credential:
+ *
+ *   skill    what someone actually does on the team
+ *   fun      the team's own affectionate labels
+ *   special  one-person titles
+ *
+ * Labels are NOT stored here — they live in the dictionaries under
+ * `team.tags.*`, in both languages, like every other visible string. Adding a
+ * tag means adding an id here and a label to both dictionaries.
+ */
+export type TagCategory = 'skill' | 'fun' | 'special';
+
+export type TagId =
+	| 'software'
+	| 'mechanical'
+	| 'electronics'
+	| 'cad'
+	| 'graphics'
+	| 'editor'
+	| 'camera'
+	| 'videoEditor'
+	| 'accounting'
+	| 'communications'
+	| 'sponsorship'
+	| 'genco'
+	| 'oldWolf'
+	| 'tense'
+	| 'excitable'
+	| 'restless'
+	| 'nightShift'
+	| 'host'
+	| 'everythingGuy';
+
+export const memberTags: Record<TagId, TagCategory> = {
+	software: 'skill',
+	mechanical: 'skill',
+	electronics: 'skill',
+	cad: 'skill',
+	graphics: 'skill',
+	editor: 'skill',
+	camera: 'skill',
+	videoEditor: 'skill',
+	accounting: 'skill',
+	/* "İletişim" rather than "PR Ekibi": the PR *group* already exists as a
+	   role, so a tag repeating it would read as a duplicate rather than a skill. */
+	communications: 'skill',
+	sponsorship: 'skill',
+
+	/* The team's own words. Keep these warm — the label is one line to change
+	   in the dictionaries if a better one turns up. */
+	genco: 'fun',
+	oldWolf: 'fun',
+	tense: 'fun',
+	excitable: 'fun',
+	restless: 'fun',
+	nightShift: 'fun',
+
+	host: 'special',
+	everythingGuy: 'special'
+};
+
 export type Member = {
 	/** ASCII key: also the photo filename and the media manifest key. */
 	key: string;
@@ -22,6 +101,14 @@ export type Member = {
 	role: RoleId;
 	/** Month/day only. Absent when the team has not supplied a date. */
 	birthday?: { month: number; day: number };
+	/** Students only; mentors leave this unset. */
+	grade?: Grade;
+	/** Mentors only: what they are outside the team. */
+	mentorNote?: LocalizedText;
+	/** The member's own one or two sentences. Empty until they write it. */
+	intro?: LocalizedText;
+	/** Zero, one or many. Order is preserved as written. */
+	tags?: TagId[];
 };
 
 /** Display order of the role groups. Mentors last: alongside, not above. */
@@ -29,181 +116,402 @@ export const roleOrder: RoleId[] = ['robotics', 'pr', 'organisation', 'finance',
 
 export const roster: Member[] = [
 	{
-		key: 'yigitpursali',
-		name: 'Yiğit Pursalı',
-		role: 'organisation',
-		birthday: { month: 3, day: 28 }
-	},
-	{
-		key: 'zuleyhaaydin',
-		name: 'Züleyha Aydın',
-		role: 'organisation',
-		birthday: { month: 3, day: 21 }
-	},
-	{
-		key: 'doganefeasci',
-		name: 'Doğan Efe Aşçı',
-		role: 'organisation',
-		birthday: { month: 5, day: 10 }
-	},
-	{
-		key: 'taharemziaydin',
-		name: 'Taha Remzi Aydın',
-		role: 'organisation',
-		birthday: { month: 12, day: 19 }
-	},
-	{
-		key: 'ilgazguven',
-		name: 'Ilgaz Güven',
-		role: 'organisation',
-		birthday: { month: 12, day: 25 }
-	},
-	{
-		key: 'yagmurhavvayenibaki',
-		name: 'Yağmur Havva Yenibaki',
-		role: 'organisation',
-		birthday: { month: 5, day: 17 }
-	},
-
-	{
 		key: 'alaaddinbilgintopal',
 		name: 'Alaaddin Bilgin Topal',
 		role: 'robotics',
-		birthday: { month: 1, day: 21 }
+		birthday: { month: 1, day: 21 },
+		grade: 12,
+		tags: []
 	},
 	{
 		key: 'betultellioglu',
 		name: 'Betül Tellioğlu',
 		role: 'robotics',
-		birthday: { month: 5, day: 24 }
+		birthday: { month: 5, day: 24 },
+		grade: 12,
+		tags: []
 	},
 	{
 		key: 'elaecrenakyuz',
 		name: 'Ela Ecren Akyüz',
 		role: 'robotics',
-		birthday: { month: 9, day: 9 }
+		birthday: { month: 9, day: 9 },
+		grade: 12,
+		tags: []
 	},
-	{ key: 'fatihkoroglu', name: 'Fatih Köroğlu', role: 'robotics', birthday: { month: 4, day: 13 } },
+	{
+		key: 'fatihkoroglu',
+		name: 'Fatih Köroğlu',
+		role: 'robotics',
+		birthday: { month: 4, day: 13 },
+		grade: 10,
+		tags: []
+	},
 	{
 		key: 'kaanyavuzcelik',
 		name: 'Kaan Yavuz Çelik',
 		role: 'robotics',
-		birthday: { month: 9, day: 14 }
+		birthday: { month: 9, day: 14 },
+		grade: 11,
+		tags: []
 	},
-	{ key: 'kemalozturk', name: 'Kemal Öztürk', role: 'robotics' },
-	{ key: 'keremkongur', name: 'Kerem Kongur', role: 'robotics' },
-	{ key: 'koraybaki', name: 'Koray Baki', role: 'robotics', birthday: { month: 4, day: 27 } },
+	{
+		key: 'kemalozturk',
+		name: 'Kemal Öztürk',
+		role: 'robotics',
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'keremkongur',
+		name: 'Kerem Kongur',
+		role: 'robotics',
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'koraybaki',
+		name: 'Koray Baki',
+		role: 'robotics',
+		birthday: { month: 4, day: 27 },
+		grade: 11,
+		tags: []
+	},
 	{
 		key: 'murathanmollamehmetoglu',
 		name: 'Murathan Mollamehmetoğlu',
 		role: 'robotics',
-		birthday: { month: 3, day: 22 }
+		birthday: { month: 3, day: 22 },
+		grade: 10,
+		tags: []
 	},
-	{ key: 'mustafaerenkarpuz', name: 'Mustafa Eren Karpuz', role: 'robotics' },
 	{
-		key: 'omerfarukozkul',
-		name: 'Ömer Faruk Özkul',
+		key: 'mustafaerenkarpuz',
+		name: 'Mustafa Eren Karpuz',
 		role: 'robotics',
-		birthday: { month: 6, day: 8 }
+		grade: 11,
+		tags: []
 	},
-	{ key: 'omeruzun', name: 'Ömer Uzun', role: 'robotics', birthday: { month: 6, day: 9 } },
 	{
 		key: 'yigityagizyazici',
 		name: 'Yiğit Yağız Yazıcı',
 		role: 'robotics',
-		birthday: { month: 9, day: 16 }
+		birthday: { month: 9, day: 16 },
+		grade: 10,
+		tags: []
 	},
-	{ key: 'zeynepgoksal', name: 'Zeynep Göksal', role: 'robotics', birthday: { month: 3, day: 9 } },
 	{
-		key: 'yagizefekalayci',
-		name: 'Yağız Efe Kalaycı',
+		key: 'zeynepgoksal',
+		name: 'Zeynep Göksal',
 		role: 'robotics',
-		birthday: { month: 1, day: 7 }
+		birthday: { month: 3, day: 9 },
+		grade: 10,
+		tags: []
 	},
-
-	{ key: 'azraezgiturhan', name: 'Azra Ezgi Turhan', role: 'pr' },
-	{ key: 'batuhanverep', name: 'Batuhan Verep', role: 'pr' },
-	{ key: 'denizalisahin', name: 'Deniz Ali Şahin', role: 'pr' },
-	{ key: 'eliferoglu', name: 'Elif Eroğlu', role: 'pr', birthday: { month: 2, day: 24 } },
+	{
+		key: 'omerfarukozkul',
+		name: 'Ömer Faruk Özkul',
+		role: 'robotics',
+		birthday: { month: 6, day: 8 },
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'omeruzun',
+		name: 'Ömer Uzun',
+		role: 'robotics',
+		birthday: { month: 6, day: 9 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'ayseozgeozdener',
+		name: 'Ayşe Özge Özdener',
+		role: 'pr',
+		birthday: { month: 10, day: 27 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'azraezgiturhan',
+		name: 'Azra Ezgi Turhan',
+		role: 'pr',
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'batuhanverep',
+		name: 'Batuhan Verep',
+		role: 'pr',
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'denizalisahin',
+		name: 'Deniz Ali Şahin',
+		role: 'pr',
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'eliferoglu',
+		name: 'Elif Eroğlu',
+		role: 'pr',
+		birthday: { month: 2, day: 24 },
+		grade: 11,
+		tags: []
+	},
 	{
 		key: 'elifranakundakci',
 		name: 'Elif Rana Kundakçı',
 		role: 'pr',
-		birthday: { month: 12, day: 13 }
+		birthday: { month: 12, day: 13 },
+		grade: 10,
+		tags: []
 	},
 	{
 		key: 'elifsenemozturk',
 		name: 'Elif Senem Öztürk',
 		role: 'pr',
-		birthday: { month: 6, day: 27 }
+		birthday: { month: 6, day: 27 },
+		grade: 10,
+		tags: []
 	},
-	{ key: 'gizemalbayrak', name: 'Gizem Albayrak', role: 'pr', birthday: { month: 5, day: 16 } },
-	{ key: 'hamzanuriasan', name: 'Hamza Nuri Asan', role: 'pr', birthday: { month: 12, day: 27 } },
-	{ key: 'hayatkarahan', name: 'Hayat Karahan', role: 'pr' },
-	{ key: 'ipekbilgin', name: 'İpek Bilgin', role: 'pr', birthday: { month: 8, day: 2 } },
-	{ key: 'ipekturgut', name: 'İpek Turgut', role: 'pr', birthday: { month: 10, day: 9 } },
-	{ key: 'kaantanyel', name: 'Kaan Tanyel', role: 'pr', birthday: { month: 7, day: 25 } },
-	{ key: 'mehmetmesci', name: 'Mehmet Mesci', role: 'pr' },
-	{ key: 'nehirgulay', name: 'Nehir Gülay', role: 'pr', birthday: { month: 6, day: 22 } },
-	{ key: 'nesibezenginler', name: 'Nesibe Zenginler', role: 'pr', birthday: { month: 1, day: 7 } },
-	{ key: 'oykuyilmaz', name: 'Öykü Yılmaz', role: 'pr', birthday: { month: 8, day: 6 } },
-	{ key: 'iremozemtaskin', name: 'İrem Özem Taşkın', role: 'pr', birthday: { month: 1, day: 1 } },
 	{
-		key: 'ayseozgeozdener',
-		name: 'Ayşe Özge Özdener',
+		key: 'gizemalbayrak',
+		name: 'Gizem Albayrak',
 		role: 'pr',
-		birthday: { month: 10, day: 27 }
+		birthday: { month: 5, day: 16 },
+		grade: 11,
+		tags: []
 	},
-	{ key: 'sidelyacam', name: 'Sidelya Çam', role: 'pr', birthday: { month: 5, day: 9 } },
-	{ key: 'zeynepkarabacak', name: 'Zeynep Karabacak', role: 'pr' },
+	{
+		key: 'hamzanuriasan',
+		name: 'Hamza Nuri Asan',
+		role: 'pr',
+		birthday: { month: 12, day: 27 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'hayatkarahan',
+		name: 'Hayat Karahan',
+		role: 'pr',
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'kaantanyel',
+		name: 'Kaan Tanyel',
+		role: 'pr',
+		birthday: { month: 7, day: 25 },
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'mehmetmesci',
+		name: 'Mehmet Mesci',
+		role: 'pr',
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'muhammetsalihartun',
+		name: 'Muhammet Salih Artun',
+		role: 'pr',
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'nehirgulay',
+		name: 'Nehir Gülay',
+		role: 'pr',
+		birthday: { month: 6, day: 22 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'nesibezenginler',
+		name: 'Nesibe Zenginler',
+		role: 'pr',
+		birthday: { month: 1, day: 7 },
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'sidelyacam',
+		name: 'Sidelya Çam',
+		role: 'pr',
+		birthday: { month: 5, day: 9 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'zeynepkarabacak',
+		name: 'Zeynep Karabacak',
+		role: 'pr',
+		grade: 10,
+		tags: []
+	},
 	{
 		key: 'zeynepkosterelioglu',
 		name: 'Zeynep Kösterelioğlu',
 		role: 'pr',
-		birthday: { month: 12, day: 1 }
-	},
-	{ key: 'zeynepmorkan', name: 'Zeynep Morkan', role: 'pr', birthday: { month: 3, day: 10 } },
-	{ key: 'muhammetsalihartun', name: 'Muhammet Salih Artun', role: 'pr' },
-
-	{
-		key: 'burakyilmazlar',
-		name: 'Burak Yılmazlar',
-		role: 'finance',
-		birthday: { month: 2, day: 20 }
+		birthday: { month: 12, day: 1 },
+		grade: 10,
+		tags: []
 	},
 	{
-		key: 'tugbaezgikara',
-		name: 'Tuğba Ezgi Kara',
-		role: 'finance',
-		birthday: { month: 4, day: 24 }
+		key: 'zeynepmorkan',
+		name: 'Zeynep Morkan',
+		role: 'pr',
+		birthday: { month: 3, day: 10 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'oykuyilmaz',
+		name: 'Öykü Yılmaz',
+		role: 'pr',
+		birthday: { month: 8, day: 6 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'ipekbilgin',
+		name: 'İpek Bilgin',
+		role: 'pr',
+		birthday: { month: 8, day: 2 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'ipekturgut',
+		name: 'İpek Turgut',
+		role: 'pr',
+		birthday: { month: 10, day: 9 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'iremozemtaskin',
+		name: 'İrem Özem Taşkın',
+		role: 'pr',
+		birthday: { month: 1, day: 1 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'doganefeasci',
+		name: 'Doğan Efe Aşçı',
+		role: 'organisation',
+		birthday: { month: 5, day: 10 },
+		grade: 11,
+		tags: []
 	},
 	{
 		key: 'furkanhacimahmutoglu',
 		name: 'Furkan Hacımahmutoğlu',
+		role: 'organisation',
+		birthday: { month: 1, day: 4 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'ilgazguven',
+		name: 'Ilgaz Güven',
+		role: 'organisation',
+		birthday: { month: 12, day: 25 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'taharemziaydin',
+		name: 'Taha Remzi Aydın',
+		role: 'organisation',
+		birthday: { month: 12, day: 19 },
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'yagmurhavvayenibaki',
+		name: 'Yağmur Havva Yenibaki',
+		role: 'organisation',
+		birthday: { month: 5, day: 17 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'yagizefekalayci',
+		name: 'Yağız Efe Kalaycı',
+		role: 'organisation',
+		birthday: { month: 1, day: 7 },
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'yigitpursali',
+		name: 'Yiğit Pursalı',
+		role: 'organisation',
+		birthday: { month: 3, day: 28 },
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'zuleyhaaydin',
+		name: 'Züleyha Aydın',
+		role: 'organisation',
+		birthday: { month: 3, day: 21 },
+		grade: 11,
+		tags: []
+	},
+	{
+		key: 'burakyilmazlar',
+		name: 'Burak Yılmazlar',
 		role: 'finance',
-		birthday: { month: 1, day: 4 }
+		birthday: { month: 2, day: 20 },
+		grade: 12,
+		tags: []
 	},
 	{
 		key: 'oktaymetearas',
 		name: 'Oktay Mete Aras',
 		role: 'finance',
-		birthday: { month: 3, day: 15 }
+		birthday: { month: 3, day: 15 },
+		grade: 12,
+		tags: []
+	},
+	{
+		key: 'tugbaezgikara',
+		name: 'Tuğba Ezgi Kara',
+		role: 'finance',
+		birthday: { month: 4, day: 24 },
+		grade: 12,
+		tags: []
 	},
 	{
 		key: 'zeynepberreisaoglu',
 		name: 'Zeynep Berre İsaoğlu',
 		role: 'finance',
-		birthday: { month: 1, day: 25 }
+		birthday: { month: 1, day: 25 },
+		grade: 11,
+		tags: []
 	},
-
-	/* Birth year intentionally unknown; the day is what the feature needs. */
+	{
+		key: 'ceyhuntemel',
+		name: 'Ceyhun Temel',
+		role: 'mentor',
+		mentorNote: 'Kocaeli Üniversitesi 2. sınıf öğrencisi',
+		tags: []
+	},
 	{
 		key: 'semramusrabektas',
 		name: 'Semra Müşra Bektaş',
 		role: 'mentor',
-		birthday: { month: 2, day: 12 }
-	},
-	{ key: 'ceyhuntemel', name: 'Ceyhun Temel', role: 'mentor' }
+		birthday: { month: 2, day: 12 },
+		mentorNote: 'Bilişim Teknolojileri Öğretmeni',
+		tags: []
+	}
 ];
 
 /* ------------------------------------------------------------------ media -- */
@@ -250,6 +558,17 @@ export function portraitFor(key: string): Portrait | null {
 }
 
 export const rosterSize = roster.length;
+
+/** 49. Mentors are counted separately — they are not students. */
+export const studentCount = roster.filter((member) => member.role !== 'mentor').length;
+
+/** 2. */
+export const mentorCount = roster.filter((member) => member.role === 'mentor').length;
+
+/** Tags of one category, in the order the member listed them. */
+export function tagsOfCategory(member: Member, category: TagCategory): TagId[] {
+	return (member.tags ?? []).filter((tag) => memberTags[tag] === category);
+}
 
 export const portraitCount = roster.filter(
 	(member) => !portraitFor(member.key)?.placeholder

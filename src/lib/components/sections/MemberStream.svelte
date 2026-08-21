@@ -2,7 +2,7 @@
 	import { reveal } from '$lib/actions/reveal';
 	import ActionLink from '$lib/components/ui/ActionLink.svelte';
 	import Portrait from '$lib/components/ui/Portrait.svelte';
-	import { portraitFor, roster, rosterSize } from '$lib/content/roster';
+	import { portraitFor, roster, studentCount } from '$lib/content/roster';
 	import { useI18n } from '$lib/i18n/context.svelte';
 
 	const i18n = useI18n();
@@ -43,7 +43,8 @@
 			<span>{copy.label}</span>
 		</p>
 
-		<span class="people__count" aria-hidden="true">{rosterSize}</span>
+		<!-- The headline says "forty-nine students", so the cast numeral must agree. -->
+		<span class="people__count" aria-hidden="true">{studentCount}</span>
 
 		<div class="people__statement" use:reveal>
 			<h2 class="people__title">

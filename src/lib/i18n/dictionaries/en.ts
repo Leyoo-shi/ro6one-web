@@ -299,7 +299,7 @@ export const en = {
 		},
 		people: {
 			label: 'The people',
-			titleLead: 'Fifty-one students,',
+			titleLead: 'Forty-nine students,',
 			titleAccent: 'one build.',
 			lede: 'Everyone whose portrait has arrived, drifting past. The rest are on their way.',
 			countPeople: 'people',
@@ -591,9 +591,46 @@ export const en = {
 			title: 'Engineering the organization',
 			lede: 'The team runs on infrastructure the team maintains.'
 		},
+		tags: {
+			/* Skill tags read as credentials, so they are translated. */
+			software: 'Software',
+			mechanical: 'Mechanical',
+			electronics: 'Electronics',
+			cad: 'CAD',
+			graphics: 'Graphic design',
+			editor: 'Editor',
+			camera: 'Camera',
+			videoEditor: 'Video editing',
+			accounting: 'Accounting',
+			communications: 'Communications',
+			sponsorship: 'Sponsorship',
+
+			/* The team's own words. Left in Turkish in both languages: these are
+			   in-jokes, and translating them would flatten them into nothing. */
+			genco: 'Genco',
+			oldWolf: 'Yaşlı Kurt',
+			tense: 'Gergin',
+			excitable: 'Heyecanlı',
+			restless: 'Yerinde Duramayan',
+			nightShift: 'Gece Vardiyası',
+
+			host: 'Sunucu-men',
+			everythingGuy: 'Her Şey Adam'
+		},
+		detail: {
+			group: 'Group',
+			grade: 'Grade',
+			gradeValue: 'Grade {grade}',
+			birthday: 'Birthday',
+			mentorLabel: 'Mentor',
+			about: 'In their own words',
+			introPending: 'Introduction coming soon.',
+			skills: 'What they do',
+			traits: 'What the team calls them'
+		},
 		roster: {
 			title: 'Members',
-			lead: 'Fifty-one people.',
+			lead: 'Forty-nine students, two mentors.',
 			accent: 'Choose a domain.',
 			lede: 'Pick a group to open it, or search for a name.',
 			pending: 'Portrait pending',
@@ -607,9 +644,14 @@ export const en = {
 			openLabel: 'Open portrait',
 			closeLabel: 'Close'
 		},
+		/*
+		 * Was "Joining the team", which invited the public to apply. The team is
+		 * formed from within Trabzon Merkez Fen Lisesi, so that CTA was simply
+		 * untrue. It now says what an outside reader can actually do.
+		 */
 		join: {
-			title: 'Joining the team',
-			body: 'If you’re a student in Trabzon who wants to build things, write to us. Design, writing, filming, budgeting and organizing matter here as much as machining does — and most people end up doing more than one of them.',
+			title: 'Working with us',
+			body: 'The team is formed inside Trabzon Merkez Fen Lisesi, from its own students — that is where new members come from. Everyone else is still welcome to reach us: other teams looking to share what they have solved, teachers and schools wanting a workshop, and organizations considering support.',
 			cta: 'Contact the team'
 		}
 	},
@@ -625,6 +667,11 @@ export const en = {
 				'For a team formed a month earlier, that protocol changed what was possible. It is why we compete as Trabzonspor Ro6one Robotics, and part of why an FRC Off-Season could be held in Trabzon in July.'
 			],
 			schoolTitle: 'Trabzon Merkez Fen Lisesi',
+			principalLabel: 'School principal',
+			/* Verifiable and small: he is the principal, and he signed. Nothing more
+			   is claimed, and it stays a line rather than a tribute panel. */
+			principalNote:
+				'The protocol was signed for the school by its principal, Coşkun Çolak. We are grateful for the school’s backing.',
 			schoolBody:
 				'The school the team was formed in and still works from: the workshop, the student pool, and the first audience for everything we build.',
 			since: 'Protocol signed'
@@ -701,7 +748,7 @@ export const en = {
 				},
 				{
 					name: 'Students',
-					description: 'Joining the team, or asking how something was built.'
+					description: 'Asking how something was built, or talking about working together.'
 				},
 				{
 					name: 'Other teams',
@@ -739,7 +786,7 @@ export const en = {
 		 * opens on "Build what comes next" and closes on who is doing it. Both
 		 * halves are plain fact — no season, placement or promise is claimed.
 		 */
-		closing: 'Fifty-one students in Trabzon,',
+		closing: 'Forty-nine students in Trabzon,',
 		closingTurn: 'building what comes next.',
 		explore: 'Explore',
 		connect: 'Connect',

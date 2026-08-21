@@ -1,0 +1,23 @@
+Official Trabzonspor club media.
+
+Source article
+  "Trabzon Fen Lisesi ile iş birliği protokolü imzaladık"
+  https://www.trabzonspor.org.tr/tr/haberler/trabzon-fen-lisesi-ile-is-birligi-protokolu-imzaladik-23-03-2026
+  Published 23/03/2026 by Trabzonspor Kulübü.
+
+protocol-hero.jpg
+  1000x700, the article's own lead photograph.
+  Depicts the signing ceremony. The article names those present:
+  Trabzonspor General Secretary Sami Karaman, Trabzon Fen Lisesi principal
+  Coşkun Çolak, and students. The man on the left of the frame matches the
+  principal portrait supplied in images/ministor/.
+
+Notes
+  - Nothing was altered. No watermark existed and none was removed.
+  - The article's three gallery images (c21b0851…, c4af7ec0…, 26dce450….JPG)
+    sit behind Cloudflare bot protection and were NOT retrieved. Do not try to
+    work around that; ask the team to supply them directly if they are wanted.
+  - The frame is centred on an Atatürk portrait hanging between the two
+    signatories. Per the standing project rule that no Atatürk imagery may be a
+    dominant element, the slot crops to a 21:9 band below it: see the
+    about.protocol entry in scripts/event_selection.json.

@@ -299,6 +299,46 @@
 		"caption": "The team and its coach behind the chemistry stand.",
 		"source": "IMG-20260428-WA0043.jpg"
 	},
+	"about.protocol": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				1000
+			],
+			[
+				1920,
+				1000
+			]
+		],
+		"ratio": "21:9",
+		"event": "trabzonspor",
+		"caption": "The cooperation protocol being signed, March 2026.",
+		"source": "protocol-hero.jpg"
+	},
+	"about.principal": {
+		"srcset": [
+			[
+				640,
+				443
+			],
+			[
+				1280,
+				443
+			],
+			[
+				1920,
+				443
+			]
+		],
+		"ratio": "4:5",
+		"event": "ministor",
+		"caption": "Coşkun Çolak, principal of Trabzon Merkez Fen Lisesi.",
+		"source": "ministor.png"
+	},
 	"home.media.camera": {
 		"srcset": [
 			[

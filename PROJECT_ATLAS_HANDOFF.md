@@ -28,7 +28,8 @@ Four passes have happened so far:
 2. **Content pass** — real team facts, events, organization data, media slot architecture.
 3. **Creative direction pass** — a chapter/motion/environment system. **This pass is NOT in
    the repository.** The user did not keep it (see §5 and §84-equivalent note below).
-4. **"Project Atlas" content + creative correction passes** — the roster of 51 people, the
+4. **"Project Atlas" content + creative correction passes** — the roster of 49 students and 2
+   mentors, the
    portrait pipeline, birthday system, brand assets, then a Hero rebuild, colour system,
    drifting people scene and Team redesign. **This is the current working state, uncommitted.**
 
@@ -450,7 +451,11 @@ Never invent biographies — portrait + name + role is enough for a beautiful fo
 
 ## 13. Member Roster
 
-**CURRENT — `src/lib/content/roster.ts`.** Typed, 51 people.
+**CURRENT — `src/lib/content/roster.ts`.** Typed, **49 students + 2 mentors = 51 people**.
+
+**RULE: the site says "forty-nine students", never "fifty-one students".** Mentors are counted
+separately and are not students. `studentCount` (49) and `mentorCount` (2) exist for exactly
+this; `rosterSize` (51) is only for portrait-coverage tallies.
 
 ```ts
 type RoleId = 'organisation' | 'robotics' | 'pr' | 'finance' | 'mentor';
@@ -529,7 +534,40 @@ Format: `name — role — birthday (month.day) — expected filename`.
 | 50 | Ceyhun Temel | **Mentör / Lead Coach** | — | ceyhuntemel.jpg |
 | 51 | Muhammet Salih Artun | PR | — | muhammetsalihartun.jpg |
 
-Counts by role: Robotics 15 · PR 23 · Organization 6 · Finance 5 · Mentors 2.
+Counts by role: **Robotics 14 · PR 23 · Organization 8 · Finance 4 · Mentors 2.**
+(Yağız Efe Kalaycı moved Robotics→Organization and Furkan Hacımahmutoğlu Finance→Organization.)
+
+### Per-member profile fields — edit content only
+
+The member detail card is driven entirely by `roster.ts`; adding data needs **no component
+change**. Per member:
+
+| Field | Notes |
+|---|---|
+| `grade` | `10 \| 12 \| 12`. **Students only** — mentors must never be forced into a grade. |
+| `mentorNote` | Mentors only. Semra = Bilişim Teknolojileri Öğretmeni; Ceyhun = Kocaeli Üniversitesi 2. sınıf öğrencisi. |
+| `intro` | The member's own 1–2 sentences. **All 51 are currently empty** and render the placeholder "Tanıtım yakında." / "Introduction coming soon." |
+| `tags` | Zero, one or many ids. All 51 currently `[]`. |
+
+Any empty field is **omitted** from the card rather than rendered blank, so a member with
+nothing filled in simply gets a shorter card.
+
+### Tag system — `memberTags` in `roster.ts`
+
+Three categories, kept apart so a joke never renders as a credential:
+
+- **`skill`** — software · mechanical · electronics · cad · graphics · editor · camera ·
+  videoEditor · accounting · **communications** · **sponsorship**. Rendered as blue outline
+  chips. *Translated* in English.
+- **`fun`** — genco · oldWolf · tense · excitable · restless · nightShift. Claret outline chips.
+- **`special`** — host (`Sunucu-men`) · everythingGuy (`Her Şey Adam`). Solid claret chips.
+
+**Fun and special labels stay Turkish in both dictionaries on purpose** — they are the team's
+in-jokes and translating them flattens them. Labels live in the dictionaries under `team.tags.*`;
+`roster.ts` only stores ids. Adding a tag = one id + two dictionary lines.
+
+Naming decisions already made: "PRcı" → **İletişim** (the PR *group* already exists as a role,
+so a tag repeating it would read as duplication); "Sponsorcu" → **Sponsorluk**.
 
 **RULE:** never display ages or full birth dates publicly. Never guess Semra's year.
 Never infer a role, seniority, age or identity **from a photograph**; the table above is the
@@ -627,13 +665,15 @@ archive. Hover restores full colour. Placeholder tiles are desaturated further a
 
 ## 16. Asset Directory Map
 
-### Sources (never destructively edited, currently untracked, 3.6 GB total)
+### Sources (never destructively edited, currently untracked, ~3.8 GB total)
 
 ```
 images/members/            51 × .jpg (37 real photographs + 14 generated placeholders)
                            + _generated-placeholders.txt  ← the list of generated files
 images/steamfest/          327 files: 222 photos (.jpg/.jpeg), 91 .mov, 12 .mp4, 2 .heic
 images/icons/ro6one-logo.jpg   874×849 — THE canonical supplied logo
+images/trabzonspor/        official club media + SOURCE.txt (read it before adding any)
+images/ministor/           the school principal's supplied portrait
 images/ekip/               DOES NOT EXIST right now. If it appears, treat its contents as
                            intentionally supplied RO6ONE team photography (higher confidence
                            that these people are our team). Do not create this folder.
@@ -773,10 +813,29 @@ only download full resolution for what survives. 50 thumbnails ≈ 9.5 MB; 50 or
 convention as `images/steamfest/`). Nine are live on the site — see `scripts/event_selection.json`
 for the per-frame reasoning and the rejection list.
 
-**Identification rule applied:** RO6ONE members were identified *only* by the Trabzonspor crest
-kit and by the team's own oversized Instagram-frame prop (`DSCF6427` carries the handle
-`ts_ro6one_robotics` in the photograph itself). Everything else is captioned as event context.
-Never identify anyone from a face.
+### ⚠ IDENTIFICATION — the mistake this project already made once
+
+That pass identified RO6ONE members by **the Trabzonspor crest kit**, and used three Off-Season
+frames — `DSCF6418`, `DSCF6419`, `DSCF6420` — to represent the team on the homepage
+organization chapter, the Team page and the About page.
+
+**The team confirmed those people are not RO6ONE members.** The crest kit is worn far beyond this
+team, and being at the event proves nothing. All three were replaced from `images/steamfest/`.
+
+**The only identification now accepted is evidence visible in the frame:**
+
+- the **RO6ONE mark on a stand banner, prop or backdrop** the people are operating — the
+  STEAMFest `KİMYA` / `BİYOLOJİ` banners carry it beside the Trabzon Fen Lisesi crest;
+- **RO6ONE-issued event credentials** worn by the subjects;
+- the team's **own branded props** — the `Ro6oneCAM` frame, the `STEAMFEST '26` frame, the
+  Off-Season Instagram frame (`DSCF6427`, which carries `ts_ro6one_robotics` in shot).
+
+Never clothing colour, age, proximity to the event, or "looks like a robotics student". If the
+frame does not prove it, the photograph may be used **only as event context** and must never be
+placed where the surrounding section reads it as "our team". Never identify anyone from a face.
+
+Off-Season frames remain correct and in use for event context — arena, field, robots, crowd,
+drivers. That was never the problem.
 
 **Still outstanding:** the Google Photos share (§19 link) was not opened — the Drive set was
 already more than the design needed. Press reports mention 10–12 July and the folder covers 12
@@ -1068,10 +1127,16 @@ Updated at the end of the completion pass. ✅ = fixed then, ❗ = still open.
 9. ❗ **`images/` is untracked and un-ignored** — now **3.7 GB** (§2). Unchanged hazard.
 10. ✅ **Inner pages** brought into the room system (§34).
 11. ✅ **`DailySignal` / `Monolith11919` / `ContactCta`** resolved (§34).
-12. ❗ **`about.protocol` and `team.group` are still empty apertures** — no photograph exists
-    for the protocol signing or for a whole-team group shot. Both now render as designed
-    recesses that sit correctly in a coloured room, so they are honest rather than broken,
-    but they are the two photographs most worth asking the team for.
+12. ✅ **`about.protocol`** filled with the official club photograph of the signing (§35).
+    ❗ **`team.group` is still an empty aperture** — no whole-team group shot exists. Still the
+    photograph most worth asking the team for.
+14. ❗ **Three member portraits are still placeholders**: Alaaddin Bilgin Topal, Elif Eroğlu and
+    Hayat Karahan were announced but had not arrived on disk as of this pass — the files at
+    `images/members/<key>.jpg` are still the generated 1000×1250 stand-ins and all three are
+    still listed in `_generated-placeholders.txt`. Dropping the real photos in and running
+    `python3 scripts/process_media.py members` is the whole job; no code change is needed.
+15. ❗ **Every `intro` and every `tags` array is empty.** The card and the tag system are built
+    and verified; only the per-person values are missing (§13).
 13. ❗ **The Google Photos Off-Season share was never opened** (§19), and press reports cover
     10–12 July while the Drive folder is 12 July only. A second day may exist.
 
@@ -1152,6 +1217,37 @@ third without removing one — the contrast is the whole effect.
 number set into it (04), two colour fields meeting at a seam with photographs bleeding off
 opposite outer edges (03), a mega numeral used as architecture (02, footer), the mark returning
 oversized and cropped by a corner (footer).
+
+---
+
+## 35. Institutional Media & The Principal (added by the content/team pass)
+
+**`about.protocol` is now the official Trabzonspor photograph of the signing**, used as a
+full-width 21:9 band at the top of `/partners` chapter 01. Source, provenance and what the
+article actually says are recorded in **`images/trabzonspor/SOURCE.txt` — read it before adding
+any club media.**
+
+**RULE — the crop is load-bearing.** The full frame is centred on an Atatürk portrait hanging
+between the two signatories. The standing rule that it may never be a dominant element is why
+the slot crops to a band below it, keeping both signatories, both flags and the table. Do not
+"fix" that crop back to a fuller frame.
+
+The article's three gallery images sit behind Cloudflare bot protection and were **not**
+retrieved. Do not try to work around that — ask the team to supply them.
+
+**The principal.** `about.principal` (`images/ministor/ministor.png`) carries Coşkun Çolak, named
+in the Trabzonspor article as Trabzon Fen Lisesi's principal and visible on the left of the
+signing photograph. He appears **once**, small (5.5rem), in the school block on `/partners`, as a
+label plus one line. **Keep it that size.** The copy claims only what is checkable: he is the
+principal, and he signed for the school.
+
+### "Joining the team" was wrong and is gone
+
+The Team page used to invite the public to apply. **The team is formed from inside Trabzon Merkez
+Fen Lisesi, from its own students** — that CTA was untrue. It is now `team.join` → "Working with
+us" / "Birlikte çalışmak", which points other teams, teachers and prospective supporters at
+Contact. The contact-page channel description was corrected for the same reason. Do not
+reintroduce open recruitment language.
 
 ---
 
@@ -1237,7 +1333,7 @@ Verified by inspection at handoff time.
 `layout/MobileMenu.svelte` (native `<dialog>`) · `layout/PageHeader.svelte` (inner-page opening).
 
 ### Data / content
-`content/roster.ts` (51 people + portraits + birthdays) · `content/signal.ts` (daily deck) ·
+`content/roster.ts` (49 students + 2 mentors, portraits, birthdays, grades, tags) · `content/signal.ts` ·
 `content/site.ts` (identity, emails, socials, mark, ogImage) · `content/media.ts` (14 media slots,
 merges generated event manifest) · `content/events.ts` · `content/timeline.ts` ·
 `content/organization.ts` · `content/departments.ts` · `content/navigation.ts` ·

@@ -181,6 +181,24 @@
 			"note": "REPLACES DSCF6418 (Off-Season) \u2014 two people who are not ours, standing in for our own story on the About page. Identity is proven in-frame by the RO6ONE mark on the stand banner and the RO6ONE credentials every student is wearing. Chosen for About because it is the whole thing in one frame: students, their coach, their own stand, their own school. Tightened to 0.72 and slid right so the crop centres the group instead of the foreground selfie face."
 		},
 		{
+			"id": "about.protocol",
+			"event": "trabzonspor",
+			"file": "protocol-hero.jpg",
+			"ratio": "21:9",
+			"focus": [0.5, 0.72],
+			"caption": "The cooperation protocol being signed, March 2026.",
+			"note": "Official Trabzonspor club photograph of the signing — see images/trabzonspor/SOURCE.txt. Cropped to a 21:9 band across the two signatories on purpose: the full frame is centred on an Atatürk portrait between them, and the standing rule is that it may never be a dominant element. The band keeps both signatories, both flags and the table, and leaves only the lower moulding of the frame."
+		},
+		{
+			"id": "about.principal",
+			"event": "ministor",
+			"file": "ministor.png",
+			"ratio": "4:5",
+			"focus": [0.52, 0.42],
+			"caption": "Coşkun Çolak, principal of Trabzon Merkez Fen Lisesi.",
+			"note": "Supplied by the team. Cropped slightly high and right so the subject sits centred and the framed picture behind his shoulder stays incidental. Used once, small, as an acknowledgement — not as a tribute panel."
+		},
+		{
 			"id": "home.media.camera",
 			"event": "offseason",
 			"file": "DSCF6427.JPG",

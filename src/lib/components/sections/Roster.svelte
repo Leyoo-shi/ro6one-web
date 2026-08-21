@@ -2,17 +2,29 @@
 	import { reveal } from '$lib/actions/reveal';
 	import Portrait from '$lib/components/ui/Portrait.svelte';
 	import {
+		memberTags,
 		portraitCount,
 		roleOrder,
 		roster,
 		rosterSize,
+		tagsOfCategory,
 		type Member,
 		type RoleId
 	} from '$lib/content/roster';
+	import { resolveText } from '$lib/content/localized';
 	import { useI18n } from '$lib/i18n/context.svelte';
 
 	const i18n = useI18n();
 	const copy = $derived(i18n.t.team.roster);
+	const detail = $derived(i18n.t.team.detail);
+
+	/* Skills read as credentials; the team's own labels read as affection. The
+	   two are kept in separate rows so a joke never sits in a skills list. */
+	const skillTags = (member: Member) => tagsOfCategory(member, 'skill');
+	const funTags = (member: Member) => [
+		...tagsOfCategory(member, 'special'),
+		...tagsOfCategory(member, 'fun')
+	];
 
 	/*
 	 * The roster as five domains rather than one gallery.
@@ -159,6 +171,74 @@
 									<span class="cell__role">{i18n.t.roles[member.role]}</span>
 								</span>
 							</button>
+
+							<!--
+								The detail panel. Rendered only for the focused member, and
+								every row is omitted when its field is empty — a member with
+								no tags and no intro simply gets a shorter card rather than a
+								grid of blanks. Everything here comes from content/roster.ts.
+							-->
+							{#if isFocused}
+								<div class="profile">
+									<dl class="profile__facts">
+										<div>
+											<dt class="label">{detail.group}</dt>
+											<dd>{i18n.t.roles[member.role]}</dd>
+										</div>
+
+										{#if member.grade}
+											<div>
+												<dt class="label">{detail.grade}</dt>
+												<dd>{detail.gradeValue.replace('{grade}', String(member.grade))}</dd>
+											</div>
+										{:else if member.mentorNote}
+											<div>
+												<dt class="label">{detail.mentorLabel}</dt>
+												<dd>{resolveText(member.mentorNote, i18n.locale)}</dd>
+											</div>
+										{/if}
+
+										{#if member.birthday}
+											<div>
+												<dt class="label">{detail.birthday}</dt>
+												<dd>
+													{member.birthday.day}
+													{i18n.t.daily.months[member.birthday.month - 1]}
+												</dd>
+											</div>
+										{/if}
+									</dl>
+
+									<div class="profile__intro">
+										<p class="label">{detail.about}</p>
+										<p class="profile__text" class:profile__text--pending={!member.intro}>
+											{member.intro ? resolveText(member.intro, i18n.locale) : detail.introPending}
+										</p>
+									</div>
+
+									{#if skillTags(member).length}
+										<div class="profile__tags">
+											<p class="label">{detail.skills}</p>
+											<ul>
+												{#each skillTags(member) as tag (tag)}
+													<li class="tag tag--skill">{i18n.t.team.tags[tag]}</li>
+												{/each}
+											</ul>
+										</div>
+									{/if}
+
+									{#if funTags(member).length}
+										<div class="profile__tags">
+											<p class="label">{detail.traits}</p>
+											<ul>
+												{#each funTags(member) as tag (tag)}
+													<li class="tag tag--{memberTags[tag]}">{i18n.t.team.tags[tag]}</li>
+												{/each}
+											</ul>
+										</div>
+									{/if}
+								</div>
+							{/if}
 						</li>
 					{/each}
 				</ul>
@@ -394,6 +474,86 @@
 
 	.cell:hover .cell__role {
 		color: var(--blue-bright);
+	}
+
+	/* -------------------------------------------------------------- profile */
+
+	/*
+	 * Sits under the enlarged portrait inside the focused cell, so the card
+	 * grows downward instead of the page reflowing around a floating panel.
+	 */
+	.profile {
+		display: grid;
+		gap: var(--space-m);
+		margin-top: var(--space-m);
+		padding-top: var(--space-m);
+		border-top: 1px solid var(--edge);
+	}
+
+	.profile__facts {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-s) clamp(1.25rem, 4vw, 2.5rem);
+		margin: 0;
+	}
+
+	.profile__facts dd {
+		margin: 0.3rem 0 0;
+		font-size: var(--type-small);
+		font-weight: 500;
+		color: var(--text-primary);
+	}
+
+	.profile__text {
+		margin-top: 0.4rem;
+		max-width: 46ch;
+		font-size: var(--type-body);
+		line-height: 1.5;
+		color: var(--text-secondary);
+	}
+
+	/* Visibly waiting for real copy rather than pretending to be it. */
+	.profile__text--pending {
+		font-style: italic;
+		color: var(--text-faint);
+	}
+
+	.profile__tags ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin-top: 0.55rem;
+	}
+
+	.tag {
+		padding: 0.28rem 0.6rem;
+		border: 1px solid transparent;
+		border-radius: 999px;
+
+		font-family: var(--font-mono);
+		font-size: var(--type-micro);
+		letter-spacing: 0.04em;
+		line-height: 1.35;
+	}
+
+	.tag--skill {
+		border-color: var(--edge-navy);
+		background: var(--signal-dim);
+		color: var(--blue-bright);
+	}
+
+	.tag--fun {
+		border-color: var(--edge-burgundy);
+		background: var(--signal-warm-dim);
+		color: var(--claret-bright);
+	}
+
+	/* One-person titles earn a solid chip. */
+	.tag--special {
+		border-color: transparent;
+		background: var(--claret);
+		color: var(--text-primary);
+		font-weight: 600;
 	}
 
 	/* ---------------------------------------------------------------- focus */

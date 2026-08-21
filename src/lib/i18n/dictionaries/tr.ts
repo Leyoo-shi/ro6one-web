@@ -296,7 +296,7 @@ export const tr: Dictionary = {
 		},
 		people: {
 			label: 'Ekip',
-			titleLead: 'Elli bir öğrenci,',
+			titleLead: 'Kırk dokuz öğrenci,',
 			titleAccent: 'tek bir iş.',
 			lede: 'Portresi ulaşan herkes burada, akıp gidiyor. Diğerleri de yolda.',
 			countPeople: 'kişi',
@@ -319,7 +319,13 @@ export const tr: Dictionary = {
 		},
 		system: {
 			label: 'Organizasyon',
-			title: 'Takımı da robotu kurduğumuz gibi kuruyoruz.',
+			/*
+			 * The team's strongest idea, so it gets the shortest sentence.
+			 * "Takımı da robotu kurduğumuz gibi kuruyoruz" was a faithful
+			 * rendering that used "kurmak" twice and lost the engineering in
+			 * "engineer". Two clipped sentences carry it the way Turkish does.
+			 */
+			title: 'Robotu mühendislikle kuruyoruz. Takımı da.',
 			body: 'Yedi alan, bir esnek havuz ve kendi işlettiğimiz bir platform. Kimse bir kutuya kilitli değil: rol, nerede sorumlu olduğunuzu söyler; nerede çalışabileceğinizi değil.',
 			link: 'Takım nasıl çalışıyor'
 		},
@@ -340,7 +346,7 @@ export const tr: Dictionary = {
 			label: 'Kurumsal',
 			title: 'Bu şehrin zaten bildiği bir adla yarışıyoruz.',
 			body: [
-				'Mart 2026’da Trabzonspor ile Trabzon Merkez Fen Lisesi arasında bilim, teknoloji ve mühendislik alanında bir iş birliği protokolü imzalandı: ulusal ve uluslararası yarışmalar boyunca FRC takımına malzeme ve ayni destek, ve tek bir sezondan uzun sürmesi amaçlanan bir ilişki.',
+				'Mart 2026’da Trabzonspor ile Trabzon Merkez Fen Lisesi arasında bilim, teknoloji ve mühendislik alanında bir iş birliği protokolü imzalandı: ulusal ve uluslararası yarışmalar boyunca FRC takımına malzeme ve ayni destek; ve tek bir sezonu aşması amaçlanan bir ilişki.',
 				'Takımın adının Trabzonspor Ro6one Robotics olmasının sebebi bu; 21 takımlı bir turnuvanın burada yapılabilmesinin sebeplerinden biri de. Robotu yine de biz üreteceğiz.'
 			],
 			link: 'İlişkinin ayrıntısı'
@@ -348,7 +354,12 @@ export const tr: Dictionary = {
 		contact: {
 			label: 'İletişim',
 			title: 'Bize yazın.',
-			body: 'Şirketler, öğretmenler, öğrenciler, diğer takımlar, basın. İki adres, üç kanal ve sessizce hiçbir yere gitmeyen bir form yok.',
+			/*
+			 * The negation attached to the wrong clause: "…gitmeyen bir form yok"
+			 * parses as "there is no form that goes nowhere", i.e. the opposite
+			 * of the promise. Turkish states it positively instead.
+			 */
+			body: 'Şirketler, öğretmenler, öğrenciler, diğer takımlar, basın. İki adres, üç kanal; hepsi gerçek. Boşluğa düşen iletişim formu yok.',
 			link: 'İletişime geçin'
 		}
 	},
@@ -362,7 +373,7 @@ export const tr: Dictionary = {
 			body: [
 				'Şubat 2026’da Trabzon Merkez Fen Lisesi’nde bir grup öğrenci FIRST Robotics Competition’a girmeye karar verdi. Neredeyse hiçbirinin deneyimi yoktu. Öğrenilecek geçmiş bir üretim, bir arşiv, yazılı bir çalışma biçimi yoktu; dolayısıyla ilk mühendislik problemi makine değil, takımın kendisiydi.',
 				'Mentörümüzün yönlendirmesiyle yapı hızla oturdu: sorumluluğu net disiplinler, onları hizada tutan bir organizasyon grubu ve kararları gerekçesi tazeyken yazıya geçirme alışkanlığı.',
-				'Beş ay sonra dört okula bir festival düzenlemiş ve 21 takımlı bir FRC Off-Season organize etmiştik. Hâlâ resmî bir sezonda yarışmadık. Sırada o var; ve bu takımın ilk kez organize ettiği işle değil, bir puan tablosuyla ölçüleceği yer orası olacak.'
+				'Beş ay sonra dört okula bir festival düzenlemiş ve 21 takımlı bir FRC Off-Season organize etmiştik. Hâlâ resmî bir sezonda yarışmadık. Sırada o var. Bu takım ilk kez orada, düzenlediği etkinliklerle değil, bir puan tablosuyla ölçülecek.'
 			]
 		},
 		home: {
@@ -524,7 +535,13 @@ export const tr: Dictionary = {
 		lede: 'İki ilke ve bu ilkeleri gerçekten savunup savunmadığımızı anlamak için yaptığımız iki proje.',
 		steam: {
 			title: 'STEAM for STEM',
-			body: 'STEM’e sanatı, tasarımı ve sporu eklemek süsleme değil. Çizmek, çekmek, yazmak ve anlatmak; teknik işin anlaşılır hâle gelme biçimi — ve başka bir şey için gelen öğrencinin sonunda statik öğrenme biçimi.'
+			/*
+			 * Was broken: "…öğrencinin sonunda statik öğrenme biçimi" left the
+			 * sentence without a predicate, and "statik" read as the adjective
+			 * rather than the subject (statics). Split into two sentences, which
+			 * is what Turkish wants here anyway.
+			 */
+			body: 'STEM’e sanatı, tasarımı ve sporu eklemek süsleme değil. Çizmek, çekmek, yazmak ve anlatmak; teknik işi anlaşılır kılan şeyler. Maça gelen öğrenci, sonunda kendini statik çalışırken bulabiliyor.'
 		},
 		people: {
 			title: 'STEM for People',
@@ -581,9 +598,46 @@ export const tr: Dictionary = {
 			title: 'Organizasyonu kurmak',
 			lede: 'Takım, bakımını takımın yaptığı bir altyapı üzerinde çalışıyor.'
 		},
+		tags: {
+			/* Skill tags: what someone actually does. */
+			software: 'Yazılımcı',
+			mechanical: 'Mekanikçi',
+			electronics: 'Elektronikçi',
+			cad: 'CAD Tasarımcı',
+			graphics: 'Grafik Tasarımcı',
+			editor: 'Editör',
+			camera: 'Kameraman',
+			videoEditor: 'Kurgucu',
+			accounting: 'Muhasebe',
+			communications: 'İletişim',
+			sponsorship: 'Sponsorluk',
+
+			/* The team's own words. Left in Turkish in both languages: these are
+			   in-jokes, and translating them would flatten them into nothing. */
+			genco: 'Genco',
+			oldWolf: 'Yaşlı Kurt',
+			tense: 'Gergin',
+			excitable: 'Heyecanlı',
+			restless: 'Yerinde Duramayan',
+			nightShift: 'Gece Vardiyası',
+
+			host: 'Sunucu-men',
+			everythingGuy: 'Her Şey Adam'
+		},
+		detail: {
+			group: 'Alan',
+			grade: 'Sınıf',
+			gradeValue: '{grade}. sınıf',
+			birthday: 'Doğum günü',
+			mentorLabel: 'Mentör',
+			about: 'Kendi cümleleriyle',
+			introPending: 'Tanıtım yakında.',
+			skills: 'Yaptığı işler',
+			traits: 'Takımın deyişiyle'
+		},
 		roster: {
 			title: 'Üyeler',
-			lead: 'Elli bir kişi.',
+			lead: 'Kırk dokuz öğrenci, iki mentör.',
 			accent: 'Bir alan seçin.',
 			lede: 'Bir alanı açın ya da doğrudan isim arayın.',
 			pending: 'Portre bekleniyor',
@@ -596,9 +650,10 @@ export const tr: Dictionary = {
 			openLabel: 'Portreyi aç',
 			closeLabel: 'Kapat'
 		},
+		/* "Takıma katılmak" dışarıya açık bir çağrıydı; takım okul içinden kuruluyor. */
 		join: {
-			title: 'Takıma katılmak',
-			body: 'Trabzon’da bir şeyler üretmek isteyen bir öğrenciysen bize yaz. Burada tasarım, yazı, çekim, bütçe ve organizasyon; talaşlı imalat kadar önemli — ve çoğu kişi bunlardan birden fazlasını yapıyor.',
+			title: 'Birlikte çalışmak',
+			body: 'Takım, Trabzon Merkez Fen Lisesi’nin kendi öğrencilerinden kuruluyor; yeni üyeler oradan geliyor. Bunun dışında kapımız açık: çözdüğünü paylaşmak isteyen takımlar, atölye isteyen öğretmenler ve okullar, destek vermeyi düşünen kurumlar bize yazabilir.',
 			cta: 'Takımla iletişime geçin'
 		}
 	},
@@ -614,6 +669,9 @@ export const tr: Dictionary = {
 				'Bir ay önce kurulmuş bir takım için bu protokol mümkün olanı değiştirdi. Trabzonspor Ro6one Robotics adıyla yarışmamızın sebebi bu; Temmuzda Trabzon’da bir FRC Off-Season düzenlenebilmesinin sebeplerinden biri de.'
 			],
 			schoolTitle: 'Trabzon Merkez Fen Lisesi',
+			principalLabel: 'Okul Müdürü',
+			principalNote:
+				'Protokolü okul adına Müdür Coşkun Çolak imzaladı. Okulun desteği için teşekkür ederiz.',
 			schoolBody:
 				'Takımın kurulduğu ve hâlâ çalıştığı okul: atölye, öğrenci havuzu ve ürettiğimiz her şeyin ilk seyircisi.',
 			since: 'Protokol tarihi'
@@ -691,7 +749,7 @@ export const tr: Dictionary = {
 				},
 				{
 					name: 'Öğrenciler',
-					description: 'Takıma katılmak ya da bir şeyin nasıl yapıldığını sormak.'
+					description: 'Bir şeyin nasıl yapıldığını sormak ya da birlikte iş yapmayı konuşmak.'
 				},
 				{
 					name: 'Diğer takımlar',
@@ -725,7 +783,7 @@ export const tr: Dictionary = {
 
 	footer: {
 		/* Kapanış, hero’daki "Sıradakini inşa et."e cevap veriyor. */
-		closing: 'Trabzon’da elli bir öğrenci,',
+		closing: 'Trabzon’da kırk dokuz öğrenci,',
 		closingTurn: 'sıradakini inşa ediyor.',
 		explore: 'Keşfet',
 		connect: 'Bağlan',

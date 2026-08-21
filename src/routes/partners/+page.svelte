@@ -28,6 +28,15 @@
 	possible, so the team stays the subject of every sentence.
 -->
 <Section index="01" rule={false} tone="claret">
+	<!--
+		The signing itself, official club photography, as a wide band. It was a
+		narrow side column and an empty aperture before; this is the one moment
+		on the page that earns full width.
+	-->
+	<div class="protocol" use:reveal>
+		<MediaFrame id="about.protocol" sizes="(max-width: 1024px) 100vw, 90vw" />
+	</div>
+
 	<div class="institution">
 		<div class="institution__copy">
 			<h2 class="institution__title" use:reveal>{copy.institutional.title}</h2>
@@ -55,16 +64,23 @@
 				{/if}
 			</dl>
 		</div>
-
-		<div class="institution__media">
-			<MediaFrame id="about.protocol" sizes="(max-width: 1024px) 100vw, 40vw" />
-		</div>
 	</div>
 
 	<div class="school" use:reveal>
 		<div>
 			<h3 class="school__title">{copy.institutional.schoolTitle}</h3>
 			<p class="school__body">{copy.institutional.schoolBody}</p>
+
+			<!-- A line and a small portrait. Deliberately not a tribute block. -->
+			<div class="principal">
+				<div class="principal__portrait">
+					<MediaFrame id="about.principal" sizes="88px" showCaption={false} />
+				</div>
+				<p class="principal__note">
+					<span class="label">{copy.institutional.principalLabel}</span>
+					{copy.institutional.principalNote}
+				</p>
+			</div>
 		</div>
 
 		{#if school?.url}
@@ -160,6 +176,48 @@
 </Section>
 
 <style>
+	.protocol {
+		margin-bottom: var(--space-2xl);
+	}
+
+	.protocol :global(.frame__image) {
+		border: 1px solid var(--edge-burgundy);
+	}
+
+	/* ----------------------------------------------------------- principal */
+
+	.principal {
+		display: flex;
+		align-items: center;
+		gap: var(--space-m);
+
+		margin-top: var(--space-l);
+		padding-top: var(--space-m);
+		border-top: 1px solid var(--edge-burgundy);
+	}
+
+	.principal__portrait {
+		flex: 0 0 auto;
+		width: 5.5rem;
+	}
+
+	.principal__portrait :global(.frame__image) {
+		border-radius: var(--radius-s);
+	}
+
+	.principal__note {
+		max-width: 46ch;
+		font-size: var(--type-small);
+		line-height: 1.55;
+		color: var(--text-secondary);
+	}
+
+	.principal__note .label {
+		display: block;
+		margin-bottom: 0.3rem;
+		color: var(--claret-bright);
+	}
+
 	.institution {
 		display: grid;
 		grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
