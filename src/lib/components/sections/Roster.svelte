@@ -457,10 +457,20 @@
 		margin-top: 0.6rem;
 	}
 
+	/*
+	 * Two lines are reserved whether or not a name needs them. At 49 people one
+	 * wrapping name was a curiosity; at 73 it is a visible fault — a single
+	 * "Murathan Mollamehmetoğlu" made every card in its row sit a line shorter
+	 * than its neighbours and the sheet stopped reading as a grid. Reserving the
+	 * space fixes it for every long name there will ever be, rather than for the
+	 * ones that happen to be on the roster today.
+	 */
 	.cell__name {
+		min-height: 2.5em;
 		font-size: var(--type-small);
 		font-weight: 500;
 		letter-spacing: -0.01em;
+		line-height: 1.25;
 		text-wrap: balance;
 	}
 
@@ -580,7 +590,9 @@
 		filter: saturate(1.05) contrast(1.02);
 	}
 
+	/* The focused card is alone in its row, so it needs no reserved line. */
 	.cell--focused .cell__name {
+		min-height: 0;
 		font-size: var(--type-h3);
 		font-weight: 550;
 	}

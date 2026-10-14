@@ -1,0 +1,27 @@
+RO6ONE's own Instagram post.
+
+Source post
+  https://www.instagram.com/p/Deesc8liMwY/
+  Published 14/10/2026 by @ts_ro6one11919 — the team's official account.
+  Carousel. The caption is the only published account of the event and is the
+  sole basis for everything the site says about it; see docs/content-sources.md.
+
+post-cover.jpg
+  640x640, the post's cover frame, taken from the page's own og:image.
+  Students and teachers outside Çarşıbaşı Ortaokulu, under the school's and
+  Gazi İlkokulu's entrance signs. Trabzon Fen Lisesi kit is visible on several
+  of the students.
+
+Notes
+  - This is the ONLY frame that could be retrieved. Instagram serves the rest of
+    a carousel to signed-in sessions only, and the CDN URLs are signed, so the
+    cover cannot be requested at a larger size either. Do not try to work around
+    that: ask the team for the originals.
+  - 640x640 is well below the 1600px long edge the rest of the event media is
+    held to, and it is already Instagram's own square crop of the original. When
+    the team supplies the archive, drop the full-size frames in here and re-run
+    scripts/process_media.py — the slot picks them up with no code change.
+  - An Atatürk bust stands between the two groups of people. Per the standing
+    project rule it may never be a dominant element; the 3:2 crop in
+    scripts/event_selection.json sits below it, across the people and the school
+    sign, and leaves it incidental.

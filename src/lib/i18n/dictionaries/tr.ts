@@ -37,6 +37,7 @@ export const tr: Dictionary = {
 			team: 'Takım arşivi',
 			steamfest: 'Spor STEAM Fest ’26',
 			offseason: 'Trabzon Off-Season',
+			carsibasi: 'Çarşıbaşı',
 			infrastructure: 'Altyapı',
 			robotics: 'Atölye',
 			trabzonspor: 'Kurumsal',
@@ -223,6 +224,7 @@ export const tr: Dictionary = {
 		facts: {
 			date: 'Tarih',
 			schools: 'Okul',
+			students: 'Öğrenci',
 			teams: 'Takım',
 			role: 'Rolümüz',
 			venue: 'Mekân',
@@ -270,6 +272,21 @@ export const tr: Dictionary = {
 				body: 'İlk olmamız değil. Haritanın üç şehirden ibaret olmadığı ve bir takım kurmaya karar verdiği anda bir bölgenin bunu ağırlayabildiği.'
 			},
 			mascot: 'Etkinliğin, yalnızca o üç gün için hazırlanmış kendi maskotu vardı.'
+		},
+		carsibasi: {
+			label: 'Çarşıbaşı eğitimi ve turnuvası',
+			title: 'Yaklaşık 140 öğrenciyle iki gün robotik.',
+			lede: 'Ekim 2026, Çarşıbaşı — iki ortaokul, bir gün uygulamalı elektronik ve robot kontrolü, ertesi gün robot futbolu turnuvası; RoboLynx, Hypium ve T2A ile birlikte.',
+			body: [
+				'İlk gün anlatılan değil, yapılan bir gündü: Pinoo setleriyle temel elektronik, algoritmik düşünme ve robot kontrolü. Öğrenciler robotları kendileri kurdu, kendileri sürdü; Bluetooth kontrolünü deneyerek öğrendiler.',
+				'İkinci gün takımlara ayrılıp robot futbolu turnuvasında yarıştılar. Teknik işin strateji, problem çözme ve süre baskısı altında takımla anlaşabilmeye dönüştüğü yer orasıydı.'
+			],
+			partnersLabel: 'Birlikte yürütenler',
+			schoolsLabel: 'Okullar',
+			reason: {
+				title: 'Neden orada',
+				body: 'Teknolojiye erişim, öğrencinin hangi okulda olduğuna bağlı olmamalı. Böyle bir günün amacı da teknolojiyi yalnızca kullanan değil, üreten bir öğrenci.'
+			}
 		}
 	},
 
@@ -282,7 +299,7 @@ export const tr: Dictionary = {
 			title: 'Bu sitedeki her şey ondan sonra başladı.',
 			body: [
 				'RO6ONE, Trabzon Merkez Fen Lisesi’nde neredeyse hiç FRC deneyimi olmayan öğrencilerle başladı: geçmiş bir üretim yok, arşiv yok, devralınacak bir süreç yok. Tasarlamamız gereken ilk şey takımın kendisiydi.',
-				'Martta Trabzonspor ile imzalanan iş birliği protokolü bu takıma kurumsal bir zemin verdi. Nisanda bir festival düzenledik. Temmuzda 21 takımlı bir turnuva organize ettik. İlk resmî yarışma sezonumuz ise hâlâ önümüzde.'
+				'Martta Trabzonspor ile imzalanan iş birliği protokolü bu takıma kurumsal bir zemin verdi. Nisanda bir festival düzenledik. Temmuzda 21 takımlı bir turnuva organize ettik. Ekimde Çarşıbaşı’nda iki ortaokula iki günlük robotik götürdük. İlk resmî yarışma sezonumuz ise hâlâ önümüzde.'
 			],
 			timelineLabel: 'Kuruluştan bu yana geçen ay',
 			schoolLabel: 'Yuva'
@@ -292,15 +309,16 @@ export const tr: Dictionary = {
 			protocol: { name: 'Trabzonspor protokolü', note: 'İş birliği protokolü imzalandı' },
 			steamfest: { name: 'Spor STEAM Fest ’26', note: 'Dört okul; spor ve STEM aynı salonda' },
 			offseason: { name: 'Trabzon Off-Season', note: '21 takım, Hayri Gür Spor Salonu' },
+			carsibasi: { name: 'Çarşıbaşı', note: 'İki gün robotik, iki ortaokul' },
 			season: { name: 'İlk resmî sezon', note: 'Önümüzde' }
 		},
 		people: {
 			label: 'Ekip',
-			titleLead: 'Kırk dokuz öğrenci,',
+			titleLead: 'Yetmiş öğrenci,',
 			titleAccent: 'tek bir iş.',
 			lede: 'Portresi ulaşan herkes burada, akıp gidiyor. Diğerleri de yolda.',
 			countPeople: 'kişi',
-			countNote: 'Robotik, PR, organizasyon, finans — ve yanlarında, üstlerinde değil, iki mentör.',
+			countNote: 'Robotik, PR, organizasyon, finans — ve yanlarında, üstlerinde değil, üç mentör.',
 			cta: 'Ekibin tamamı',
 			hintScroll: 'Kaydırmaya devam edin',
 			hintSwipe: 'Kaydırın'
@@ -573,7 +591,7 @@ export const tr: Dictionary = {
 		},
 		record: {
 			title: 'Program kayıtları',
-			body: 'Şimdiye kadar iki proje; ikisi de bu sayfada belgeli. Bundan sonraki atölyeler, ziyaretler ve iş birlikleri gerçekleştikçe tarihleriyle ve gerçekte ne yapıldığıyla buraya eklenecek — erişim rakamlarıyla değil.'
+			body: 'Şimdiye kadar üç proje; üçü de bu sayfada belgeli. Bundan sonraki atölyeler, ziyaretler ve iş birlikleri gerçekleştikçe gerçekte ne yapıldığı ve kiminle yapıldığıyla buraya eklenecek — erişim rakamlarıyla değil.'
 		},
 		collaborate: {
 			title: 'Birlikte çalışın',
@@ -637,7 +655,7 @@ export const tr: Dictionary = {
 		},
 		roster: {
 			title: 'Üyeler',
-			lead: 'Kırk dokuz öğrenci, iki mentör.',
+			lead: 'Yetmiş öğrenci, üç mentör.',
 			accent: 'Bir alan seçin.',
 			lede: 'Bir alanı açın ya da doğrudan isim arayın.',
 			pending: 'Portre bekleniyor',
@@ -783,7 +801,7 @@ export const tr: Dictionary = {
 
 	footer: {
 		/* Kapanış, hero’daki "Sıradakini inşa et."e cevap veriyor. */
-		closing: 'Trabzon’da kırk dokuz öğrenci,',
+		closing: 'Trabzon’da yetmiş öğrenci,',
 		closingTurn: 'sıradakini inşa ediyor.',
 		explore: 'Keşfet',
 		connect: 'Bağlan',
@@ -825,7 +843,7 @@ export const tr: Dictionary = {
 		impact: {
 			title: 'Etki',
 			description:
-				'Spor STEAM Fest ’26 ve Trabzon Off-Season: RO6ONE’ın FRC’yi ve STEAM’i Doğu Karadeniz’e taşıma biçimi.'
+				'Spor STEAM Fest ’26, Trabzon Off-Season ve sonrasındaki atölyeler: RO6ONE’ın FRC’yi ve STEAM’i Doğu Karadeniz’e taşıma biçimi.'
 		},
 		team: {
 			title: 'Ekip',

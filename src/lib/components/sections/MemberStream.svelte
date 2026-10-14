@@ -43,7 +43,7 @@
 			<span>{copy.label}</span>
 		</p>
 
-		<!-- The headline says "forty-nine students", so the cast numeral must agree. -->
+		<!-- The headline says "seventy students", so the cast numeral must agree. -->
 		<span class="people__count" aria-hidden="true">{studentCount}</span>
 
 		<div class="people__statement" use:reveal>

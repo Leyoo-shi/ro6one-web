@@ -18,22 +18,45 @@
 		"focus": [0.5, 0.4]
 	},
 	"members": {
+		"asafgokturkyalcinkaya": {
+			"focus": [0.5, 0.3]
+		},
+		"asiyeecrinkoyun": {
+			"focus": [0.52, 0.27]
+		},
+		"aysenuryayla": {
+			"focus": [0.5, 0.25]
+		},
 		"ayseozgeozdener": {
 			"focus": [0.5, 0.28]
 		},
 		"azraezgiturhan": {
 			"focus": [0.52, 0.45]
 		},
+		"batuhanalemdag": {
+			"focus": [0.4, 0.4]
+		},
 		"batuhanverep": {
 			"focus": [0.48, 0.32]
 		},
-		"betultellioglu": {
-			"focus": [0.78, 0.46],
-			"note": "A framed Atatürk portrait fills the left of the source and dominated the full-width crop. Tightened and shifted right so she is the subject; only an edge of the frame remains.",
+		"beratsisman": {
+			"focus": [0.78, 0.36],
+			"note": "Standing at the right of a harbour frame; the left half is railing and water.",
 			"tighten": 0.72
 		},
 		"burakyilmazlar": {
 			"focus": [0.38, 0.28]
+		},
+		"cannurituran": {
+			"focus": [0.6, 0.55],
+			"note": "Big Ben fills the top two thirds; he is a small figure at the bottom. Tightened to the cap so he is the subject and the tower stays as context.",
+			"tighten": 0.72
+		},
+		"cinaryusufakaydin": {
+			"focus": [0.5, 0.3]
+		},
+		"dilayyildirim": {
+			"focus": [0.52, 0.28]
 		},
 		"doganefeasci": {
 			"focus": [0.47, 0.66],
@@ -43,17 +66,35 @@
 		"elaecrenakyuz": {
 			"focus": [0.48, 0.42]
 		},
+		"elfinserredere": {
+			"focus": [0.48, 0.45],
+			"note": "Landscape selfie taken in a car; the source is wider than the 4:5 box, so x is the whole decision. Her face spans roughly 0.24-0.72 of the frame and 0.48 is its centre. An earlier 0.32 slid the box left and sheared the right side of her face off."
+		},
 		"elifranakundakci": {
 			"focus": [0.58, 0.35]
 		},
 		"elifsenemozturk": {
 			"focus": [0.42, 0.38]
 		},
+		"elvindilakeles": {
+			"focus": [0.5, 0.45],
+			"note": "Standing against the sea, roughly half the frame height.",
+			"tighten": 0.72
+		},
+		"emirtunaburkas": {
+			"focus": [0.5, 0.3]
+		},
+		"esattanriver": {
+			"focus": [0.64, 0.4]
+		},
 		"fatihkoroglu": {
 			"focus": [0.5, 0.2]
 		},
 		"gizemalbayrak": {
 			"focus": [0.5, 0.3]
+		},
+		"gokhunerdogan": {
+			"focus": [0.47, 0.28]
 		},
 		"hamzanuriasan": {
 			"focus": [0.6, 0.5],
@@ -82,6 +123,11 @@
 		"kemalozturk": {
 			"focus": [0.55, 0.4]
 		},
+		"keremturk": {
+			"focus": [0.5, 0.42],
+			"note": "In front of a parked aircraft; the tail fills the frame behind him. Tightened to the cap so he reads before the plane does.",
+			"tighten": 0.72
+		},
 		"koraybaki": {
 			"focus": [0.48, 0.4]
 		},
@@ -90,9 +136,6 @@
 		},
 		"nehirgulay": {
 			"focus": [0.5, 0.36]
-		},
-		"nesibezenginler": {
-			"focus": [0.5, 0.33]
 		},
 		"oktaymetearas": {
 			"focus": [0.5, 0.24]
@@ -112,6 +155,11 @@
 		"taharemziaydin": {
 			"focus": [0.5, 0.55],
 			"note": "Holding a large model aircraft overhead; face sits low in the frame."
+		},
+		"yagizalparslankilic": {
+			"focus": [0.5, 0.42],
+			"note": "Standing on a woodland path with a building behind; figure about half the frame height.",
+			"tighten": 0.76
 		},
 		"yagizefekalayci": {
 			"focus": [0.38, 0.3]
@@ -139,6 +187,9 @@
 		},
 		"zuleyhaaydin": {
 			"focus": [0.48, 0.36]
+		},
+		"zumranurkarahan": {
+			"focus": [0.47, 0.33]
 		}
 	}
 }

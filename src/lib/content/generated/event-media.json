@@ -299,6 +299,26 @@
 		"caption": "The team and its coach behind the chemistry stand.",
 		"source": "IMG-20260428-WA0043.jpg"
 	},
+	"impact.carsibasi.group": {
+		"srcset": [
+			[
+				640,
+				640
+			],
+			[
+				1280,
+				640
+			],
+			[
+				1920,
+				640
+			]
+		],
+		"ratio": "1:1",
+		"event": "carsibasi",
+		"caption": "Outside Çarşıbaşı Ortaokulu, between the two days.",
+		"source": "post-cover.jpg"
+	},
 	"about.protocol": {
 		"srcset": [
 			[

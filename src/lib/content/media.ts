@@ -17,7 +17,14 @@ import eventManifest from './generated/event-media.json';
 import type { LocalizedText } from './localized';
 
 export type MediaCategory =
-	'team' | 'steamfest' | 'offseason' | 'infrastructure' | 'robotics' | 'trabzonspor' | 'brand';
+	| 'team'
+	| 'steamfest'
+	| 'offseason'
+	| 'carsibasi'
+	| 'infrastructure'
+	| 'robotics'
+	| 'trabzonspor'
+	| 'brand';
 
 export type MediaSlot = {
 	/** Stable id, referenced from components. */
@@ -310,6 +317,22 @@ const slots = [
 			tr: 'Voleybol turnuvası, okulun spor salonunda.'
 		},
 		need: 'Wide establishing frame of the festival area with both sport and STEM visible in one shot, if such a frame exists.'
+	},
+	{
+		id: 'impact.carsibasi.group',
+		category: 'carsibasi',
+		/* The source's own ratio, so the only group photograph of this event is
+		   shown whole. A landscape frame here would cut people for symmetry. */
+		aspect: '1 / 1',
+		alt: {
+			en: 'Students and teachers standing outside Çarşıbaşı Ortaokulu, under the school’s entrance sign.',
+			tr: 'Çarşıbaşı Ortaokulu’nun giriş tabelası altında duran öğrenciler ve öğretmenler.'
+		},
+		caption: {
+			en: 'Outside Çarşıbaşı Ortaokulu, between the two days.',
+			tr: 'İki gün arasında, Çarşıbaşı Ortaokulu’nun önünde.'
+		},
+		need: 'Working frames from the two days: students wiring a Pinoo kit, a robot on the tournament floor, a team at the controls. The group photograph stands in until the team supplies the archive.'
 	},
 	{
 		id: 'impact.offseason.stands',

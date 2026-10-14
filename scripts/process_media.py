@@ -12,6 +12,7 @@ regenerated at any time.
     python3 scripts/process_media.py events     # event media only
 
 INPUT
+    src/lib/content/roster.ts         the roster itself — read for its keys, never written
     images/members/<key>.jpg          one portrait per roster key
     scripts/member_focus.json         hand-set focal point + framing per member
     scripts/event_selection.json      curated event photographs + crops
@@ -38,19 +39,24 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 import sys
 
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 MEMBER_SRC = ROOT / "images" / "members"
+ROSTER_SRC = ROOT / "src" / "lib" / "content" / "roster.ts"
 # Add a folder here and its photographs become selectable in
 # scripts/event_selection.json — no other code changes. images/offseason/ is
 # declared ahead of the archive arriving so the ingest is a copy and a JSON edit.
 EVENT_DIRS = {
     "steamfest": ROOT / "images" / "steamfest",
     "offseason": ROOT / "images" / "offseason",
+    # The Çarşıbaşı workshop and tournament. One frame so far, lifted from the
+    # team's own Instagram post — see images/carsibasi/SOURCE.txt.
+    "carsibasi": ROOT / "images" / "carsibasi",
     # Not events, but the same crop/derivative machinery applies and a slot only
     # ever names a source folder plus a file.
     #   trabzonspor/ official club media (protocol signing), downloaded from
@@ -79,28 +85,42 @@ WEBP_QUALITY = 82
 # the full rectangle really is too wide — capped so it can never destroy detail.
 MIN_TIGHTEN = 0.72
 
-ROSTER_KEYS = [
-    "yigitpursali", "zuleyhaaydin", "doganefeasci", "taharemziaydin", "ilgazguven",
-    "yagmurhavvayenibaki", "alaaddinbilgintopal", "azraezgiturhan", "batuhanverep",
-    "betultellioglu", "burakyilmazlar", "denizalisahin", "elaecrenakyuz", "eliferoglu",
-    "elifranakundakci", "elifsenemozturk", "tugbaezgikara", "fatihkoroglu",
-    "furkanhacimahmutoglu", "gizemalbayrak", "hamzanuriasan", "hayatkarahan",
-    "ipekbilgin", "ipekturgut", "kaantanyel", "kaanyavuzcelik", "kemalozturk",
-    "keremkongur", "koraybaki", "mehmetmesci", "murathanmollamehmetoglu",
-    "mustafaerenkarpuz", "nehirgulay", "nesibezenginler", "oktaymetearas",
-    "omerfarukozkul", "omeruzun", "oykuyilmaz", "iremozemtaskin", "ayseozgeozdener",
-    "sidelyacam", "yigityagizyazici", "zeynepberreisaoglu", "zeynepgoksal",
-    "zeynepkarabacak", "zeynepkosterelioglu", "zeynepmorkan", "yagizefekalayci",
-    "semramusrabektas", "ceyhuntemel", "muhammetsalihartun",
-]
+
+def roster_keys() -> list[str]:
+    """
+    The roster, read from the one file where it is maintained.
+
+    This used to be a hand-copied list. Two sources of truth for 73 names is a
+    drift waiting to happen in both directions: a key only in the TypeScript
+    gets no derivative and no placeholder, and a key only here writes files
+    nobody asks for. roster.ts is machine-formatted, so a single pattern over
+    `key: '…'` inside the array is enough — and finding none is a hard error
+    rather than a silently empty run.
+    """
+    text = ROSTER_SRC.read_text(encoding="utf-8")
+    array = text[text.index("export const roster: Member[] = [") :]
+    keys = re.findall(r"key: '([^']+)'", array)
+
+    if not keys:
+        raise SystemExit(f"no roster keys found in {ROSTER_SRC.relative_to(ROOT)}")
+
+    return keys
+
+
+ROSTER_KEYS = roster_keys()
 
 # Initials for the placeholder tiles, so an empty slot still says who is missing.
+# Only needed where the first two letters of the key are not the person's
+# initials, which is most of them; anything missing falls back to key[:2].
 PLACEHOLDER_INITIALS = {
     "alaaddinbilgintopal": "AT", "ceyhuntemel": "CT", "denizalisahin": "DŞ",
-    "eliferoglu": "EE", "furkanhacimahmutoglu": "FH", "hayatkarahan": "HK",
-    "keremkongur": "KK", "mehmetmesci": "MM", "muhammetsalihartun": "MA",
-    "mustafaerenkarpuz": "MK", "oykuyilmaz": "ÖY", "semramusrabektas": "SB",
-    "sidelyacam": "SÇ", "tugbaezgikara": "TK", "zeynepberreisaoglu": "ZI",
+    "egemenkurt": "EK", "elifdilapeker": "EP", "eliferoglu": "EE",
+    "furkanhacimahmutoglu": "FH", "hayatkarahan": "HK", "keremkongur": "KK",
+    "mehmetmesci": "MM", "metehanaydin": "MA", "muratkeskinoglu": "MK",
+    "mustafaerenkarpuz": "MK", "mustafakilic": "MK", "nevraezgun": "NE",
+    "osmanerturk": "OE", "oykuyilmaz": "ÖY", "semramusrabektas": "SB",
+    "sidelyacam": "SÇ", "simgeinan": "Sİ", "yigitefeturhal": "YT",
+    "zeynepberreisaoglu": "Zİ", "zeynepkaya": "ZK",
 }
 
 FORCE = "--force" in sys.argv
@@ -216,6 +236,29 @@ def looks_generated(path: pathlib.Path) -> bool:
     return brightness < 45 and spread < 10
 
 
+def placeholder_font(size: int):
+    """
+    A scalable face for the placeholder tiles.
+
+    PIL's built-in font is a ~11px bitmap, which on a 1000x1250 tile left the
+    initials and the "awaiting portrait" line too small to read once the tile
+    was resized to a 320px card — the one thing the tile exists to say. Any of
+    the usual system faces will do; if none is installed we fall back to the
+    bitmap font rather than failing the run.
+    """
+    for candidate in (
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+        "/System/Library/Fonts/Helvetica.ttc",
+    ):
+        try:
+            return ImageFont.truetype(candidate, size)
+        except OSError:
+            continue
+
+    return ImageFont.load_default()
+
+
 def make_placeholder(key: str, target: pathlib.Path) -> None:
     """
     A deliberately graphic tile — never a stock photograph of a stranger.
@@ -236,10 +279,13 @@ def make_placeholder(key: str, target: pathlib.Path) -> None:
         draw.line([(cx - arm, cy), (cx + arm, cy)], fill=(60, 64, 72), width=2)
         draw.line([(cx, cy - arm), (cx, cy + arm)], fill=(60, 64, 72), width=2)
 
+    # Initials only. The tile used to carry "PORTRE BEKLENIYOR / AWAITING
+    # PORTRAIT" as well, but the card already prints that line from the
+    # dictionaries — in the visitor's own language, which baked pixels cannot
+    # do — so on the page it was the same sentence twice.
     initials = PLACEHOLDER_INITIALS.get(key, key[:2].upper())
-    draw.text((width / 2, height / 2 - 40), initials, fill=(150, 158, 170), anchor="mm")
-    draw.text((width / 2, height / 2 + 30), "PORTRE BEKLENIYOR", fill=(96, 102, 112), anchor="mm")
-    draw.text((width / 2, height / 2 + 60), "AWAITING PORTRAIT", fill=(72, 78, 88), anchor="mm")
+    draw.text((width / 2, height / 2 - 20), initials, font=placeholder_font(170),
+              fill=(150, 158, 170), anchor="mm")
 
     target.parent.mkdir(parents=True, exist_ok=True)
     image.save(target, "JPEG", quality=90)

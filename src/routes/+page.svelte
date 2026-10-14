@@ -26,7 +26,7 @@
 
 	  hero            the material, and the claim
 	  today           whoever has a birthday, or one line from the record
-	  01 people       forty-nine students, moving
+	  01 people       seventy students, moving
 	  02 origin       February 2026 and the four months after it
 	  03–04 events    STEAMFest, then the Off-Season at a larger scale
 	  05 #11919       the hinge: history above, system below

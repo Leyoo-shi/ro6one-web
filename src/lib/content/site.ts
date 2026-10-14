@@ -59,9 +59,10 @@ export const site = {
 		{
 			id: 'linkedin',
 			label: 'LinkedIn',
-			handle: 'Trabzonspor Ro6one Robotik',
-			/* Canonical profile URL supplied by the team — not a guessed company slug. */
-			href: 'https://www.linkedin.com/in/trabzonspor-ro6one-robotik-7095423bb/'
+			handle: 'Trabzonspor Ro6one Robotics',
+			/* The team's official organization page, supplied by the team. It replaced
+			   the earlier personal-profile account; nothing should link to that again. */
+			href: 'https://www.linkedin.com/company/trabzonspor-ro6one-robotics/'
 		}
 	] as Array<{ id: string; label: string; handle: string; href: string }>,
 

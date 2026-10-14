@@ -181,6 +181,15 @@
 			"note": "REPLACES DSCF6418 (Off-Season) \u2014 two people who are not ours, standing in for our own story on the About page. Identity is proven in-frame by the RO6ONE mark on the stand banner and the RO6ONE credentials every student is wearing. Chosen for About because it is the whole thing in one frame: students, their coach, their own stand, their own school. Tightened to 0.72 and slid right so the crop centres the group instead of the foreground selfie face."
 		},
 		{
+			"id": "impact.carsibasi.group",
+			"event": "carsibasi",
+			"file": "post-cover.jpg",
+			"ratio": "1:1",
+			"focus": [0.5, 0.5],
+			"caption": "Outside Çarşıbaşı Ortaokulu, between the two days.",
+			"note": "The only frame of this event that could be retrieved — the team's own Instagram cover image, already square-cropped by Instagram at 640x640 (see images/carsibasi/SOURCE.txt). 1:1 because that is the source's own ratio: the crop is a no-op and not one person is lost. An earlier 3:2 pass cost the back row and the upper school sign for nothing — the frame is already somebody else's crop of the original, and cropping a crop of a group photograph only removes people. The slot in content/media.ts carries the matching aspect. Every derivative lands at 640px; replacing the source with the full-size original and re-running is the whole upgrade."
+		},
+		{
 			"id": "about.protocol",
 			"event": "trabzonspor",
 			"file": "protocol-hero.jpg",

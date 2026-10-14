@@ -6,12 +6,18 @@
 	import { press, syndicatedCount } from '$lib/content/press';
 	import Section from '$lib/components/ui/Section.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { events, offSeasonOrigins, steamFestSchools } from '$lib/content/events';
+	import {
+		carsibasiPartners,
+		carsibasiSchools,
+		events,
+		offSeasonOrigins,
+		steamFestSchools
+	} from '$lib/content/events';
 	import { useI18n } from '$lib/i18n/context.svelte';
 
 	const i18n = useI18n();
 	const copy = $derived(i18n.t.impact);
-	const [steamfest, offseason] = events;
+	const [steamfest, offseason, carsibasi] = events;
 </script>
 
 <Seo title={i18n.t.seo.impact.title} description={i18n.t.seo.impact.description} />
@@ -36,7 +42,7 @@
 	</div>
 </Section>
 
-<!-- The two projects, each given a full chapter with its verified record. -->
+<!-- The projects, oldest first, each given a full chapter with its record. -->
 <Section index="02" tone="paper">
 	<article class="project">
 		<header class="project__head" use:reveal>
@@ -159,7 +165,80 @@
 </Section>
 
 <!--
-	04 — coverage, as spread rather than volume.
+	04 — Çarşıbaşı, in the same chapter form as the two before it.
+
+	Smaller than the Off-Season and deliberately set at the same size: the point
+	of the programme record is that a two-day workshop in a district school is
+	the same kind of work as a 21-team tournament, not a lesser version of it.
+	One room of its own — steel, the only unused room on this page — so three
+	chapters in a row still read as three chapters.
+-->
+<Section index="04" tone="steel">
+	<article class="project">
+		<header class="project__head" use:reveal>
+			<div>
+				<p class="label">{i18n.t.events.carsibasi.label}</p>
+				<h2 class="project__title">{i18n.t.events.carsibasi.title}</h2>
+			</div>
+			<!-- Month precision, because that is all the team published. -->
+			<time class="project__date" datetime={carsibasi.date}>10 · 2026</time>
+		</header>
+
+		<div class="project__grid">
+			<div class="project__copy">
+				<p class="lede">{i18n.t.events.carsibasi.lede}</p>
+
+				{#each i18n.t.events.carsibasi.body as paragraph, index (index)}
+					<p class="prose project__prose" use:reveal={{ delay: index * 60 }}>{paragraph}</p>
+				{/each}
+
+				<div class="lists">
+					<div>
+						<p class="label">{i18n.t.events.carsibasi.schoolsLabel}</p>
+						<ul>
+							{#each carsibasiSchools as school (school)}
+								<li>{school}</li>
+							{/each}
+						</ul>
+					</div>
+					<div>
+						<p class="label">{i18n.t.events.carsibasi.partnersLabel}</p>
+						<ul>
+							{#each carsibasiPartners as partner (partner)}
+								<li>{partner}</li>
+							{/each}
+						</ul>
+					</div>
+					<div>
+						<p class="label">{i18n.t.events.facts.students}</p>
+						<ul>
+							<li>~140</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="proof">
+					<h3 class="proof__title">{i18n.t.events.carsibasi.reason.title}</h3>
+					<p class="proof__body">{i18n.t.events.carsibasi.reason.body}</p>
+				</div>
+
+				<p class="coverage">
+					<span class="label">{i18n.t.events.coverageLabel}</span>
+					{#each carsibasi.coverage as source (source.href)}
+						<a href={source.href} target="_blank" rel="noopener">{source.outlet}</a>
+					{/each}
+				</p>
+			</div>
+
+			<div class="project__media">
+				<MediaFrame id="impact.carsibasi.group" sizes="(max-width: 1024px) 100vw, 40vw" />
+			</div>
+		</div>
+	</article>
+</Section>
+
+<!--
+	05 — coverage, as spread rather than volume.
 
 	Deliberately not a row of article cards with thumbnails. The interesting,
 	checkable fact is that an agency wire carried the same report to newsrooms
@@ -171,7 +250,7 @@
 	school, not RO6ONE, and the copy says so rather than quietly implying the
 	coverage was about the team.
 -->
-<Section index="04" label={copy.coverage.label} tone="paper">
+<Section index="05" label={copy.coverage.label} tone="paper">
 	<div class="press">
 		<div class="press__lead">
 			<h2 class="press__title" use:reveal>{copy.coverage.title}</h2>
@@ -204,7 +283,7 @@
 	</div>
 </Section>
 
-<Section index="05">
+<Section index="06">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.focus.title}</h2>
 		<p class="lede">{copy.focus.lede}</p>
@@ -221,7 +300,7 @@
 	</ul>
 </Section>
 
-<Section index="06">
+<Section index="07">
 	<div class="closing">
 		<div use:reveal>
 			<h2 class="closing__title">{copy.record.title}</h2>

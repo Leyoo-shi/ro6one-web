@@ -28,8 +28,8 @@ Four passes have happened so far:
 2. **Content pass** — real team facts, events, organization data, media slot architecture.
 3. **Creative direction pass** — a chapter/motion/environment system. **This pass is NOT in
    the repository.** The user did not keep it (see §5 and §84-equivalent note below).
-4. **"Project Atlas" content + creative correction passes** — the roster of 49 students and 2
-   mentors, the
+4. **"Project Atlas" content + creative correction passes** — the roster (49 students and 2
+   mentors at the time; 70 and 3 now), the
    portrait pipeline, birthday system, brand assets, then a Hero rebuild, colour system,
    drifting people scene and Team redesign. **This is the current working state, uncommitted.**
 
@@ -451,11 +451,18 @@ Never invent biographies — portrait + name + role is enough for a beautiful fo
 
 ## 13. Member Roster
 
-**CURRENT — `src/lib/content/roster.ts`.** Typed, **49 students + 2 mentors = 51 people**.
+**CURRENT — `src/lib/content/roster.ts`.** Typed, **70 students + 3 mentors = 73 people**.
 
-**RULE: the site says "forty-nine students", never "fifty-one students".** Mentors are counted
-separately and are not students. `studentCount` (49) and `mentorCount` (2) exist for exactly
-this; `rosterSize` (51) is only for portrait-coverage tallies.
+**RULE: the site says "seventy students", never "seventy-three students".** Mentors are counted
+separately and are not students. `studentCount` (70) and `mentorCount` (3) exist for exactly
+this; `rosterSize` (73) is only for portrait-coverage tallies.
+
+The spelled-out counts live in the dictionaries (`home.people.titleLead`, `team.roster.lead`,
+`footer.closing`, `home.people.countNote`) and do **not** update themselves — change them in both
+languages whenever the roster size changes.
+
+`scripts/process_media.py` reads its keys straight out of this file, so adding a member is one
+edit here plus a re-run of the script.
 
 ```ts
 type RoleId = 'organisation' | 'robotics' | 'pr' | 'finance' | 'mentor';
@@ -467,7 +474,7 @@ Exports: `roster`, `roleOrder`, `rosterSize`, `portraitCount`, `membersByRole`,
 `portraitFor`, `istanbulDay`, `birthdaysOn`, `dailyIndex`, types `Member`/`RoleId`/`Portrait`/`CalendarDay`.
 
 **Deliberately NOT stored** (do not add them back without a reason):
-- **birth years** — the site never shows an age, so shipping 51 birth years to every visitor is
+- **birth years** — the site never shows an age, so shipping 73 birth years to every visitor is
   data we do not need. Semra's unknown year becomes a non-problem by construction.
 - **gender** — nothing in the design uses it (placeholders are built from initials).
 
@@ -544,10 +551,10 @@ change**. Per member:
 
 | Field | Notes |
 |---|---|
-| `grade` | `10 \| 12 \| 12`. **Students only** — mentors must never be forced into a grade. |
-| `mentorNote` | Mentors only. Semra = Bilişim Teknolojileri Öğretmeni; Ceyhun = Kocaeli Üniversitesi 2. sınıf öğrencisi. |
-| `intro` | The member's own 1–2 sentences. **All 51 are currently empty** and render the placeholder "Tanıtım yakında." / "Introduction coming soon." |
-| `tags` | Zero, one or many ids. All 51 currently `[]`. |
+| `grade` | `9 \| 10 \| 11 \| 12`. **Students only** — mentors must never be forced into a grade. 9 joined with the 2026 intake. |
+| `mentorNote` | Mentors only. Semra = Bilişim Teknolojileri Öğretmeni; Ceyhun = Kocaeli Üniversitesi 2. sınıf öğrencisi. Simge İnan has none — the team supplied no title, so none is invented. |
+| `intro` | The member's own 1–2 sentences. **All 73 are currently empty** and render the placeholder "Tanıtım yakında." / "Introduction coming soon." |
+| `tags` | Zero, one or many ids. All 73 currently `[]`. |
 
 Any empty field is **omitted** from the card rather than rendered blank, so a member with
 nothing filled in simply gets a shorter card.
@@ -1333,8 +1340,8 @@ Verified by inspection at handoff time.
 `layout/MobileMenu.svelte` (native `<dialog>`) · `layout/PageHeader.svelte` (inner-page opening).
 
 ### Data / content
-`content/roster.ts` (49 students + 2 mentors, portraits, birthdays, grades, tags) · `content/signal.ts` ·
-`content/site.ts` (identity, emails, socials, mark, ogImage) · `content/media.ts` (14 media slots,
+`content/roster.ts` (70 students + 3 mentors, portraits, birthdays, grades, tags) · `content/signal.ts` ·
+`content/site.ts` (identity, emails, socials, mark, ogImage) · `content/media.ts` (23 media slots,
 merges generated event manifest) · `content/events.ts` · `content/timeline.ts` ·
 `content/organization.ts` · `content/departments.ts` · `content/navigation.ts` ·
 `content/partners.ts` · `content/projects.ts` · `content/localized.ts` · `content/members.ts` *(old,
@@ -1409,7 +1416,8 @@ Then **`Read` the PNG** — that is how a Claude session actually sees the page.
 - **How do birthdays work?** Month+day, resolved server-side in Europe/Istanbul, all matches celebrate,
   `?date=MM-DD` previews in dev only. §14.
 - **Can I list Keyubu?** No. §22.
-- **LinkedIn URL?** `https://www.linkedin.com/in/trabzonspor-ro6one-robotik-7095423bb/` — not a company slug.
+- **LinkedIn URL?** `https://www.linkedin.com/company/trabzonspor-ro6one-robotics/` — the team moved to an
+  official organization page; the old `/in/trabzonspor-ro6one-robotik-7095423bb/` profile must not come back.
 - **Public emails?** `iletisim@ro6one.com` (general), `sponsorluk@ro6one.com` (sponsorship).
   Instagram `@ts_ro6one11919`, YouTube `@trabzonsporro6onerobotik`.
 - **Can event photos be used outside their event section?** Yes — judge by what the photo shows. §20.

@@ -76,6 +76,38 @@ press" instead of naming a broadcaster. Add the link to
 out at an event the team organized are easy to misread as awards the team won,
 so they stay off the site until the team decides how to frame them.
 
+## Çarşıbaşı robotics days
+
+| Claim                                                                                            | Basis |
+| ------------------------------------------------------------------------------------------------ | ----- |
+| Two days of robotics training and a tournament, October 2026                                     | T     |
+| Run by RO6ONE together with RoboLynx, Hypium and T2A                                             | T     |
+| About 140 students from Çarşıbaşı Ortaokulu and Çarşıbaşı İsmail Çavuş İmam Hatip Ortaokulu      | T     |
+| Day one: Pinoo robotics kits — basic electronics, algorithmic thinking, robot control, Bluetooth | T     |
+| Day two: teams formed for a robot football tournament                                            | T     |
+
+Single source, the team's own announcement:
+`instagram.com/p/Deesc8liMwY`, published 14.10.2026 by `@ts_ro6one11919`.
+
+**Not published:** exact dates. The post says the event filled "the two days we
+have just left behind" and names no date; which two days that was cannot be
+established from it, so `events.ts` stores `2026-10` and the site shows the
+month. Ask the team rather than narrowing it.
+
+**Not published:** an event name. The team did not give it one, so the site
+describes it ("Çarşıbaşı workshop and tournament") rather than inventing a
+title.
+
+**Note on the student figure.** The rest of the site carries no attendance or
+reach numbers because none were supplied. This one is supplied — by the team,
+in public, about its own event — and is published the same way "21 teams" and
+"four schools" are: as a participation fact, with the approximation the team
+used kept ("~140", not "140").
+
+> Only one photograph could be retrieved: the post's own cover frame. Instagram
+> serves the rest of a carousel to signed-in sessions only. See
+> `images/carsibasi/SOURCE.txt` — the originals should come from the team.
+
 ## Organization
 
 All headcounts and structure (operations 8, PR leads 3, Creative & Prepare 9,
@@ -91,6 +123,12 @@ anything else operational. See the notes in `src/lib/content/partners.ts`.
 
 ## Deliberately absent
 
-No awards, rankings, placements, attendance figures, student-reach numbers,
-social metrics, budgets, robot specifications or years of history appear
-anywhere on the site, because none have been supplied or verified.
+No awards, rankings, placements, attendance figures, social metrics, budgets,
+robot specifications or years of history appear anywhere on the site, because
+none have been supplied or verified.
+
+The one participation figure that does appear — about 140 students at Çarşıbaşı
+— is there because the team published it itself. It is a count of who took
+part, in the same class as "21 teams" and "four schools", and it is not a reach
+or audience claim. No aggregate of these numbers is kept anywhere, and none
+should be.

@@ -3,12 +3,20 @@
 # re-run the script; the entry disappears from the manifest by itself.
 ceyhuntemel
 denizalisahin
+egemenkurt
+elifdilapeker
 furkanhacimahmutoglu
 keremkongur
 mehmetmesci
-muhammetsalihartun
+metehanaydin
+muratkeskinoglu
 mustafaerenkarpuz
+mustafakilic
+nevraezgun
+osmanerturk
 oykuyilmaz
 semramusrabektas
-tugbaezgikara
+simgeinan
+yigitefeturhal
 zeynepberreisaoglu
+zeynepkaya

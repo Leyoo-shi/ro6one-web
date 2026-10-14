@@ -7,7 +7,7 @@
  * scale in TimelineTrack, so they must stay chronological.
  */
 export type Milestone = {
-	id: 'formation' | 'protocol' | 'steamfest' | 'offseason' | 'season';
+	id: 'formation' | 'protocol' | 'steamfest' | 'offseason' | 'carsibasi' | 'season';
 	/** Months since the team was formed; drives horizontal position. */
 	offset: number;
 	/** Short machine-ish stamp shown under the tick. */
@@ -25,6 +25,7 @@ export const milestones: Milestone[] = [
 	{ id: 'protocol', offset: 1, stamp: '03 · 2026', datetime: '2026-03', href: '/partners' },
 	{ id: 'steamfest', offset: 2, stamp: '28.04.2026', datetime: '2026-04-28', href: '/impact' },
 	{ id: 'offseason', offset: 5, stamp: '07 · 2026', datetime: '2026-07', href: '/impact' },
+	{ id: 'carsibasi', offset: 8, stamp: '10 · 2026', datetime: '2026-10', href: '/impact' },
 	{ id: 'season', offset: 11, stamp: '—', href: '/robotics', upcoming: true }
 ];
 

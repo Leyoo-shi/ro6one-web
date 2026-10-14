@@ -2,7 +2,7 @@ import mediaManifest from './generated/member-media.json';
 import type { LocalizedText } from './localized';
 
 /**
- * The team: 49 students and 2 mentors.
+ * The team: 70 students and 3 mentors.
  *
  * Roles are the labels the team supplied — they describe primary ownership, not
  * a silo, and are never inferred from a photograph.
@@ -11,23 +11,30 @@ import type { LocalizedText } from './localized';
  * The member detail card is driven entirely by this file. To fill a member out,
  * add the fields to their entry; no component changes are needed:
  *
- *   grade      10 | 11 | 12. Students only.
+ *   grade      9 | 10 | 11 | 12. Students only.
  *   mentorNote what a mentor actually is, in their own words. Mentors only.
  *   intro      one or two sentences the member wrote about themselves. A plain
  *              string is shown in both languages; { tr, en } supplies both.
  *   tags       zero, one or many ids from `memberTags` below.
  *
  * Deliberately *not* stored:
- *  - birth years. The site never shows an age, so shipping 51 birth years to
+ *  - birth years. The site never shows an age, so shipping 73 birth years to
  *    every visitor would be data we do not need. Only month and day are kept,
- *    which is all the birthday feature requires.
+ *    which is all the birthday feature requires. A member whose date the team
+ *    has not supplied simply has no `birthday`, and the card drops the row.
  *  - gender. Nothing in the design depends on it (placeholders are built from
  *    initials), so it is not part of the public payload.
  */
 export type RoleId = 'organisation' | 'robotics' | 'pr' | 'finance' | 'mentor';
 
-/** School year. Mentors do not have one and must not be forced into one. */
-export type Grade = 10 | 11 | 12;
+/**
+ * School year. Mentors do not have one and must not be forced into one.
+ *
+ * 9 arrived with the 2026 intake; the union is the set of years actually on the
+ * roster, so widen it when a year genuinely joins rather than leaving real grade
+ * data unset to fit the type.
+ */
+export type Grade = 9 | 10 | 11 | 12;
 
 /**
  * Member tags.
@@ -124,11 +131,42 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
-		key: 'betultellioglu',
-		name: 'Betül Tellioğlu',
+		key: 'asafgokturkyalcinkaya',
+		name: 'Asaf Göktürk Yalçınkaya',
 		role: 'robotics',
-		birthday: { month: 5, day: 24 },
-		grade: 12,
+		birthday: { month: 11, day: 8 },
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'asiyeecrinkoyun',
+		name: 'Asiye Ecrin Koyun',
+		role: 'robotics',
+		birthday: { month: 2, day: 5 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'batuhanalemdag',
+		name: 'Batuhan Alemdağ',
+		role: 'robotics',
+		birthday: { month: 2, day: 19 },
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'beratsisman',
+		name: 'Berat Şişman',
+		role: 'robotics',
+		birthday: { month: 4, day: 17 },
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'egemenkurt',
+		name: 'Egemen Kurt',
+		role: 'robotics',
+		grade: 9,
 		tags: []
 	},
 	{
@@ -137,6 +175,21 @@ export const roster: Member[] = [
 		role: 'robotics',
 		birthday: { month: 9, day: 9 },
 		grade: 12,
+		tags: []
+	},
+	{
+		key: 'elifdilapeker',
+		name: 'Elif Dila Peker',
+		role: 'robotics',
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'emirtunaburkas',
+		name: 'Emir Tuna Burkaş',
+		role: 'robotics',
+		birthday: { month: 3, day: 1 },
+		grade: 9,
 		tags: []
 	},
 	{
@@ -170,11 +223,33 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
+		key: 'keremturk',
+		name: 'Kerem Türk',
+		role: 'robotics',
+		birthday: { month: 11, day: 4 },
+		grade: 9,
+		tags: []
+	},
+	{
 		key: 'koraybaki',
 		name: 'Koray Baki',
 		role: 'robotics',
 		birthday: { month: 4, day: 27 },
 		grade: 11,
+		tags: []
+	},
+	{
+		key: 'metehanaydin',
+		name: 'Metehan Aydın',
+		role: 'robotics',
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'muratkeskinoglu',
+		name: 'Murat Keskinoğlu',
+		role: 'robotics',
+		grade: 9,
 		tags: []
 	},
 	{
@@ -193,6 +268,27 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
+		key: 'mustafakilic',
+		name: 'Mustafa Kılıç',
+		role: 'robotics',
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'nevraezgun',
+		name: 'Nevra Ezgün',
+		role: 'robotics',
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'yigitefeturhal',
+		name: 'Yiğit Efe Turhal',
+		role: 'robotics',
+		grade: 9,
+		tags: []
+	},
+	{
 		key: 'yigityagizyazici',
 		name: 'Yiğit Yağız Yazıcı',
 		role: 'robotics',
@@ -206,6 +302,29 @@ export const roster: Member[] = [
 		role: 'robotics',
 		birthday: { month: 3, day: 9 },
 		grade: 10,
+		tags: []
+	},
+	{
+		key: 'zeynepkaya',
+		name: 'Zeynep Kaya',
+		role: 'robotics',
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'zumranurkarahan',
+		name: 'Zümra Nur Karahan',
+		role: 'robotics',
+		birthday: { month: 3, day: 8 },
+		grade: 10,
+		tags: []
+	},
+	{
+		key: 'cinaryusufakaydin',
+		name: 'Çınar Yusuf Akaydın',
+		role: 'robotics',
+		birthday: { month: 9, day: 10 },
+		grade: 9,
 		tags: []
 	},
 	{
@@ -233,6 +352,14 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
+		key: 'aysenuryayla',
+		name: 'Ayşenur Yayla',
+		role: 'pr',
+		birthday: { month: 12, day: 1 },
+		grade: 9,
+		tags: []
+	},
+	{
 		key: 'azraezgiturhan',
 		name: 'Azra Ezgi Turhan',
 		role: 'pr',
@@ -251,6 +378,22 @@ export const roster: Member[] = [
 		name: 'Deniz Ali Şahin',
 		role: 'pr',
 		grade: 12,
+		tags: []
+	},
+	{
+		key: 'dilayyildirim',
+		name: 'Dilay Yıldırım',
+		role: 'pr',
+		birthday: { month: 6, day: 11 },
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'elfinserredere',
+		name: 'Elfin Serre Dere',
+		role: 'pr',
+		birthday: { month: 7, day: 2 },
+		grade: 9,
 		tags: []
 	},
 	{
@@ -278,11 +421,27 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
+		key: 'elvindilakeles',
+		name: 'Elvin Dila Keleş',
+		role: 'pr',
+		birthday: { month: 3, day: 5 },
+		grade: 9,
+		tags: []
+	},
+	{
 		key: 'gizemalbayrak',
 		name: 'Gizem Albayrak',
 		role: 'pr',
 		birthday: { month: 5, day: 16 },
 		grade: 11,
+		tags: []
+	},
+	{
+		key: 'gokhunerdogan',
+		name: 'Gökhun Erdoğan',
+		role: 'pr',
+		birthday: { month: 12, day: 2 },
+		grade: 9,
 		tags: []
 	},
 	{
@@ -316,13 +475,6 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
-		key: 'muhammetsalihartun',
-		name: 'Muhammet Salih Artun',
-		role: 'pr',
-		grade: 11,
-		tags: []
-	},
-	{
 		key: 'nehirgulay',
 		name: 'Nehir Gülay',
 		role: 'pr',
@@ -331,11 +483,10 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
-		key: 'nesibezenginler',
-		name: 'Nesibe Zenginler',
+		key: 'osmanerturk',
+		name: 'Osman Ertürk',
 		role: 'pr',
-		birthday: { month: 1, day: 7 },
-		grade: 12,
+		grade: 9,
 		tags: []
 	},
 	{
@@ -344,6 +495,14 @@ export const roster: Member[] = [
 		role: 'pr',
 		birthday: { month: 5, day: 9 },
 		grade: 11,
+		tags: []
+	},
+	{
+		key: 'yagizalparslankilic',
+		name: 'Yağız Alparslan Kılıç',
+		role: 'pr',
+		birthday: { month: 7, day: 11 },
+		grade: 9,
 		tags: []
 	},
 	{
@@ -474,18 +633,26 @@ export const roster: Member[] = [
 		tags: []
 	},
 	{
+		key: 'cannurituran',
+		name: 'Can Nuri Turan',
+		role: 'finance',
+		birthday: { month: 4, day: 2 },
+		grade: 9,
+		tags: []
+	},
+	{
+		key: 'esattanriver',
+		name: 'Esat Tanrıver',
+		role: 'finance',
+		birthday: { month: 7, day: 13 },
+		grade: 9,
+		tags: []
+	},
+	{
 		key: 'oktaymetearas',
 		name: 'Oktay Mete Aras',
 		role: 'finance',
 		birthday: { month: 3, day: 15 },
-		grade: 12,
-		tags: []
-	},
-	{
-		key: 'tugbaezgikara',
-		name: 'Tuğba Ezgi Kara',
-		role: 'finance',
-		birthday: { month: 4, day: 24 },
 		grade: 12,
 		tags: []
 	},
@@ -510,6 +677,12 @@ export const roster: Member[] = [
 		role: 'mentor',
 		birthday: { month: 2, day: 12 },
 		mentorNote: 'Bilişim Teknolojileri Öğretmeni',
+		tags: []
+	},
+	{
+		key: 'simgeinan',
+		name: 'Simge İnan',
+		role: 'mentor',
 		tags: []
 	}
 ];
@@ -559,10 +732,10 @@ export function portraitFor(key: string): Portrait | null {
 
 export const rosterSize = roster.length;
 
-/** 49. Mentors are counted separately — they are not students. */
+/** 70. Mentors are counted separately — they are not students. */
 export const studentCount = roster.filter((member) => member.role !== 'mentor').length;
 
-/** 2. */
+/** 3. */
 export const mentorCount = roster.filter((member) => member.role === 'mentor').length;
 
 /** Tags of one category, in the order the member listed them. */

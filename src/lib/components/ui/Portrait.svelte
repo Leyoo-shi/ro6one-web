@@ -60,9 +60,9 @@
 		object-fit: cover;
 
 		/*
-		 * One grade for the whole archive: 37 different phones, one surface. The
+		 * One grade for the whole archive: fifty-odd different phones, one surface. The
 		 * correction is small on purpose — the photographs keep their own colour,
-		 * they just stop looking like 37 unrelated uploads.
+		 * they just stop looking like fifty unrelated uploads.
 		 */
 		filter: saturate(0.92) contrast(1.04) brightness(0.97);
 		transition: filter var(--motion-light) var(--ease-out);

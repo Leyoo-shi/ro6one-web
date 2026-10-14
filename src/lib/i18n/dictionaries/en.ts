@@ -37,6 +37,7 @@ export const en = {
 			team: 'Team archive',
 			steamfest: 'Spor STEAM Fest ’26',
 			offseason: 'Trabzon Off-Season',
+			carsibasi: 'Çarşıbaşı',
 			infrastructure: 'Infrastructure',
 			robotics: 'Workshop',
 			trabzonspor: 'Institutional',
@@ -223,6 +224,7 @@ export const en = {
 		facts: {
 			date: 'Date',
 			schools: 'Schools',
+			students: 'Students',
 			teams: 'Teams',
 			role: 'Our role',
 			venue: 'Venue',
@@ -273,6 +275,28 @@ export const en = {
 				body: 'Not that we were first. That the map is bigger than three cities, and that a region can host this the moment a team decides to build it.'
 			},
 			mascot: 'The event had a mascot of its own, made for those three days.'
+		},
+		/*
+		 * Çarşıbaşı. Everything here comes from the team's own announcement of
+		 * 14.10.2026 and nothing else exists in public yet, so the copy stays
+		 * close to what that post actually says: two days, two schools, about
+		 * 140 students, Pinoo kits on the first day and a robot football
+		 * tournament on the second. No exact dates, because none were given.
+		 */
+		carsibasi: {
+			label: 'Çarşıbaşı workshop and tournament',
+			title: 'Two days of robotics with about 140 students.',
+			lede: 'October 2026, Çarşıbaşı — two middle schools, a day of hands-on electronics and robot control, then a robot football tournament, run together with RoboLynx, Hypium and T2A.',
+			body: [
+				'The first day was practical rather than presented: basic electronics, algorithmic thinking and robot control on Pinoo kits, with the students wiring and driving the robots themselves and working through Bluetooth control by trying it.',
+				'On the second day they were put into teams for a robot football tournament, which is where the technical work turned into strategy, problem-solving and the ordinary business of agreeing with your team under time pressure.'
+			],
+			partnersLabel: 'Run with',
+			schoolsLabel: 'Schools',
+			reason: {
+				title: 'Why there',
+				body: 'Access to technology should not depend on which school a student happens to be at, and the point of a day like this is a student who ends up building technology rather than only using it.'
+			}
 		}
 	},
 
@@ -285,7 +309,7 @@ export const en = {
 			title: 'Everything on this site came after.',
 			body: [
 				'RO6ONE started at Trabzon Merkez Fen Lisesi with students who had almost no FRC experience: no build history, no archive, no process to inherit. The first thing we had to design was the team itself.',
-				'In March, a cooperation protocol with Trabzonspor gave that team an institutional home. In April we ran a festival. In July we organized a 21-team tournament. Our first official competition season is still ahead of us.'
+				'In March, a cooperation protocol with Trabzonspor gave that team an institutional home. In April we ran a festival. In July we organized a 21-team tournament. In October we took two days of robotics to two middle schools in Çarşıbaşı. Our first official competition season is still ahead of us.'
 			],
 			timelineLabel: 'Months since formation',
 			schoolLabel: 'Home'
@@ -295,16 +319,17 @@ export const en = {
 			protocol: { name: 'Trabzonspor protocol', note: 'Cooperation agreement signed' },
 			steamfest: { name: 'Spor STEAM Fest ’26', note: 'Four schools, sport and STEM in one hall' },
 			offseason: { name: 'Trabzon Off-Season', note: '21 teams, Hayri Gür Spor Salonu' },
+			carsibasi: { name: 'Çarşıbaşı', note: 'Two days of robotics, two middle schools' },
 			season: { name: 'First official season', note: 'Ahead of us' }
 		},
 		people: {
 			label: 'The people',
-			titleLead: 'Forty-nine students,',
+			titleLead: 'Seventy students,',
 			titleAccent: 'one build.',
 			lede: 'Everyone whose portrait has arrived, drifting past. The rest are on their way.',
 			countPeople: 'people',
 			countNote:
-				'Robotics, PR, organization, finance — and two mentors alongside them, not above them.',
+				'Robotics, PR, organization, finance — and three mentors alongside them, not above them.',
 			cta: 'The whole team',
 			hintScroll: 'Keep scrolling',
 			hintSwipe: 'Swipe'
@@ -566,7 +591,7 @@ export const en = {
 		},
 		record: {
 			title: 'Programme record',
-			body: 'Two projects so far, both documented on this page. Further workshops, visits and collaborations will be listed here as they happen, with dates and what was actually done — never as reach figures.'
+			body: 'Three projects so far, all documented on this page. Further workshops, visits and collaborations will be listed here as they happen, with what was actually done and who it was done with — never as reach figures.'
 		},
 		collaborate: {
 			title: 'Work with us',
@@ -630,7 +655,7 @@ export const en = {
 		},
 		roster: {
 			title: 'Members',
-			lead: 'Forty-nine students, two mentors.',
+			lead: 'Seventy students, three mentors.',
 			accent: 'Choose a domain.',
 			lede: 'Pick a group to open it, or search for a name.',
 			pending: 'Portrait pending',
@@ -786,7 +811,7 @@ export const en = {
 		 * opens on "Build what comes next" and closes on who is doing it. Both
 		 * halves are plain fact — no season, placement or promise is claimed.
 		 */
-		closing: 'Forty-nine students in Trabzon,',
+		closing: 'Seventy students in Trabzon,',
 		closingTurn: 'building what comes next.',
 		explore: 'Explore',
 		connect: 'Connect',
@@ -828,7 +853,7 @@ export const en = {
 		impact: {
 			title: 'Impact',
 			description:
-				'Spor STEAM Fest ’26 and the Trabzon Off-Season: how RO6ONE brings FRC and STEAM to the Eastern Black Sea.'
+				'Spor STEAM Fest ’26, the Trabzon Off-Season and the workshops since: how RO6ONE brings FRC and STEAM to the Eastern Black Sea.'
 		},
 		team: {
 			title: 'Team',
