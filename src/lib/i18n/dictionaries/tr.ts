@@ -66,7 +66,8 @@ export const tr: Dictionary = {
 		pr: 'PR',
 		organisation: 'Organizasyon',
 		finance: 'Finans',
-		mentor: 'Mentör / Baş Koç'
+		/* Üç kişilik bir grup; etiket de çoğul. */
+		mentor: 'Mentörler ve koçlar'
 	},
 
 	daily: {
@@ -113,7 +114,7 @@ export const tr: Dictionary = {
 				infrastructure:
 					'Alan adı, e-posta ve bu web sitesi takım tarafından işletiliyor; hizmet olarak kiralanmıyor.',
 				firstSeason:
-					'Yaklaşan sezon RO6ONE’ın ilk resmî FRC yarışma sezonu. Şimdiye kadarki her şey ondan önce oldu.',
+					'Ro6one’un ilk resmî FRC yarışma sezonu hâlâ önümüzde. Burada şimdiye kadar belgelenen her şey ondan önce gerçekleşti.',
 				steamForStem:
 					'STEAM for STEM: çizmek, yazmak ve çekmek, teknik işin anlaşılır hâle gelme biçimidir.',
 				stemForPeople:
@@ -367,7 +368,10 @@ export const tr: Dictionary = {
 				'Mart 2026’da Trabzonspor ile Trabzon Merkez Fen Lisesi arasında bilim, teknoloji ve mühendislik alanında bir iş birliği protokolü imzalandı: ulusal ve uluslararası yarışmalar boyunca FRC takımına malzeme ve ayni destek; ve tek bir sezonu aşması amaçlanan bir ilişki.',
 				'Takımın adının Trabzonspor Ro6one Robotics olmasının sebebi bu; 21 takımlı bir turnuvanın burada yapılabilmesinin sebeplerinden biri de. Robotu yine de biz üreteceğiz.'
 			],
-			link: 'İlişkinin ayrıntısı'
+			link: 'İlişkinin ayrıntısı',
+			/* Kurumsal kaydın altındaki sezon desteği bloğu. */
+			supportLabel: 'Sezon desteği',
+			supportLink: 'Sezon desteğinin ayrıntısı'
 		},
 		contact: {
 			label: 'İletişim',
@@ -403,9 +407,10 @@ export const tr: Dictionary = {
 		},
 		frc: {
 			title: 'FRC nedir, bağlamıyla',
+			/* Altı haftalık üretim süresi ve Stop Build Day artık geçerli değil. */
 			body: [
-				'FIRST Robotics Competition uluslararası bir lise programı: takımlara bir oyun ve sınırlı bir üretim süresi veriliyor, ardından resmî etkinliklerde yarışıyorlar. Robot büyük bir beyaz eşya boyutunda ve hızla başka robotların üzerine sürülmeye dayanmak zorunda.',
-				'Program aynı zamanda robotun etrafındaki her şeyle ilgili: sosyal etki, dokümantasyon, güvenlik, iletişim ve takımı tek bir mezun kuşağın ötesinde ayakta tutmak. Yeni bir takımın hemen başlayabileceği kısım burası; biz de buradan başladık.'
+				'FIRST Robotics Competition, lise öğrencilerine yönelik uluslararası bir robotik programıdır. FIRST her ocak ayında yeni bir oyun açıklar; takımlar bu oyuna yönelik büyük ölçekli bir yarışma robotu tasarlar, üretir ve programlar, ardından dünyanın farklı yerlerindeki resmî etkinliklerde yarışır.',
+				'Robot, programın yalnızca bir parçasıdır. Takımlar aynı zamanda sosyal etki, dokümantasyon, güvenlik, iletişim, kaynak geliştirme ve mezuniyet dönemleri arasında devamlılık sağlayacak sistemler kurar. Bu çalışmalar bir takımın ilk resmî maçından çok önce başlayabilir; biz de tam olarak oradan başladık.'
 			]
 		},
 		principles: {
@@ -679,7 +684,7 @@ export const tr: Dictionary = {
 	partners: {
 		eyebrow: 'Paydaşlar',
 		title: 'Destek, planı bir makineye dönüştürür.',
-		lede: 'Bir kurumsal ilişki, bir okul ve sonra katılacak kurumlar için ayrılmış yer.',
+		lede: 'Öğrenci liderliğindeki bir FRC takımına üretmek, yarışmak ve büyümek için alan açan kurumsal ilişkiler ve sezon destekleri.',
 		institutional: {
 			title: 'Trabzonspor',
 			body: [
@@ -696,9 +701,10 @@ export const tr: Dictionary = {
 		},
 		why: {
 			title: 'Burada paydaşlık ne demek',
+			/* Sponsorun "ne kazandığı" değil, desteğin neyi mümkün kıldığı. */
 			body: [
-				'Bir sezon; malzeme, işleme zamanı, takım-tezgâh, elektronik, ulaşım ve bütçe istiyor. Bunların çoğu bir okul takımının kendi başına üretebileceği şeyler değil.',
-				'Karşılığında paydaş; yaptığını belgeleyen, kaynağını belirten ve mühendisliği anlatabilen bir öğrenci grubu kazanıyor. Üstelik teknik işi ciddiye alan bir kitlenin karşısında görünür oluyor.'
+				'Bir FRC sezonu; malzeme, işleme zamanı, aletler, elektronik, lojistik ve bütçe gerektiriyor. Bir okul takımının bunların tamamını tek başına sürdürülebilir biçimde karşılaması mümkün değil.',
+				'Destek; robot üreten, mühendisliğini belgeleyen, etkinlikler düzenleyen ve teknik çalışmayı atölyenin dışına taşıyan öğrenci liderliğindeki bir programa doğrudan katkı sağlıyor.'
 			]
 		},
 		support: {
@@ -713,7 +719,8 @@ export const tr: Dictionary = {
 					description: 'CNC, torna, su jeti ya da kaynak zamanına erişim.'
 				},
 				{
-					name: 'Takım ve elektronik',
+					/* "Takım" burada tool değil team olarak okunuyordu. */
+					name: 'Aletler ve elektronik',
 					description: 'El aletleri, ölçüm ekipmanı, motorlar, sensörler, bataryalar.'
 				},
 				{
@@ -732,8 +739,10 @@ export const tr: Dictionary = {
 			]
 		},
 		current: {
-			title: 'Destekçiler',
-			lede: 'İçinde bulunduğumuz sezonu destekleyen kurumlar.',
+			title: 'Mevcut sezon destekçileri',
+			lede: 'Ro6one’un 2026–27 sezonuna doğrudan destek sağlayan kurumlar.',
+			visit: 'Resmî web sitesi',
+			/* Destekçiler eklendi ama liste yine boş kalabilir; metin duruyor. */
 			empty: {
 				title: 'Bu liste doldurulmuyor, yayımlanıyor',
 				body: 'İsimler ancak paydaşlık teyit edildiğinde ve kurum adının yazılmasından memnun olduğunda burada görünür. Devam eden görüşmeler o ana kadar gizli kalır.'
@@ -745,7 +754,7 @@ export const tr: Dictionary = {
 		},
 		cta: {
 			title: 'Konuşmaya başlayalım',
-			body: 'Neyi sunabileceğinizi yazın; tam olarak nereye gittiğini anlatalım.',
+			body: 'Takıma nasıl destek olmak istediğinizi yazın; bu desteğin nerede somut bir karşılık bulabileceğini açıkça paylaşalım.',
 			action: 'Paydaşlık başvuruları'
 		}
 	},
@@ -781,7 +790,7 @@ export const tr: Dictionary = {
 			generalNote: 'Sorular, iş birliği, basın ve diğer her şey.',
 			sponsorshipLabel: 'Paydaşlık',
 			sponsorshipNote: 'Sponsorluk, malzeme desteği, kurumsal iletişim.',
-			locationLabel: 'Merkez',
+			locationLabel: 'Konum',
 			socialLabel: 'Kanallar',
 			copy: 'Adresi kopyala',
 			copied: 'Kopyalandı'
@@ -809,7 +818,7 @@ export const tr: Dictionary = {
 		homeLabel: 'Yuva',
 		rights: 'Tüm hakları saklıdır.',
 		first:
-			'FIRST®, FIRST® Robotics Competition ve FRC® isimleri FIRST®’e ait ticari markalardır. FIRST® bu siteye sponsor değildir ve siteyi onaylamamaktadır.'
+			'FIRST®, FIRST® Robotics Competition ve FRC®, FIRST®’ün ticari markalarıdır. FIRST® bu siteye sponsor olmaz, destek vermez veya siteyi onaylamaz.'
 	},
 
 	error: {
@@ -853,7 +862,7 @@ export const tr: Dictionary = {
 		partners: {
 			title: 'Paydaşlar',
 			description:
-				'Trabzonspor iş birliği protokolü, Trabzon Merkez Fen Lisesi ve kurumların FRC #11919 takımını destekleme yolları.'
+				'FRC Takımı #11919 Ro6one’un arkasındaki kurumsal ilişkiler, mevcut sezon destekçileri ve kurumların takıma destek olabileceği yollar.'
 		},
 		contact: {
 			title: 'İletişim',

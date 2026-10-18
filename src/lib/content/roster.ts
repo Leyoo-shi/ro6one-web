@@ -668,7 +668,10 @@ export const roster: Member[] = [
 		key: 'ceyhuntemel',
 		name: 'Ceyhun Temel',
 		role: 'mentor',
-		mentorNote: 'Kocaeli Üniversitesi 2. sınıf öğrencisi',
+		mentorNote: {
+			en: 'Second-year student at Kocaeli University',
+			tr: 'Kocaeli Üniversitesi 2. sınıf öğrencisi'
+		},
 		tags: []
 	},
 	{
@@ -676,7 +679,10 @@ export const roster: Member[] = [
 		name: 'Semra Müşra Bektaş',
 		role: 'mentor',
 		birthday: { month: 2, day: 12 },
-		mentorNote: 'Bilişim Teknolojileri Öğretmeni',
+		mentorNote: {
+			en: 'Information Technologies Teacher',
+			tr: 'Bilişim Teknolojileri Öğretmeni'
+		},
 		tags: []
 	},
 	{

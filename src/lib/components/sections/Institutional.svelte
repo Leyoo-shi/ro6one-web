@@ -3,6 +3,7 @@
 	import ActionLink from '$lib/components/ui/ActionLink.svelte';
 	import MediaFrame from '$lib/components/ui/MediaFrame.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
+	import SupporterStrip from '$lib/components/ui/SupporterStrip.svelte';
 	import { institutions } from '$lib/content/partners';
 	import { site } from '$lib/content/site';
 	import { useI18n } from '$lib/i18n/context.svelte';
@@ -75,6 +76,19 @@
 			</dl>
 		</aside>
 	</div>
+
+	<!--
+		Season support, underneath the institutional record rather than beside it.
+		Same records as /partners, read compactly: the chapter stays about the
+		club, the school and the team, and the link above already leads to the
+		full treatment.
+	-->
+	<SupporterStrip
+		label={copy.supportLabel}
+		href="/partners"
+		linkLabel={copy.supportLink}
+		delay={200}
+	/>
 </Section>
 
 <style>

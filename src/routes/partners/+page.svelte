@@ -6,7 +6,7 @@
 	import MediaFrame from '$lib/components/ui/MediaFrame.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { resolveText } from '$lib/content/localized';
+	import SupporterCard from '$lib/components/ui/SupporterCard.svelte';
 	import { institutions, partnershipDocument, supporters } from '$lib/content/partners';
 	import { site } from '$lib/content/site';
 	import { useI18n } from '$lib/i18n/context.svelte';
@@ -117,6 +117,11 @@
 	</dl>
 </Section>
 
+<!--
+	Two supporters, given the room two real relationships deserve. Not a logo
+	wall: each record says what the support actually is, in the organization's
+	own terms, and links somewhere the reader can check it.
+-->
 <Section index="04" tone="steel">
 	<div class="intro" use:reveal>
 		<h2 class="intro__title">{copy.current.title}</h2>
@@ -125,41 +130,35 @@
 
 	{#if supporters.length > 0}
 		<ul class="supporters">
-			{#each supporters as supporter (supporter.name)}
-				<li class="supporter" class:supporter--lead={supporter.tier === 'lead'} use:reveal>
-					{#if supporter.logo}
-						<img class="supporter__logo" src={supporter.logo} alt={supporter.name} />
-					{:else}
-						<p class="supporter__name">{supporter.name}</p>
-					{/if}
-
-					{#if supporter.description}
-						<p class="supporter__text">{resolveText(supporter.description, i18n.locale)}</p>
-					{/if}
-
-					{#if supporter.url}
-						<a class="supporter__link" href={supporter.url} target="_blank" rel="noopener">
-							{supporter.name}
-						</a>
-					{/if}
-				</li>
+			{#each supporters as supporter, index (supporter.id)}
+				<SupporterCard {supporter} delay={index * 90} />
 			{/each}
 		</ul>
 	{:else}
+		<!-- Kept: the list is published, not padded, and may be empty again. -->
 		<EmptyState title={copy.current.empty.title} body={copy.current.empty.body} />
 	{/if}
+</Section>
 
+<!--
+	The document is its own short chapter. Sitting inside the supporters section
+	made the two read as one pitch; they are different things.
+-->
+<Section index="05">
 	<div class="pack" use:reveal>
-		<h3 class="pack__title">{copy.pack.title}</h3>
-		{#if partnershipDocument}
-			<ActionLink href={partnershipDocument}>{copy.pack.title}</ActionLink>
-		{:else}
-			<p class="pack__body">{copy.pack.body}</p>
-		{/if}
+		<h2 class="pack__title">{copy.pack.title}</h2>
+
+		<div>
+			{#if partnershipDocument}
+				<ActionLink href={partnershipDocument}>{copy.pack.title}</ActionLink>
+			{:else}
+				<p class="pack__body">{copy.pack.body}</p>
+			{/if}
+		</div>
 	</div>
 </Section>
 
-<Section index="05">
+<Section index="06">
 	<div class="cta" use:reveal>
 		<h2 class="cta__title">{copy.cta.title}</h2>
 		<div>
@@ -382,71 +381,35 @@
 		line-height: 1.03;
 	}
 
+	/*
+	 * Two columns at most, and never narrower than a card that can hold a logo
+	 * stage comfortably. With two supporters this is a 2-up on a laptop and a
+	 * full-width stack on a phone — no third column waiting to be filled.
+	 */
 	.supporters {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
-		gap: clamp(1rem, 2vw, 1.75rem);
-	}
-
-	.supporter {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-s);
-
-		padding: clamp(1.5rem, 3vw, 2.25rem);
-		border: 1px solid var(--edge-faint);
-		border-radius: var(--radius-m);
-		background: linear-gradient(180deg, rgb(244 244 242 / 0.02), transparent);
-	}
-
-	.supporter--lead {
-		grid-column: span 2;
-	}
-
-	.supporter__logo {
-		max-height: 3rem;
-		width: auto;
-		object-fit: contain;
-	}
-
-	.supporter__name {
-		font-size: var(--type-h3);
-		font-weight: 500;
-	}
-
-	.supporter__text {
-		font-size: var(--type-small);
-		line-height: 1.6;
-		color: var(--text-muted);
-	}
-
-	.supporter__link {
-		margin-top: auto;
-		align-self: flex-start;
-		font-size: var(--type-small);
-		color: var(--text-secondary);
-		border-bottom: 1px solid var(--edge);
+		grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+		gap: clamp(1.25rem, 2.5vw, 2rem);
 	}
 
 	.pack {
-		margin-top: var(--space-xl);
-		padding-top: var(--space-m);
-		border-top: 1px solid var(--edge-faint);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+		gap: var(--space-m) clamp(2rem, 6vw, 6rem);
+		align-items: start;
 	}
 
 	.pack__title {
-		font-family: var(--font-mono);
-		font-size: var(--type-micro);
+		max-width: 14ch;
+		font-size: var(--type-h3);
 		font-weight: 500;
-		letter-spacing: var(--tracking-label);
-		text-transform: uppercase;
-		color: var(--text-secondary);
+		letter-spacing: -0.02em;
 	}
 
 	.pack__body {
-		max-width: 52ch;
-		margin-top: var(--space-s);
+		max-width: 56ch;
 		font-size: var(--type-small);
+		line-height: 1.65;
 		color: var(--text-muted);
 	}
 
@@ -492,6 +455,7 @@
 	@media (max-width: 900px) {
 		.why,
 		.intro,
+		.pack,
 		.cta {
 			grid-template-columns: minmax(0, 1fr);
 			align-items: start;
@@ -499,10 +463,6 @@
 
 		.support__row {
 			grid-template-columns: minmax(0, 1fr);
-		}
-
-		.supporter--lead {
-			grid-column: auto;
 		}
 	}
 </style>

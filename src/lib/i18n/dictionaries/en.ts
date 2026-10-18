@@ -66,7 +66,8 @@ export const en = {
 		pr: 'PR',
 		organisation: 'Organization',
 		finance: 'Finance',
-		mentor: 'Mentor & lead coach'
+		/* A group of three people, so the label is plural. */
+		mentor: 'Mentors & coaches'
 	},
 
 	daily: {
@@ -113,7 +114,7 @@ export const en = {
 				infrastructure:
 					'The domain, the mail and this website are operated by the team, not rented as a service.',
 				firstSeason:
-					'The upcoming season is RO6ONE’s first official FRC competition season. Everything so far came before it.',
+					'Ro6one’s first official FRC competition season is still ahead. Everything documented here so far happened before it.',
 				steamForStem:
 					'STEAM for STEM: drawing, writing and filming are how technical work becomes understandable.',
 				stemForPeople:
@@ -131,10 +132,10 @@ export const en = {
 		cad: {
 			name: 'CAD',
 			description:
-				'Full-assembly modelling, tolerance decisions, and the drawings the workshop actually builds from.'
+				'Full-assembly modeling, tolerance decisions, and the drawings the workshop actually builds from.'
 		},
 		electrical: {
-			name: 'Electrical',
+			name: 'Electrical & Electronics',
 			description:
 				'Power distribution, wiring discipline, sensors, and finding the fault before the next match.'
 		},
@@ -372,7 +373,10 @@ export const en = {
 				'In March 2026, Trabzonspor and Trabzon Merkez Fen Lisesi signed a cooperation protocol covering science, technology and engineering: material and in-kind support for the FRC team, and a relationship meant to outlast a single season.',
 				'It is why the team is called Trabzonspor Ro6one Robotics, and part of why a 21-team tournament could happen here. The robot is still ours to build.'
 			],
-			link: 'The relationship in detail'
+			link: 'The relationship in detail',
+			/* The season-support sub-block underneath the institutional record. */
+			supportLabel: 'Season support',
+			supportLink: 'Season support in detail'
 		},
 		contact: {
 			label: 'Contact',
@@ -403,9 +407,13 @@ export const en = {
 		},
 		frc: {
 			title: 'What FRC is, in context',
+			/*
+			 * No six-week build period and no Stop Build Day: FIRST retired that
+			 * structure, and describing the season that way dates the page.
+			 */
 			body: [
-				'FIRST Robotics Competition is an international high-school programme: teams receive a game and a limited build period, then compete at official events. The robot is roughly the size of a large appliance and has to survive being driven at speed into other robots.',
-				'It is also a programme about everything around the robot — outreach, documentation, safety, communication, and sustaining a team beyond a single graduating class. That second half is where a rookie team can start immediately, and it is where we started.'
+				'FIRST Robotics Competition is an international high-school robotics program. Each January, FIRST reveals a new game, and teams design, build and program a large competition robot before taking it to official events around the world.',
+				'The robot is only one part of the program. Teams also build systems for outreach, documentation, safety, communication, fundraising and continuity across graduating classes. That work can begin long before a team’s first official match — and that is where we started.'
 			]
 		},
 		principles: {
@@ -590,7 +598,7 @@ export const en = {
 			]
 		},
 		record: {
-			title: 'Programme record',
+			title: 'Program record',
 			body: 'Three projects so far, all documented on this page. Further workshops, visits and collaborations will be listed here as they happen, with what was actually done and who it was done with — never as reach figures.'
 		},
 		collaborate: {
@@ -684,7 +692,7 @@ export const en = {
 	partners: {
 		eyebrow: 'Partners',
 		title: 'Support turns a plan into a machine.',
-		lede: 'One institutional relationship, one school, and room for the organizations that join next.',
+		lede: 'Institutional relationships and season support that give a student-led FRC team room to build, compete and grow.',
 		institutional: {
 			title: 'Trabzonspor',
 			body: [
@@ -703,9 +711,13 @@ export const en = {
 		},
 		why: {
 			title: 'What a partnership means here',
+			/*
+			 * Not a list of what a sponsor gets back. What support *enables* is
+			 * the honest subject, and it is also the more persuasive one.
+			 */
 			body: [
-				'A season needs materials, machine time, tools, electronics, transport and a budget. Most of that is not something a school team can generate on its own.',
-				'In return, a partner gets a group of students who document what they do, credit their sources and can explain the engineering — plus visibility with an audience that takes technical work seriously.'
+				'An FRC season needs materials, machining time, tools, electronics, logistics and a budget. A school team cannot sustainably cover all of that alone.',
+				'Support goes directly into a student-led program that builds robots, documents its engineering, organizes events and carries technical work beyond the workshop.'
 			]
 		},
 		support: {
@@ -713,7 +725,7 @@ export const en = {
 			items: [
 				{
 					name: 'Materials',
-					description: 'Aluminium, polycarbonate, fasteners, filament, raw stock.'
+					description: 'Aluminum, polycarbonate, fasteners, filament, raw stock.'
 				},
 				{
 					name: 'Machining & fabrication',
@@ -738,8 +750,14 @@ export const en = {
 			]
 		},
 		current: {
-			title: 'Supporters',
-			lede: 'Organizations supporting the current season.',
+			title: 'Current-season supporters',
+			lede: 'Organizations directly supporting Ro6one’s 2026–27 season.',
+			/* The outbound link on every supporter record. */
+			visit: 'Official website',
+			/*
+			 * Kept although supporters now exist: the list is published rather
+			 * than padded, and a season may well open with it empty again.
+			 */
 			empty: {
 				title: 'This list is published, not padded',
 				body: 'Names appear here once a partnership is confirmed and the organization is happy to be named. Conversations in progress stay private until then.'
@@ -751,7 +769,7 @@ export const en = {
 		},
 		cta: {
 			title: 'Start a conversation',
-			body: 'Tell us what you can offer and we’ll tell you exactly where it goes.',
+			body: 'Tell us how you would like to support the team, and we’ll show you where that support can make a concrete difference.',
 			action: 'Partnership enquiries'
 		}
 	},
@@ -819,7 +837,7 @@ export const en = {
 		homeLabel: 'Home',
 		rights: 'All rights reserved.',
 		first:
-			'FIRST®, FIRST® Robotics Competition and FRC® are trademarks of FIRST®, which does not sponsor, support or endorse this site.'
+			'FIRST®, FIRST® Robotics Competition and FRC® are trademarks of FIRST®. FIRST® does not sponsor, support or endorse this site.'
 	},
 
 	error: {
@@ -863,7 +881,7 @@ export const en = {
 		partners: {
 			title: 'Partners',
 			description:
-				'The Trabzonspor cooperation protocol, Trabzon Merkez Fen Lisesi, and how organizations can support FRC team #11919.'
+				'The institutional relationships and current-season supporters behind FRC Team #11919, and the ways organizations can support Ro6one.'
 		},
 		contact: {
 			title: 'Contact',

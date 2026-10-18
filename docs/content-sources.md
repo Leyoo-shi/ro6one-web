@@ -121,6 +121,38 @@ team-operated — **T**, and worded to avoid claiming the team wrote Nextcloud.
 under discussion, private Git or infrastructure plans, hostnames, addresses or
 anything else operational. See the notes in `src/lib/content/partners.ts`.
 
+## Current-season supporters
+
+| Claim                                                                                  | Basis |
+| -------------------------------------------------------------------------------------- | ----- |
+| Boeing supports the 2026–27 FRC season through the Boeing Team Grant program           | T     |
+| Fikret Yüksel Vakfı supports the team's first official FRC season                      | T     |
+| The team holds written permission to use Boeing branding for this support relationship | T     |
+
+Both records live in `src/lib/content/partners.ts`. **No grant amount, duration,
+tier, exclusivity or title is published**, because none was supplied — and none
+should be added without the team saying so in writing. "FIRST Team Grant
+Support" and "Team Support" are the relationship labels the team gave; they are
+not sponsorship tiers, and the site has no tier system.
+
+Logo provenance (assets committed under `static/media/partners/`):
+
+| File                           | Source                                                                                                           |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `boeing.svg`                   | `boeing.com/content/dam/boeing/boeing-logo-white.svg` — the reversed mark boeing.com runs in its own header      |
+| `fikret-yuksel-foundation.png` | `fikretyukselfoundation.org/wp-content/uploads/2023/11/F-Y-Tam-Renk.png` — the Foundation's full-colour original |
+
+The Boeing SVG is committed byte-for-byte as downloaded. The Fikret Yüksel PNG
+was resampled from 2856×939 to 1200×395 and palette-optimized; colours,
+proportions and artwork are unchanged. Neither logo is recoloured, redrawn,
+cropped or re-proportioned anywhere on the site: a mark that needs a light
+ground gets a light stage, never a repaint.
+
+> Boeing publishes no clean high-resolution logo for light backgrounds — the
+> blue-on-white version on `boeing.com/company/brand` exists only as a 300×119
+> raster. If the team receives official artwork with its trademark agreement,
+> replace the file and set `logoField: 'light'` on the record.
+
 ## Deliberately absent
 
 No awards, rankings, placements, attendance figures, social metrics, budgets,
