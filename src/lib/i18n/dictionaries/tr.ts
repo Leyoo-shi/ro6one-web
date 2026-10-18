@@ -104,7 +104,7 @@ export const tr: Dictionary = {
 				steamfest:
 					'28 Nisan 2026’da takım, dört okulu tek salonda buluşturan Spor STEAM Fest’26’yı düzenledi.',
 				steamfestConcept:
-					'STEAMFest’te bir futbol maçı ile bir kimya gösterisi aynı öğleden sonrayı bilerek paylaştı.',
+					'STEAMFest’te bir futbol maçı ile bir kimya gösterisi aynı öğleden sonrayı birlikte paylaştı.',
 				offseason:
 					'Temmuz 2026’da RO6ONE, Hayri Gür Spor Salonu’nda Trabzon Off-Season’ı organize etti.',
 				offseasonTeams:

@@ -105,7 +105,7 @@ export const en = {
 				steamfest:
 					'On 28 April 2026 the team ran Spor STEAM Fest’26 with four schools in one hall.',
 				steamfestConcept:
-					'At STEAMFest a football match and a chemistry demonstration shared the same afternoon on purpose.',
+					'At STEAMFest a football match and a chemistry demonstration shared the same afternoon together.',
 				offseason: 'In July 2026 RO6ONE organized the Trabzon Off-Season at Hayri Gür Sports Hall.',
 				offseasonTeams:
 					'Twenty-one teams brought robots to Trabzon for an FRC Off-Season that had never been held in the region before.',
